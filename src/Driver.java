@@ -1,7 +1,7 @@
 /**
 *@description Driver class
 *
-*@author So Negishi
+*@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
 *@version September 27, 2017
 */
 
