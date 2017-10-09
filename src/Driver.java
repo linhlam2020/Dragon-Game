@@ -19,12 +19,6 @@ public class Driver {
 		i1.setType("consumable");
 		i1.setDescription("while drink taken from cows");
 
-		i1.print();
-		i1.toString();
-
-		i2.print();
-		i3.print();
-		
 		Item i4 = new Item( "flashlight", "tool", "a small LED flashlight");
 		Item i5 = new Item( "gun", "weapon", "a combat shotgun" );
 		
