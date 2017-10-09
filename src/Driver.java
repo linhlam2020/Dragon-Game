@@ -15,7 +15,7 @@ public class Driver {
 		
 		i1.setName("milk");
 		i1.setType("consumable");
-		i1.setDesc("while drink taken from cows");
+		i1.setDescription("while drink taken from cows");
 
 		i1.print();
 		i1.toString();
@@ -23,7 +23,7 @@ public class Driver {
 		i2.print();
 		i3.print();
 
-		System.out.println(i2.getName() + " " + i2.getType() + " " + i2.getDesc());
+		System.out.println(i2.getName() + " " + i2.getType() + " " + i2.getDescription());
 	}
 
 }
