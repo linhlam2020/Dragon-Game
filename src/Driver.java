@@ -4,33 +4,45 @@
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
 *@version October 9, 2017
 */
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Driver {
 
 	public static void main(String[] args) {
-		ArrayList<Item> list = new ArrayList<Item>();
-		Item i1 = new Item();
-		Item i2 = new Item("sandwich", "consumable", "a peanut butter and jelly sandwich");
-		Item i3 = new Item("croissant", "consumable", "a buttered flaky bread from France");
-		
-		i1.setName("milk");
-		i1.setType("consumable");
-		i1.setDescription("while drink taken from cows");
 
+	    // Items
+		Item mirror = new Item("mirror", "tool", "a peanut butter and jelly sandwich");
+		Item note = new Item("note", "hint", "a buttered flaky bread from France");
 		Item i4 = new Item( "flashlight", "tool", "a small LED flashlight");
 		Item i5 = new Item( "gun", "weapon", "a combat shotgun" );
-		
-		
-		list.add( i1 );
-		list.add( i2 );
-		list.add( i3 );
-		list.add( i4 );
-		list.add( i5 );
+
+		// Add items into an arraylist
+		ArrayList<Item> list = new ArrayList<Item>();
+		list.add(mirror);
+		list.add(note);
 		
 		for ( Item i : list )
-			System.out.println( i );
+			i.print();
+
+        Scanner in = new Scanner( System.in );
+        String command;
+
+        while( true ) {
+            System.out.print("Enter a command: ");
+            command = in.nextLine().toLowerCase().trim();
+
+            if( command.equals( "quit" ) | command.equals( "exit" )) {
+                break;
+            }
+
+            System.out.println(command);
+        }
+
+        in.close();
 	}
 
 }
