@@ -12,7 +12,7 @@ public class Item
     private String desc;
 
     // A constructor that takes three parameters and
-    // sets the values accordingly. Parameters must
+    // sets the variables accordingly. Parameters must
     // be in order: name, type, description.
 
     public Item( String iName, String iType, String iDesc)
@@ -74,8 +74,8 @@ public class Item
 
     public void print() {
         System.out.println( "Item:" );
-        System.out.println( String.format("\t shortName: %s", name) );
-        System.out.println( String.format("\t type: %s", type) );
-        System.out.println( String.format("\t description: %s", desc) );
+        System.out.println( String.format("\t ShortName: %s", name) );
+        System.out.println( String.format("\t Type: %s", type) );
+        System.out.println( String.format("\t Description: %s", desc) );
     }
 }
