@@ -46,6 +46,7 @@ public class Location {
 
     }
 
+    // This method loads a map from text file
     public String[][] loadMap() throws FileNotFoundException{
         String[][] map = new String[21][21];
         File file = new File("src/1d.txt");
@@ -64,6 +65,5 @@ public class Location {
 
         return map;
     }
-
 
 }
