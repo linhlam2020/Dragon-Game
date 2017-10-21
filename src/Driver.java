@@ -25,10 +25,16 @@ public class Driver {
         itemList.add(light);
         itemList.add(gun);
 
-		/*
-		for ( Item i : itemList )
-			i.print();
-		*/
+        // Locations
+        Location entrance = new Location("entrance", "a starting position of the game");
+
+        // Add location
+        Map<Location, List<Item>> map = new HashMap<>();
+
+
+
+//		for ( Item i : itemList )
+//			i.print();
 
 		Scanner in = new Scanner( System.in );
 		System.out.print( "\nDo you want to start the game? (y/n): ");
@@ -38,7 +44,7 @@ public class Driver {
             while (true) {
                 System.out.print("\nEnter a command: ");
                 command = in.nextLine().toLowerCase().trim();
-                //System.out.println(command);
+//                System.out.println(command);
 
                 if (command.contains("look")) {
                     System.out.println("Description of the location: ");

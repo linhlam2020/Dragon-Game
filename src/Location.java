@@ -13,6 +13,23 @@ public class Location {
     private String name;
     private String desc;
 
+    // A constructor that takes three parameters and
+    // sets the variables accordingly. Parameters must
+    // be in order: name, type, description.
+    public Location( String Name, String Description)
+    {
+        name = Name;
+        desc = Description;
+    }
+
+    // This constructor takes no parameters and
+    // sets variables to arbitrary values.
+    public Location( )
+    {
+        name = null;
+        desc = null;
+    }
+
     // Setter methods
     public void setName( String n ) {
         name = n;
@@ -32,7 +49,7 @@ public class Location {
     }
 
     // This method adds an item to the location
-    public void addItem() {
+    public void addItem(Item item) {
 
     }
 

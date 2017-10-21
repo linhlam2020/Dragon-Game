@@ -14,12 +14,11 @@ public class Item
     // A constructor that takes three parameters and
     // sets the variables accordingly. Parameters must
     // be in order: name, type, description.
-
-    public Item( String iName, String iType, String iDesc)
+    public Item( String Name, String Type, String Description)
     {
-        name = iName;
-        type = iType;
-        desc = iDesc;
+        name = Name;
+        type = Type;
+        desc = Description;
     }
 
 
