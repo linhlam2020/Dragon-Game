@@ -36,34 +36,34 @@ public class Driver {
 //		for ( Item i : itemList )
 //			i.print();
 
-//		Scanner in = new Scanner( System.in );
-//		System.out.print( "\nDo you want to start the game? (y/n): ");
-//		String start = in.nextLine().toLowerCase().trim();
-//		if( start.equals("y")) {
-//            String command;
-//            while (true) {
-//                System.out.print("\nEnter a command: ");
-//                command = in.nextLine().toLowerCase().trim();
-////                System.out.println(command);
-//
-//                if (command.contains("look")) {
-//                    System.out.println("Description of the location: ");
-//                    System.out.println("Items found there: ");
-//                } else if (command.contains("examine")) {
-//                    // Get the item with the given name from the location and print its description
-//                    // if the item is there, print the description of it
-//                    // if not, print some sort of error message
-//                    continue;
-//                } else if (command.contains("hint")) {
-//                    System.out.println("Hints are ...");
-//                } else if (command.equals("quit")) {
-//                    break;
-//                } else {
-//                    System.out.println("I don’t know how to do that.");
-//                }
-//            }
-//        }
-//
-//		in.close();
+		Scanner in = new Scanner( System.in );
+		System.out.print( "\nDo you want to start the game? (y/n): ");
+		String start = in.nextLine().toLowerCase().trim();
+		if( start.equals("y")) {
+            String command;
+            while (true) {
+                System.out.print("\nEnter a command: ");
+                command = in.nextLine().toLowerCase().trim();
+//                System.out.println(command);
+
+                if (command.contains("look")) {
+                    System.out.println("Description of the location: ");
+                    System.out.println("Items found there: ");
+                } else if (command.contains("examine")) {
+                    // Get the item with the given name from the location and print its description
+                    // if the item is there, print the description of it
+                    // if not, print some sort of error message
+                    continue;
+                } else if (command.contains("hint")) {
+                    System.out.println("Hints are ...");
+                } else if (command.equals("quit")) {
+                    break;
+                } else {
+                    System.out.println("I don’t know how to do that.");
+                }
+            }
+        }
+
+		in.close();
     }
 }
