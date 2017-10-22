@@ -56,10 +56,14 @@ public class Location {
 
 
     // This method adds an item to the location
-    public void addItem(Item item) { //TODO
-        List<Item> temp = new ArrayList<>();
-        temp.add(item);
-        setItem(temp);
+    public void addItem(Item item) {
+        if(this.getItem() == null) {
+            List<Item> temp = new ArrayList<>();
+            temp.add(item);
+            setItem(temp);
+        } else {
+            this.getItem().add(item);
+        }
     }
 
     // This method retrieves an item given its short name

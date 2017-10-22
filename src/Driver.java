@@ -25,9 +25,8 @@ public class Driver {
         itemList.add(light);
         itemList.add(gun);
 
-        // Locations
+        // Add location(s)
         Location entrance = new Location("entrance", "a starting position of the game", null);
-        Location somewhere = new Location("somewhere", "sw", null);
         entrance.addItem(mirror);
         entrance.addItem(note);
         entrance.print();
