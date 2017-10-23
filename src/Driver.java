@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version October 15, 2017
+*@version October 23, 2017
 */
 
 import java.io.*;
@@ -33,8 +33,8 @@ public class Driver {
         entrance.retrieveName();
         entrance.retriveNumOfItems();
 
-//		for ( Item i : itemList )
-//			i.print();
+		for ( Item i : itemList )
+			i.print();
 
 		Scanner in = new Scanner( System.in );
 		System.out.print( "\nDo you want to start the game? (y/n): ");

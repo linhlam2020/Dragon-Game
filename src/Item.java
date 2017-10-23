@@ -1,11 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /**
 *@description Item class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version October 9, 2017
+*@version October 23, 2017
 */
 
 public class Item 
@@ -71,7 +68,7 @@ public class Item
     // To String method: set the template to prints out the information about the item.
     public String toString( )
     {
-        return "Item:" + "\tShortname: " + name + "\tType: " + type + "\tDescription: " + desc;
+        return "Item:" + "\tShortname: " + getName() + "\tType: " + getType() + "\tDescription: " + getDescription();
     }
 
     public void print() {

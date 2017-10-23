@@ -2,12 +2,13 @@
  *@description Location class
  *
  *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
- *@version October 15, 2017
+ *@version October 23, 2017
  */
 
+import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+
 
 public class Location {
     private String name;
@@ -84,24 +85,24 @@ public class Location {
         System.out.println( String.format("\t Items: %s", this.getItem()) );
     }
 
-    // This method loads a map from text file
-    public String[][] loadMap() throws FileNotFoundException {
-        String[][] map = new String[21][21];
-        File file = new File("src/1d.txt");
-
-        Scanner scan = new Scanner(file);
-        for (int i = 0; i < 21; i++) {
-            String line = scan.nextLine();
-            Scanner temp = new Scanner(line).useDelimiter(",");
-            for (int j = 0; j < 21; j++) {
-                map[i][j] = temp.next();
-            }
-        }
-        System.out.println(map);
-
-        scan.close();
-
-        return map;
-    }
+//    // This method loads a map from text file
+//    public String[][] loadMap() throws FileNotFoundException {
+//        String[][] map = new String[21][21];
+//        File file = new File("src/1d.txt");
+//
+//        Scanner scan = new Scanner(file);
+//        for (int i = 0; i < 21; i++) {
+//            String line = scan.nextLine();
+//            Scanner temp = new Scanner(line).useDelimiter(",");
+//            for (int j = 0; j < 21; j++) {
+//                map[i][j] = temp.next();
+//            }
+//        }
+//        System.out.println(map);
+//
+//        scan.close();
+//
+//        return map;
+//    }
 
 }
