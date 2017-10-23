@@ -1,4 +1,4 @@
-/**
+/*
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
@@ -26,22 +26,23 @@ public class Driver {
         itemList.add(gun);
 
         // Add location(s)
-        Location entrance = new Location("entrance", "a starting position of the game", null);
+        Location entrance = new Location("entrance", "a starting position of the game");
         entrance.addItem(mirror);
         entrance.addItem(note);
+
         entrance.print();
         entrance.retrieveName();
-        entrance.retriveNumOfItems();
+        entrance.retrieveNumOfItems();
 
-		for ( Item i : itemList )
-			i.print();
+//		for ( Item i : itemList )
+//			i.print();
 
 		Scanner in = new Scanner( System.in );
 		System.out.print( "\nDo you want to start the game? (y/n): ");
 		String start = in.nextLine().toLowerCase().trim();
-		if( start.equals("y")) {
+		if( start.equals("y") ) {
             String command;
-            while (true) {
+            while ( true ) {
                 System.out.print("\nEnter a command: ");
                 command = in.nextLine().toLowerCase().trim();
 //                System.out.println(command);

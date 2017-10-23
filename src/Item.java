@@ -1,4 +1,4 @@
-/**
+/*
 *@description Item class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen

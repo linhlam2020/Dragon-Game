@@ -1,9 +1,9 @@
-/**
- *@description Location class
- *
- *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
- *@version October 23, 2017
- */
+/*
+*@description Location class
+*
+*@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
+*@version October 23, 2017
+*/
 
 import java.util.*;
 import java.io.File;
@@ -24,13 +24,12 @@ public class Location {
         item = Items;
     }
 
-    // This constructor takes no parameters and
-    // sets variables to arbitrary values.
-    public Location( ) {
-        name = null;
-        desc = null;
-        item = null;
+
+    public Location( String Name, String Description ) {
+        name = Name;
+        desc = Description;
     }
+
 
     // Setter methods
     public void setName( String n ) {
@@ -74,7 +73,7 @@ public class Location {
     }
 
     // This method retrieves a count of the number of items in the location
-    public void retriveNumOfItems() {
+    public void retrieveNumOfItems() {
         System.out.println(this.getItem().size());
     }
 
