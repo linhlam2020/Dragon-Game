@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 public class Location {
     private String name;
     private String desc;
-    private List<Item> item;
+    private List<Item> itemList;
 
     // A constructor that takes three parameters and
     // sets the variables accordingly. Parameters must
@@ -21,7 +21,7 @@ public class Location {
     public Location( String Name, String Description, List<Item> Items ) {
         name = Name;
         desc = Description;
-        item = Items;
+        itemList = Items;
     }
 
 
@@ -40,7 +40,7 @@ public class Location {
         desc = d;
     }
 
-    public void setItem( List<Item> i ) { item = i;}
+    public void setItem( List<Item> i ) { itemList = i;}
 
 
     // Getter methods
@@ -52,7 +52,7 @@ public class Location {
         return desc;
     }
 
-    public List<Item> getItem() { return item; }
+    public List<Item> getItem() { return itemList; }
 
 
     // This method adds an item to the location
@@ -67,9 +67,8 @@ public class Location {
     }
 
     // This method retrieves an item given its short name
-    public void retrieveName() {
-        for(Item i : this.getItem())
-            System.out.println(i.getName());
+    public void retrieveItem(String name) {
+        System.out.println(i.getName());
     }
 
     // This method retrieves a count of the number of items in the location
