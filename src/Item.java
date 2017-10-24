@@ -68,11 +68,10 @@ public class Item
     // To String method: set the template to prints out the information about the item.
     public String toString( )
     {
-        return "Item:" + "\tShortname: " + getName() + "\tType: " + getType() + "\tDescription: " + getDescription();
-    }
+        return "\t\tShortname: " + getName() + "\n" + "\t\tType: " + getType() + "\n" + "\t\tDescription: " + getDescription();
+    } 
 
     public void print() {
-        System.out.println( "Item:" );
         System.out.println( String.format("\t ShortName: %s", name) );
         System.out.println( String.format("\t Type: %s", type) );
         System.out.println( String.format("\t Description: %s", desc) );
