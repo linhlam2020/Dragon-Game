@@ -63,15 +63,25 @@ public class Driver {
                     System.out.println( "\t " + curLocation.retrieveNumOfItems() + " Items found there:" );
                     for (int i = 0; i<curLocation.getItem().size(); i++)
                     {
-                    	System.out.println(curLocation.getItem().get(i));
-                    	System.out.println();	}}
+                    	System.out.println("\t\t"+ curLocation.getItem().get(i).getName());	}}
                 else if (command.contains("examine")) {
                     // Get the item with the given name from the location and print its description
                     // if the item is there, print the description of it
                     // if not, print some sort of error message
-                    continue;
+                	boolean a = false;
+                	for(int i = 0 ; i< curLocation.getItem().size(); i++)
+                	{
+                		if (command.contains(curLocation.getItem().get(i).getName()))
+                		{
+                			curLocation.getItem().get(i).print();
+                			a = true;
+                		}
+                	}
+                	if (a == false)
+                		System.out.println("Cannot find the item");
+                			
                 } else if (command.contains("hint")) {
-                    System.out.println("Hints are ...");
+                    System.out.println("Hints are : ");
                 } else if (command.equals("quit")) {
                     break;
                 } else {
