@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 public class Location {
     private String name;
     private String desc;
-    private List<Item> itemList;
+    private List<Item> item;
 
     // A constructor that takes three parameters and
     // sets the variables accordingly. Parameters must
@@ -21,13 +21,12 @@ public class Location {
     public Location( String Name, String Description, List<Item> Items ) {
         name = Name;
         desc = Description;
-        itemList = Items;
+        item = Items;
     }
-
-
-    public Location( String Name, String Description ) {
-        name = Name;
-        desc = Description;
+    
+    public Location()
+    {
+    		
     }
 
 
@@ -40,7 +39,7 @@ public class Location {
         desc = d;
     }
 
-    public void setItem( List<Item> i ) { itemList = i;}
+    public void setItem( List<Item> i ) { item = i;}
 
 
     // Getter methods
@@ -52,7 +51,7 @@ public class Location {
         return desc;
     }
 
-    public List<Item> getItem() { return itemList; }
+    public List<Item> getItem() { return item; }
 
 
     // This method adds an item to the location
@@ -67,19 +66,34 @@ public class Location {
     }
 
     // This method retrieves an item given its short name
-    public void retrieveItem(String name) {
-        System.out.println(this.getName());
+    public Item retrieveItem(String shortName) {
+        int i = 0;
+        Item item = null;
+	    while(i<this.getItem().size())
+	    {
+	    		Item temp = this.getItem().get(i);
+	    		if (temp.getName().contains(shortName))
+	    			item = temp;
+	    		else 
+	    			i++;
+	    }
+	    return item;
     }
 
     // This method retrieves a count of the number of items in the location
-    public void retrieveNumOfItems() {
-        System.out.println(this.getItem().size());
+    public int retrieveNumOfItems() {
+        return this.getItem().size();
     }
 
+    
     public void print() {
-        System.out.println( "Location:" );
+        System.out.println( "Current Location:" );
         System.out.println( String.format("\t ShortName: %s", this.getName()) );
-        System.out.println( String.format("\t Description: %s", this.getDesc()) );
-        System.out.println( String.format("\t Items: %s", this.getItem()) );
+/*        System.out.println( String.format("\t Description: %s", this.getDesc()) );
+        System.out.println( "\t " + this.retrieveNumOfItems() + " Items:" );
+        for (int i = 0; i<this.getItem().size(); i++)
+        {
+        	System.out.println(this.getItem().get(i));
+        	System.out.println();*/
+        }
     }
-}
