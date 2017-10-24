@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Driver {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
         // Items
         Item mirror = new Item("mirror", "tool", "This is the mirror of totally deflecting light. Use it to defend yourself and kill the dragon.");
         Item scroll = new Item("scroll", "hint", "The ancient scroll says: 'You need to find three legendary artifacts to defeat the dragon. They are the pearl of the Sun, the divine sword of cutting things, and the mirror of totally deflecting light.' ");
@@ -19,67 +19,59 @@ public class Driver {
         Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
         Item sword = new Item ("sword", "weapon", "This is the divine sword of cutting things. Use it to kill the dragon and defend yourself.");
 
-        // Add items into an arraylist
+        // Add items into an ArrayList
         List<Item> itemList = new ArrayList<>();
         itemList.add(mirror);
         itemList.add(scroll);
         itemList.add(torch);
         itemList.add(sword);
         itemList.add(pearl);
-	
 
         // Add location(s)
-        List<Item> entranceItem = new ArrayList<Item>(Arrays.asList(torch,scroll));
+        List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll));
         Location curLocation = new Location();
-        Location entrance = new Location("entrance", "a starting position of the game",entranceItem);
+        Location entrance = new Location("entrance", "a starting position of the game", entranceItem);
 
     	Scanner in = new Scanner( System.in );
-		System.out.print( "\nDo you want to start the game? (y/n): ");
+		System.out.print( "\nDo you want to start the game? (y/n): " );
 		String start = in.nextLine().toLowerCase().trim();
-		
-		while (!start.equals("n") && !start.equals("y")) {
-			System.out.println("Please enter y or n to start or close the game.");
+
+		while ( !start.equals("n") && !start.equals("y") ) {
+			System.out.println( "Please enter y or n to start or close the game." );
 			start = in.nextLine().toLowerCase().trim();
 		}
 		
-		if (start.equals("n")) {
-			System.out.println("Thanks for playing");
+		if ( start.equals("n") ) {
+			System.out.println( "Thanks for playing!!!" );
 			System.exit(1);
-		}
-		
-		else if( start.equals("y") ) {
-			curLocation=entrance;
+		} else if( start.equals("y") ) {
+			curLocation = entrance;
 			entrance.print();
-	
             String command;
             while ( true ) {
-                System.out.print("\nEnter a command: ");
+                System.out.print( "\nEnter a command: " );
                 command = in.nextLine().toLowerCase().trim();
 
                 if ( command.contains("look") ) {
                     System.out.println( String.format("\tDescription of the location: %s", curLocation.getDesc()) );
-                    System.out.println( "\t " + curLocation.retrieveNumOfItems() + " Items found there:" );
+                    System.out.println( String.format("\t%d Items found there:", curLocation.retrieveNumOfItems()));
                     for (int i = 0; i<curLocation.getItem().size(); i++) {
-                    	System.out.println(String.format("\t\t %s", curLocation.getItem().get(i).getName()));}}
-                else if ( command.contains("examine") ) {
-                    // Get the item with the given name from the location and print its description
-                    // if the item is there, print the description of it
-                    // if not, print some sort of error message
-                	boolean a = false;
-                	for(int i = 0 ; i< curLocation.getItem().size(); i++) {
-                		if (command.contains(curLocation.getItem().get(i).getName())) {
+                    	System.out.println(String.format("\t\t %s", curLocation.getItem().get(i).getName()));
+                    }
+                } else if ( command.contains("examine") ) {
+                	boolean checker = false;
+                	for( int i = 0 ; i< curLocation.getItem().size(); i++ ) {
+                		if ( command.contains(curLocation.getItem().get(i).getName()) ) {
                 			curLocation.getItem().get(i).print();
-                			a = true;
+                			checker = true;
                 		}
-                	}
-                	if ( !a )
-                		System.out.println("Cannot find the item");
-                } 
-                else if (command.equals("quit")) {
-		    System.out.println("Thanks for playing!");
+                	} if ( !checker )
+                		System.out.println( "Cannot find the item" );
+                } else if ( command.equals("quit") ) {
+		            System.out.println( "Thanks for playing!" );
                     break;
                 } else {
-                    System.out.println("I don’t know how to do that.");
+                    System.out.println( "I don’t know how to do that." );
                 }
             }
         }

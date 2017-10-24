@@ -6,8 +6,6 @@
 */
 
 import java.util.*;
-import java.io.File;
-import java.io.FileNotFoundException;
 
 
 public class Location {
@@ -24,10 +22,7 @@ public class Location {
         item = Items;
     }
     
-    public Location()
-    {
-    		
-    }
+    public Location() { }
 
 
     // Setter methods
@@ -66,11 +61,10 @@ public class Location {
     }
 
     // This method retrieves an item given its short name
-    public Item retrieveItem(String shortName) {
+    public Item retrieveItem( String shortName ) {
         int i = 0;
         Item item = null;
-	    while(i<this.getItem().size())
-	    {
+	    while( i<this.getItem().size() ) {
 	    		Item temp = this.getItem().get(i);
 	    		if (temp.getName().contains(shortName))
 	    			item = temp;
