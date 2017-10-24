@@ -15,9 +15,9 @@ public class Driver {
         // Items
         Item mirror = new Item("mirror", "tool", "This is the mirror of totally deflecting light. Use it to defend yourself and kill the dragon.");
         Item note = new Item("note", "hint", "You need to find three legendary artifacts to defeat the dragon. They are the pearl of the Sun, the divine sword of cutting things, and the mirror of totally deflecting light.");
-	Item gun = new Item("gun", "weapon", "a combat shotgun");
+        Item gun = new Item("gun", "weapon", "a combat shotgun");
         Item light = new Item("flashlight", "tool", "a small LED flashlight");
-	Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
+        Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
         Item sword = new Item ("sword", "weapon", "This is the divine sword of cutting things. Use it to kill the dragon and defend yourself.");
 
         // Add items into an arraylist
@@ -26,7 +26,7 @@ public class Driver {
         itemList.add(note);
         itemList.add(light);
         itemList.add(gun);
-	itemList.add(sword);
+        itemList.add(sword);
 	
 
         // Add location(s)

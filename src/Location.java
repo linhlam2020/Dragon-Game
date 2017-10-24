@@ -82,25 +82,4 @@ public class Location {
         System.out.println( String.format("\t Description: %s", this.getDesc()) );
         System.out.println( String.format("\t Items: %s", this.getItem()) );
     }
-
-//    // This method loads a map from text file
-//    public String[][] loadMap() throws FileNotFoundException {
-//        String[][] map = new String[21][21];
-//        File file = new File("src/1d.txt");
-//
-//        Scanner scan = new Scanner(file);
-//        for (int i = 0; i < 21; i++) {
-//            String line = scan.nextLine();
-//            Scanner temp = new Scanner(line).useDelimiter(",");
-//            for (int j = 0; j < 21; j++) {
-//                map[i][j] = temp.next();
-//            }
-//        }
-//        System.out.println(map);
-//
-//        scan.close();
-//
-//        return map;
-//    }
-
 }
