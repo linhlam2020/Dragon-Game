@@ -37,14 +37,12 @@ public class Driver {
 		System.out.print( "\nDo you want to start the game? (y/n): ");
 		String start = in.nextLine().toLowerCase().trim();
 		
-		while (!start.equals("n") && !start.equals("y"))
-		{
-			System.out.println("Please enter y or n to start or close the game");
+		while (!start.equals("n") && !start.equals("y")) {
+			System.out.println("Please enter y or n to start or close the game.");
 			start = in.nextLine().toLowerCase().trim();
 		}
 		
-		if (start.equals("n"))
-		{
+		if (start.equals("n")) {
 			System.out.println("Thanks for playing");
 			System.exit(1);
 		}
@@ -58,28 +56,24 @@ public class Driver {
                 System.out.print("\nEnter a command: ");
                 command = in.nextLine().toLowerCase().trim();
 
-                if (command.contains("look")) {
+                if ( command.contains("look") ) {
                     System.out.println( String.format("\tDescription of the location: %s", curLocation.getDesc()) );
                     System.out.println( "\t " + curLocation.retrieveNumOfItems() + " Items found there:" );
-                    for (int i = 0; i<curLocation.getItem().size(); i++)
-                    {
-                    	System.out.println("\t\t"+ curLocation.getItem().get(i).getName());	}}
-                else if (command.contains("examine")) {
+                    for (int i = 0; i<curLocation.getItem().size(); i++) {
+                    	System.out.println(String.format("\t\t %s", curLocation.getItem().get(i).getName()));}}
+                else if ( command.contains("examine") ) {
                     // Get the item with the given name from the location and print its description
                     // if the item is there, print the description of it
                     // if not, print some sort of error message
                 	boolean a = false;
-                	for(int i = 0 ; i< curLocation.getItem().size(); i++)
-                	{
-                		if (command.contains(curLocation.getItem().get(i).getName()))
-                		{
+                	for(int i = 0 ; i< curLocation.getItem().size(); i++) {
+                		if (command.contains(curLocation.getItem().get(i).getName())) {
                 			curLocation.getItem().get(i).print();
                 			a = true;
                 		}
                 	}
-                	if (a == false)
+                	if ( !a )
                 		System.out.println("Cannot find the item");
-                			
                 } 
                 else if (command.equals("quit")) {
 		    System.out.println("Thanks for playing!");
@@ -89,7 +83,6 @@ public class Driver {
                 }
             }
         }
-		
 
 		in.close();
     }
