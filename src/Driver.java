@@ -80,9 +80,9 @@ public class Driver {
                 	if (a == false)
                 		System.out.println("Cannot find the item");
                 			
-                } else if (command.contains("hint")) {
-                    System.out.println("Hints are : ");
-                } else if (command.equals("quit")) {
+                } 
+                else if (command.equals("quit")) {
+		System.out.println("Thanks for playing!");
                     break;
                 } else {
                     System.out.println("I don’t know how to do that.");
