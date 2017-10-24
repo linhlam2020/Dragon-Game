@@ -35,7 +35,7 @@ public class Driver {
         entrance.addItem(note);
 
         entrance.print();
-        entrance.retrieveName();
+        entrance.retrieveItem("mirror");
         entrance.retrieveNumOfItems();
 
 //		for ( Item i : itemList )
