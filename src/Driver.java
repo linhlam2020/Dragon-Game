@@ -82,7 +82,7 @@ public class Driver {
                 			
                 } 
                 else if (command.equals("quit")) {
-		System.out.println("Thanks for playing!");
+		    System.out.println("Thanks for playing!");
                     break;
                 } else {
                     System.out.println("I don’t know how to do that.");
