@@ -68,7 +68,7 @@ public class Location {
 
     // This method retrieves an item given its short name
     public void retrieveItem(String name) {
-        System.out.println(i.getName());
+        System.out.println(this.getName());
     }
 
     // This method retrieves a count of the number of items in the location
