@@ -14,7 +14,7 @@ public class Driver {
 	public static void main(String[] args) throws FileNotFoundException {
         // Items
         Item mirror = new Item("mirror", "tool", "This is the mirror of totally deflecting light. Use it to defend yourself and kill the dragon.");
-        Item scroll = new Item("ancient scroll", "hint", "You need to find three legendary artifacts to defeat the dragon. They are the pearl of the Sun, the divine sword of cutting things, and the mirror of totally deflecting light.");
+        Item scroll = new Item("scroll", "hint", "The ancient scroll says: 'You need to find three legendary artifacts to defeat the dragon. They are the pearl of the Sun, the divine sword of cutting things, and the mirror of totally deflecting light.' ");
         Item torch = new Item("torch", "tool", "a small torch to light up the way");
         Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
         Item sword = new Item ("sword", "weapon", "This is the divine sword of cutting things. Use it to kill the dragon and defend yourself.");
