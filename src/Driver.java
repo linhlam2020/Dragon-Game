@@ -33,18 +33,7 @@ public class Driver {
         Location curLocation = new Location();
         Location entrance = new Location("entrance", "a starting position of the game",entranceItem);
 
-<<<<<<< HEAD
-        entrance.print();
-        entrance.retrieveItem("mirror");
-        entrance.retrieveNumOfItems();
-
-//		for ( Item i : itemList )
-//			i.print();
-
-		Scanner in = new Scanner( System.in );
-=======
     	Scanner in = new Scanner( System.in );
->>>>>>> e4e993020837e211f22a4c0150b829a588d0d727
 		System.out.print( "\nDo you want to start the game? (y/n): ");
 		String start = in.nextLine().toLowerCase().trim();
 		
@@ -94,7 +83,6 @@ public class Driver {
                 } else if (command.contains("hint")) {
                     System.out.println("Hints are : ");
                 } else if (command.equals("quit")) {
-		    System.out.println("Thanks for playing!");
                     break;
                 } else {
                     System.out.println("I don’t know how to do that.");
