@@ -21,6 +21,7 @@ public class Item
         desc = Description;
     }
 
+
     // This constructor takes no parameters and
     // sets variables to arbitrary values.
     public Item( )
@@ -29,6 +30,7 @@ public class Item
         type = null;
         desc = null;
     }
+
 
     // Set methods for each variable.
     public void setName( String iName )
@@ -45,6 +47,7 @@ public class Item
     {
         desc= iDesc;
     }
+
 
     // Get methods for each variable.
     public String getName( )
@@ -63,13 +66,15 @@ public class Item
     }
 
     // To String method: set the template to prints out the information about the item.
-    public String toString( ) {
-        return "\t\tShortname: " + getName() + "\n\t\tType: " + getType() + "\n\t\tDescription: " + getDescription();
-    }
+    public String toString( )
+    {
+        return "\t\tShortname: " + getName() + "\n" + "\t\tType: " + getType() + "\n" + "\t\tDescription: " + getDescription();
+    } 
 
     public void print() {
         System.out.println( String.format("\t ShortName: %s", name) );
         System.out.println( String.format("\t Type: %s", type) );
         System.out.println( String.format("\t Description: %s", desc) );
+        System.out.println();
     }
 }
