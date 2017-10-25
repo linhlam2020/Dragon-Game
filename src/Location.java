@@ -6,6 +6,8 @@
 */
 
 import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 public class Location {
@@ -16,13 +18,17 @@ public class Location {
     // A constructor that takes three parameters and
     // sets the variables accordingly. Parameters must
     // be in order: name, type, description.
-    public Location(String Name, String Description, List<Item> Items) {
+    public Location( String Name, String Description, List<Item> Items ) {
         name = Name;
         desc = Description;
         item = Items;
     }
+    
+    public Location()
+    {
+    		
+    }
 
-    public Location() { }
 
     // Setter methods
     public void setName( String n ) {
@@ -33,7 +39,8 @@ public class Location {
         desc = d;
     }
 
-    public void setItem( List<Item> i ) { item = i; }
+    public void setItem( List<Item> i ) { item = i;}
+
 
     // Getter methods
     public String getName() {
@@ -46,9 +53,10 @@ public class Location {
 
     public List<Item> getItem() { return item; }
 
+
     // This method adds an item to the location
     public void addItem(Item item) {
-        if (this.getItem() == null) {
+        if(this.getItem() == null) {
             List<Item> temp = new ArrayList<>();
             temp.add(item);
             setItem(temp);
@@ -58,19 +66,18 @@ public class Location {
     }
 
     // This method retrieves an item given its short name
-    public Item retrieveItem( String shortName ) {
+    public Item retrieveItem(String shortName) {
         int i = 0;
         Item item = null;
-        while ( i < this.getItem().size() ) {
-            Item temp = this.getItem().get(i);
-            if ( temp.getName().contains(shortName) ) {
-                item = temp;
-                break;
-            } else {
-                i++;
-            }
-        }
-        return item;
+	    while(i<this.getItem().size())
+	    {
+	    		Item temp = this.getItem().get(i);
+	    		if (temp.getName().contains(shortName))
+	    			item = temp;
+	    		else 
+	    			i++;
+	    }
+	    return item;
     }
 
     // This method retrieves a count of the number of items in the location
@@ -78,14 +85,15 @@ public class Location {
         return this.getItem().size();
     }
 
+    
     public void print() {
         System.out.println( "Current Location:" );
-        System.out.println(String.format( "\t ShortName: %s", this.getName()) );
-//        System.out.println( String.format("\t Description: %s", this.getDesc()) );
-//        System.out.println( "\t " + this.retrieveNumOfItems() + " Items:" );
-//        for ( int i = 0; i<this.getItem().size(); i++ ) {
-//        	System.out.println( this.getItem().get(i) );
-//        	System.out.println();
-//        }
+        System.out.println( String.format("\t ShortName: %s", this.getName()) );
+/*        System.out.println( String.format("\t Description: %s", this.getDesc()) );
+        System.out.println( "\t " + this.retrieveNumOfItems() + " Items:" );
+        for (int i = 0; i<this.getItem().size(); i++)
+        {
+        	System.out.println(this.getItem().get(i));
+        	System.out.println();*/
+        }
     }
-}
