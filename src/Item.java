@@ -2,7 +2,7 @@
 *@description Item class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version October 23, 2017
+*@version October 26, 2017
 */
 
 public class Item 
@@ -11,21 +11,17 @@ public class Item
     private String type;
     private String desc;
 
-    // A constructor that takes three parameters and
-    // sets the variables accordingly. Parameters must
-    // be in order: name, type, description.
-    public Item( String Name, String Type, String Description)
-    {
+    // A constructor that takes three parameters and sets the variables accordingly.
+    // Parameters must be in order: name, type, description.
+    public Item( String Name, String Type, String Description ) {
         name = Name;
         type = Type;
         desc = Description;
     }
 
 
-    // This constructor takes no parameters and
-    // sets variables to arbitrary values.
-    public Item( )
-    {
+    // This constructor takes no parameters and sets variables to arbitrary values.
+    public Item( ) {
         name = null;
         type = null;
         desc = null;
@@ -68,13 +64,13 @@ public class Item
     // To String method: set the template to prints out the information about the item.
     public String toString( )
     {
-        return "\t\tShortname: " + getName() + "\n" + "\t\tType: " + getType() + "\n" + "\t\tDescription: " + getDescription();
+        return "\t\tShortname: " + getName() + "\n\t\tType: " + getType() + "\n\t\tDescription: " + getDescription();
     } 
 
     public void print() {
-        System.out.println( String.format("\t ShortName: %s", name) );
-        System.out.println( String.format("\t Type: %s", type) );
-        System.out.println( String.format("\t Description: %s", desc) );
+        System.out.println( String.format("\tShortName: %s", name) );
+        System.out.println( String.format("\tType: %s", type) );
+        System.out.println( String.format("\tDescription: %s", desc) );
         System.out.println();
     }
 }
