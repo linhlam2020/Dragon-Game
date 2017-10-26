@@ -26,7 +26,6 @@ public class Location {
 
     }
 
-
     // Setter methods
     public void setName(String n) {
         name = n;
