@@ -64,7 +64,7 @@ public class Driver {
 
         } else if( start.equals("y") ) {
 			System.out.println("\nYou are an adventurer going on a quest to destroy the mighty dragon that is causing terror to the miserable village." +
-					"At the beginning of the game, you are given an ancient scroll and a torch." );
+					"\nAt the beginning of the game, you are given an ancient scroll and a torch." );
 			setLocation(entrance);
 	
             String command;
@@ -80,7 +80,7 @@ public class Driver {
                     	System.out.println("\t\t"+ curLocation.getItem().get(i).getName());
                     }
                     
-                    System.out.println( String.format("\tYou are currently having %d items.\nNamely:", curItems.size()) );
+                    System.out.println( String.format("\tYou are currently having %d items.\n\tNamely:", curItems.size()) );
 
                     for(int i =0; i<curItems.size(); i++) { //TODO
                     	System.out.println( String.format("\t\t%s", curItems.get(i).getName()) );
@@ -96,7 +96,7 @@ public class Driver {
                     // If just type "examine", as what to examine (several items at a time is ok)
                 	if ( command.equals("examine") ) {
                 		System.out.println( String.format("\tYou are currently having %d items." +
-                                "\nTo see their names, try 'look' command. What do you want to examine?", curItems.size()) );
+                                "\n\tTo see their names, try 'look' command. What do you want to examine?", curItems.size()) );
                 		command = in.nextLine().toLowerCase().trim(); //TODO
                     }
 
@@ -157,7 +157,7 @@ public class Driver {
 						} else if ( (attempt == 3) && (hintNo <= 3) ) {
 							// If wrong passcode > 3 times before having 2 hints
 							System.out.println( "You tried 3 times." +
-									"The lock automatically gives you a hint. Enter the figure that you want to see hint" );
+									"The lock automatically gives you a hint. Enter the figure that you want to see hint." );
 							String hint = in.nextLine().toLowerCase().trim(); //TODO
 
 							while ( !(hint.contains("rainbow") || hint.contains("circle") || hint.contains("square") || hint.contains("triangle")) ) {
