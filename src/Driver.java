@@ -37,68 +37,72 @@ public class Driver {
         itemList.add(torch);
         itemList.add(sword);
         itemList.add(pearl);
-	
 
-        
+        //
         List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance
         List<Item> indoorItem = new ArrayList<>(Arrays.asList(mirror)); //items given in the 1st room
         
         
-     // Add location(s)
+        // Add location(s)
         Location entrance = new Location("entrance", "This is the starting position of the game. You are standing in front of a door.",entranceItem);
         Location inside = new Location("inside", "You are now standing in side the house. There is a small mirror hung on the wall. There are 2 locked doors: One to the left, One to the right.", indoorItem);
         
 
     	Scanner in = new Scanner( System.in );
-		System.out.print( "Welcome to the The Legendary Tale of the Dragon Slayer game!\nDo you want to start the game? (y/n): ");
+		System.out.print( "Welcome to the The Legendary Tale of the Dragon Slayer game!\nDo you want to start the game? (y/n): " );
 		String start = in.nextLine().toLowerCase().trim();
 		
-		while (!start.equals("n") && !start.equals("y")) {
+		while ( !start.equals("n") && !start.equals("y") ) {
 			System.out.println("Please enter y or n to start or close the game");
 			start = in.nextLine().toLowerCase().trim();
+
+            if ( start.equals("n") ) {
+                System.out.println( "Thanks for playing" );
+                System.exit(1);
+            }
 		}
 		
-		if (start.equals("n"))
-		{
-			System.out.println("Thanks for playing");
-			System.exit(1);
-		}
+//		if ( start.equals("n") ) {
+//            System.out.println( "Thanks for playing" );
+//            System.exit(1);
+//        }
 		
-		else if( start.equals("y") ) {
-			System.out.println("\n" + "You are an adventurer going on a quest to destroy the mighty dragon that is causing terror to the miserable village. At the beginning of the game, you are given an ancient scroll and a torch. ");
+//		else if( start.equals("y") ) {
+        if( start.equals("y") ) {
+			System.out.println("\nYou are an adventurer going on a quest to destroy the mighty dragon that is causing terror to the miserable village. At the beginning of the game, you are given an ancient scroll and a torch." );
 			setLocation(entrance);
 	
             String command;
             while ( true ) {
-                System.out.print("\nEnter a command: ");
+                System.out.print( "\nEnter a command: " );
                 command = in.nextLine().toLowerCase().trim();
 
-                if (command.contains("look")) {
+                if ( command.contains("look") ) {
                     System.out.println( String.format("\tCurrent location: %s", curLocation.getDesc()) );
-                    System.out.println( "\t " + curLocation.retrieveNumOfItems() + " Items found there:" );
-                    for (int i = 0; i<curLocation.getItem().size(); i++)
-                    {
-                    	System.out.println("\t\t"+ curLocation.getItem().get(i).getName());	}
+                    System.out.println( String.format("\t%d\nItem found there:", curLocation.retrieveNumOfItems()) );
+                    for (int i = 0; i<curLocation.getItem().size(); i++) {
+                    	System.out.println("\t\t"+ curLocation.getItem().get(i).getName());
+                    }
                     
-                System.out.println("\tYou are currently having " + curItems.size() + " items. Namely: ");
-                for(int i =0; i<curItems.size(); i++) 
-                	System.out.println("\t\t " +curItems.get(i).getName());
-                }
-      
-                
-                
-                else if (command.contains("examine"))  	 
+                    System.out.println("\tYou are currently having " + curItems.size() + " items. Namely: ");
+                    System.out.println( String.format("\tYou are currently having %d items.\nNamely:", curItems.size()) );
+                    for(int i =0; i<curItems.size(); i++) {
+                        System.out.println("\t\t " + curItems.get(i).getName());
+                    }
+
+                } else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
                     // if the item is there, print the description of it
                     // if not, print some sort of error message
-                {
+
                 	boolean found = false;
-                	if (command.equals("examine")) 
-                	// If just type "examine", as what to examine (several items at a time is ok)
-                	{
-                		System.out.println("\tYou are currently having " + curItems.size() + " items. To see their names, try 'look' command. What do you want to examine?");
+
+                	if (command.equals("examine")) {
+                	    // If just type "examine", as what to examine (several items at a time is ok)
+                		System.out.println( String.format("\tYou are currently having %d items." +
+                                "\nTo see their names, try 'look' command. What do you want to examine?", curItems.size()) );
                 		command = in.nextLine().toLowerCase().trim();
-                		}                  	
+                    }
                 	
                 	for(int i = 0 ; i< curItems.size(); i++)
                 	// If command contains the item name that is included in the current state, print the details of the item
