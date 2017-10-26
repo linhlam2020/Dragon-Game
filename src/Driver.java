@@ -9,15 +9,13 @@ import java.io.*;
 import java.util.*;
 
 
-
 public class Driver {
 	
 	public static Location curLocation = new Location();
-	public static List<Item> curItems = new ArrayList<Item>();
-	
-	public static void setLocation(Location curLoc) 
-	//set attributes to current location
-	{
+	public static List<Item> curItems = new ArrayList<>();
+
+    //set attributes to current location
+	public static void setLocation(Location curLoc) {
 		curLocation = curLoc;
 		for (int i = 0; i<curLocation.getItem().size(); i++) {
 			curItems.add(curLocation.getItem().get(i));
@@ -32,7 +30,7 @@ public class Driver {
         Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
         Item sword = new Item ("sword", "weapon", "This is the divine sword of cutting things. Use it to kill the dragon and defend yourself.");
 
-        // Add items into an arraylist
+        // Add items into an ArrayList
         List<Item> itemList = new ArrayList<>();
         itemList.add(mirror);
         itemList.add(scroll);
@@ -42,8 +40,8 @@ public class Driver {
 	
 
         
-        List<Item> entranceItem = new ArrayList<Item>(Arrays.asList(torch,scroll)); //items given at entrance
-        List<Item> indoorItem = new ArrayList<Item>(Arrays.asList(mirror)); //items given in the 1st room
+        List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance
+        List<Item> indoorItem = new ArrayList<>(Arrays.asList(mirror)); //items given in the 1st room
         
         
      // Add location(s)
@@ -52,11 +50,10 @@ public class Driver {
         
 
     	Scanner in = new Scanner( System.in );
-		System.out.print( "Welcome to the The Legendary Tale of the Dragon Slayer game!" + "\n" +"Do you want to start the game? (y/n): ");
+		System.out.print( "Welcome to the The Legendary Tale of the Dragon Slayer game!\nDo you want to start the game? (y/n): ");
 		String start = in.nextLine().toLowerCase().trim();
 		
-		while (!start.equals("n") && !start.equals("y"))
-		{
+		while (!start.equals("n") && !start.equals("y")) {
 			System.out.println("Please enter y or n to start or close the game");
 			start = in.nextLine().toLowerCase().trim();
 		}
@@ -211,7 +208,7 @@ public class Driver {
                 	System.out.println("Thanks for playing!");
                     break;
                 } else {
-                    System.out.println("I don’t know how to do that.");
+                    System.out.println("I donï¿½t know how to do that.");
                 }
             }
         }
