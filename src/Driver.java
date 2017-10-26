@@ -31,7 +31,7 @@ public class Driver {
         Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
         Item sword = new Item ("sword", "weapon", "This is the divine sword of cutting things. Use it to kill the dragon and defend yourself.");
 
-        // Add items into an ArrayList
+        // Add items into an ArrayList //TODO
         List<Item> itemList = new ArrayList<>();
         itemList.add(mirror);
         itemList.add(scroll);
@@ -54,7 +54,7 @@ public class Driver {
 		String start = in.nextLine().toLowerCase().trim();
 		
 		while ( !start.equals("n") && !start.equals("y") ) {
-			System.out.println("Please enter y or n to start or close the game");
+			System.out.println( "Please enter y or n to start or close the game" );
 			start = in.nextLine().toLowerCase().trim();
 		}
 		
@@ -75,12 +75,13 @@ public class Driver {
                 if ( command.contains("look") ) {
                     System.out.println( String.format("\tCurrent location: %s", curLocation.getDesc()) );
                     System.out.println( String.format("\t%d\nItem found there:", curLocation.retrieveNumOfItems()) );
+
                     for (int i = 0; i<curLocation.getItem().size(); i++) { //TODO
                     	System.out.println("\t\t"+ curLocation.getItem().get(i).getName());
                     }
                     
-                    System.out.println("\tYou are currently having " + curItems.size() + " items. Namely: ");
                     System.out.println( String.format("\tYou are currently having %d items.\nNamely:", curItems.size()) );
+
                     for(int i =0; i<curItems.size(); i++) { //TODO
                     	System.out.println( String.format("\t\t%s", curItems.get(i).getName()) );
                     }
@@ -112,11 +113,11 @@ public class Driver {
 
                 } else if ( command.contains("open") && command.contains("door") ) {
                     // Open the door
-                	System.out.println("You try to open the door and realized that it was locked with an ancient lock." +
+                	System.out.println( "You try to open the door and realized that it was locked with an ancient lock. " +
 							"On the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
 							"Under each figure, there is a place for you to put one digit from 0 to 9 on it." +
-							"To open the door, you have to guess correctly all 4 digits corresponding to 4 figures.");
-                	System.out.println("Please enter the 4 digits (without spaces; for example, 0000)");
+							"To open the door, you have to guess correctly all 4 digits corresponding to 4 figures." );
+                	System.out.println( "Please enter the 4 digits (without spaces; for example, 0000)" );
                 	String passcode = in.nextLine();
 
                 	int attempt = 1;
@@ -125,57 +126,59 @@ public class Driver {
 					// If enter wrong passcode (12 trials and 2 hints before giving the option to quit)
                 	while ( !passcode.equals("0743") ) {
 						// If wrong passcode more than 3 times after having 2 hints, offer the quit option. If don't quit, start over.
-						if ((attempt == 2) && (hintNo > 3)) {
-							System.out.println("You tried many time. Do you want to quit? (y/n)"); //TODO
+						if ( (attempt == 2) && (hintNo > 3) ) {
+							System.out.println( "You tried many time. Do you want to quit? (y/n)" ); //TODO
 							String quitBool = in.nextLine().toLowerCase().trim();
+
 							if (quitBool.equals("y")) { //TODO
-								System.out.println("Thanks for playing!");
+								System.out.println( "Thanks for playing!" );
 								System.exit(1);
 
-							} else if (quitBool.equals("n")) {
+							} else if ( quitBool.equals("n") ) {
 								break;
 							}
 
-						} else if ((attempt < 3) && (hintNo <= 4)) {
+						} else if ( (attempt < 3) && (hintNo <= 4) ) {
 							// If wrong passcode <= 3 times before having 2 hints
 							attempt++;
-							System.out.println("Please try again!");
+							System.out.println( "Please try again!" );
 							passcode = in.nextLine();
 
-						} else if ((attempt == 3) && (hintNo == 3)) {
+						} else if ( (attempt == 3) && (hintNo == 3) ) {
 							// If wrong passcode > 3 times after having 2 hints
-							System.out.println("You cannot get more hint." +
-									"Think about the number of edges/colors in each figure.");
-							System.out.println("Please try again!");
+							System.out.println( "You cannot get more hint." +
+									"Think about the number of edges/colors in each figure." );
+							System.out.println( "Please try again!" );
+
 							passcode = in.nextLine();
 							attempt = 0;
 							hintNo++;
 
 						} else if ( (attempt == 3) && (hintNo <= 3) ) {
 							// If wrong passcode > 3 times before having 2 hints
-							System.out.println("You tried 3 times." +
-									"The lock automatically gives you a hint. Enter the figure that you want to see hint");
-							String hint = in.nextLine();
+							System.out.println( "You tried 3 times." +
+									"The lock automatically gives you a hint. Enter the figure that you want to see hint" );
+							String hint = in.nextLine().toLowerCase().trim(); //TODO
 
-							while (!(hint.contains("rainbow") || hint.contains("circle") || hint.contains("square") || hint.contains("triangle"))) {
-								System.out.println("Please enter one of a given figure. For example, 'rainbow'");
-								hint = in.nextLine();
+							while ( !(hint.contains("rainbow") || hint.contains("circle") || hint.contains("square") || hint.contains("triangle")) ) {
+								System.out.println( "Please enter one of a given figure. For example, 'rainbow'" );
+								hint = in.nextLine().toLowerCase().trim(); //TODO
 							}
 
-							if (hint.contains("rainbow")) {
-								System.out.println("The code for rainbow is 7");
+							if ( hint.contains("rainbow") ) {
+								System.out.println( "The code for rainbow is 7" );
 								hintNo++;
 
-							} else if (hint.contains("triangle")) {
-								System.out.println("The code for triangle is 3");
+							} else if ( hint.contains("triangle") ) {
+								System.out.println( "The code for triangle is 3" );
 								hintNo++;
 
-							} else if (hint.contains("square")) {
-								System.out.println("The code for square is 4");
+							} else if ( hint.contains("square") ) {
+								System.out.println( "The code for square is 4" );
 								hintNo++;
 
-							} else if (hint.contains("circle")) {
-								System.out.println("The code for circle is 0");
+							} else if ( hint.contains("circle") ) {
+								System.out.println( "The code for circle is 0" );
 								hintNo++;
 							}
 
@@ -185,15 +188,15 @@ public class Driver {
 
 					// If passcode is correct
                 	if ( passcode.contains("0743") ) {
-                    	System.out.println("You successfully broke the lock. The door is opened and you enter the house.");
+                    	System.out.println( "You successfully broke the lock. The door is opened and you enter the house." );
                     	setLocation(inside);
                 	}
                 } else if ( command.equals("quit") ) { //TODO
-                	System.out.println("Thanks for playing!");
+                	System.out.println( "Thanks for playing!" );
                     break;
 
                 } else {
-                    System.out.println("I don't know how to do that.");
+                    System.out.println( "I don't know how to do that." );
                 }
             }
         }
