@@ -73,10 +73,11 @@ public class Location {
 
         while (i < this.getItem().size()) {
             Item temp = this.getItem().get(i);
-            if (temp.getName().contains(shortName))
+            if (temp.getName().contains(shortName)) {
                 item = temp;
-            else
+            } else {
                 i++;
+            }
         }
 
         return item;
