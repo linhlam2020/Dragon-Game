@@ -62,8 +62,7 @@ public class Item
     }
 
     // To String method: set the template to prints out the information about the item.
-    public String toString( )
-    {
+    public String toString( ) {
         return "\t\tShortname: " + getName() + "\n\t\tType: " + getType() + "\n\t\tDescription: " + getDescription();
     } 
 
