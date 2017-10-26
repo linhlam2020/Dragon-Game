@@ -15,7 +15,9 @@ public class Driver {
 	public static Location curLocation = new Location();
 	public static List<Item> curItems = new ArrayList<Item>();
 	
-	public static void setLocation(Location curLoc) {
+	public static void setLocation(Location curLoc) 
+	//set attributes to current location
+	{
 		curLocation = curLoc;
 		for (int i = 0; i<curLocation.getItem().size(); i++) {
 			curItems.add(curLocation.getItem().get(i));
@@ -23,7 +25,7 @@ public class Driver {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
-        // Items
+        // All items given in the game
         Item mirror = new Item("mirror", "tool", "This is the mirror of totally deflecting light. Use it to defend yourself and kill the dragon.");
         Item scroll = new Item("scroll", "hint", "The ancient scroll says: 'You need to find three legendary artifacts to defeat the dragon. They are the pearl of the Sun, the divine sword of cutting things, and the mirror of totally deflecting light.' ");
         Item torch = new Item("torch", "tool", "a small torch to light up the way");
@@ -40,15 +42,11 @@ public class Driver {
 	
 
         
-        List<Item> entranceItem = new ArrayList<Item>(Arrays.asList(torch,scroll));
-        List<Item> indoorItem = new ArrayList<Item>(Arrays.asList(mirror));
-        //List<Item> curItems = new ArrayList<Item>();
-        
-        
+        List<Item> entranceItem = new ArrayList<Item>(Arrays.asList(torch,scroll)); //items given at entrance
+        List<Item> indoorItem = new ArrayList<Item>(Arrays.asList(mirror)); //items given in the 1st room
         
         
      // Add location(s)
-        //Location curLocation = new Location();
         Location entrance = new Location("entrance", "This is the starting position of the game. You are standing in front of a door.",entranceItem);
         Location inside = new Location("inside", "You are now standing in side the house. There is a small mirror hung on the wall. There are 2 locked doors: One to the left, One to the right.", indoorItem);
         
@@ -72,7 +70,6 @@ public class Driver {
 		else if( start.equals("y") ) {
 			System.out.println("\n" + "You are an adventurer going on a quest to destroy the mighty dragon that is causing terror to the miserable village. At the beginning of the game, you are given an ancient scroll and a torch. ");
 			setLocation(entrance);
-			//curLocation.print();
 	
             String command;
             while ( true ) {
@@ -99,12 +96,15 @@ public class Driver {
                     // if not, print some sort of error message
                 {
                 	boolean found = false;
-                	if (command.equals("examine")) {
+                	if (command.equals("examine")) 
+                	// If just type "examine", as what to examine (several items at a time is ok)
+                	{
                 		System.out.println("\tYou are currently having " + curItems.size() + " items. To see their names, try 'look' command. What do you want to examine?");
                 		command = in.nextLine().toLowerCase().trim();
                 		}                  	
                 	
                 	for(int i = 0 ; i< curItems.size(); i++)
+                	// If command contains the item name that is included in the current state, print the details of the item
                 	{
                 		if (command.contains(curItems.get(i).getName()))
                 		{
@@ -119,47 +119,55 @@ public class Driver {
                 
                 
                 else if (command.contains("open") && command.contains("door")) {
-                    // Get the item with the given name from the location and print its description
-                    // if the item is there, print the description of it
-                    // if not, print some sort of error message
+                    // Open the door
                 	System.out.println("You try to open the door and realized that it was locked with an ancient lock. On the lock, there are four figures: a circle, a rainbow, a square, and a triangle. Under each figure, there is a place for you to put one digit from 0 to 9 on it. To open the door, you have to guess correctly all 4 digits corresponding to 4 figures.");
                 	System.out.println("Please enter the 4 digits (without spaces; for example, 0000)");
                 	String passcode = in.nextLine();
                 	int attempt = 1;
                 	int hintNo = 1;
                 	
-                		while (!passcode.equals("0743"))
+                	while (!passcode.equals("0743"))
+                		// If enter wrong passcode (12 trials and 2 hints before giving the option to quit)
                 		{
-                		 if ((attempt == 2) && (hintNo > 3)) {
-                				System.out.println("You tried many time. Do you want to quit? (y/n)");
-                   				String quitBool  = in.nextLine().toLowerCase().trim();
-                				if (quitBool.equals("y")){
-                					 System.out.println("Thanks for playing!");
-                	                 System.exit(1);
-                				}
-                				else if (quitBool.equals("n")) {
-                					break;
-                  				}
+                		if ((attempt == 2) && (hintNo > 3))
+                		// If wrong passcode more than 3 times after having 2 hints, offer the quit option. If don't quit, start over.
+                		
+                			{
+                			System.out.println("You tried many time. Do you want to quit? (y/n)");
+                   			String quitBool  = in.nextLine().toLowerCase().trim();
+                			if (quitBool.equals("y")){
+                				System.out.println("Thanks for playing!");
+                	            System.exit(1);
+                			}
+                			else if (quitBool.equals("n")) {
+                				break;
+                  			}
                 				
                 						
                 			}
-                		else if (attempt < 3 && (hintNo <= 4) ) {
+                		else if (attempt < 3 && (hintNo <= 4) ) 
+                		// If wrong passcode <= 3 times before having 2 hints
+                		{
                 			attempt++;
                 			System.out.println("Please try again!");
                 			passcode  = in.nextLine();
                 			
-                			}
+                		}
                 			
-                			else if ((attempt == 3) && (hintNo == 3)) {
-                				System.out.println("You cannot get more hint.Think about the number of edges/colors in each figure");
-                				System.out.println("Please try again!");
-                				passcode  = in.nextLine();
-                				attempt = 0;
-                				hintNo++;
-                			}              			
+                		else if ((attempt == 3) && (hintNo == 3)) 
+                		// If wrong passcode > 3 times after having 2 hints
+                		{
+                			System.out.println("You cannot get more hint.Think about the number of edges/colors in each figure");
+                			System.out.println("Please try again!");
+                			passcode  = in.nextLine();
+                			attempt = 0;
+                			hintNo++;
+                		}              			
                 		
                 			
-                			else if ((attempt == 3) && (hintNo <= 3)){
+                		else if ((attempt == 3) && (hintNo <= 3))
+                		// If wrong passcode > 3 times before having 2 hints
+                		{
                 			System.out.println("You tried 3 times. The lock automatically gives you a hint. Enter the figure that you want to see hint");
                 			String hint = in.nextLine();
                         	while (!(hint.contains("rainbow")||hint.contains("circle")||hint.contains("square")||hint.contains("triangle"))) {
@@ -189,12 +197,14 @@ public class Driver {
                 		}
                 		
                 		}	
-                		if (passcode.contains("0743")) {
-                    		System.out.println("You successfully broke the lock. The door is opened and you enter the house.");
-                    		setLocation(inside);                    		
-                		}
+                	if (passcode.contains("0743")) 
+                	// If passcode is correct
+                	{
+                    	System.out.println("You successfully broke the lock. The door is opened and you enter the house.");
+                    	setLocation(inside);                    		
+                	}
                 		
-                    }
+                }
         
                 		
                 else if (command.equals("quit")) {
