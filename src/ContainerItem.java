@@ -6,8 +6,6 @@
 */
 
 public class ContainerItem extends Item {
-
-
     public ContainerItem() {
 
     }
