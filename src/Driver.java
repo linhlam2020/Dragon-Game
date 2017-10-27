@@ -51,7 +51,8 @@ public class Driver {
         
 
     	Scanner in = new Scanner( System.in );
-		System.out.print( "Welcome to the The Legendary Tale of the Dragon Slayer game!\nDo you want to start the game? (y/n): " );
+		System.out.print( "Welcome to the The Legendary Tale of the Dragon Slayer game!" +
+				"\nDo you want to start the game? (y/n): " );
 		String start = in.nextLine().toLowerCase().trim();
 		
 		while ( !start.equals("n") && !start.equals("y") ) {
@@ -64,7 +65,8 @@ public class Driver {
             System.exit(1);
 
         } else if( start.equals("y") ) {
-			System.out.println("\nYou are an adventurer going on a quest to destroy the mighty dragon that is causing terror to the miserable village." +
+			System.out.println("\nYou are an adventurer going on a quest to destroy the mighty dragon " +
+					" that is causing terror to the miserable village." +
 					"\nAt the beginning of the game, you are given an ancient scroll and a torch." );
 			setLocation( entrance );
 	
