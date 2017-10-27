@@ -14,13 +14,14 @@ public class Driver {
 	private static Location curLocation = new Location();
 	private static List<Item> curItems = new ArrayList<>();
 
-    //set attributes to current location
+    // Set attributes to current location
 	private static void setLocation(Location curLoc) {
 		curLocation = curLoc;
 
-		for (int i = 0; i<curLocation.getItem().size(); i++) { //TODO
-			curItems.add(curLocation.getItem().get(i));
-		}
+//		for (int i = 0; i<curLocation.getItem().size(); i++) { //TODO
+//			curItems.add(curLocation.getItem().get(i));
+//		}
+		curItems = curLocation.getItem();
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -31,7 +32,7 @@ public class Driver {
         Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
         Item sword = new Item ("sword", "weapon", "This is the divine sword of cutting things. Use it to kill the dragon and defend yourself.");
 
-        // Add items into an ArrayList //TODO
+        // Add items into an ArrayList //TODO (Not Being Used)
         List<Item> itemList = new ArrayList<>();
         itemList.add(mirror);
         itemList.add(scroll);
@@ -41,8 +42,8 @@ public class Driver {
 
         //
         List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance
-        List<Item> indoorItem = new ArrayList<>(Arrays.asList(mirror)); //items given in the 1st room //TODO
-        
+//        List<Item> indoorItem = new ArrayList<>(Arrays.asList(mirror)); //items given in the 1st room //TODO
+		List<Item> indoorItem = Collections.singletonList(mirror);
         
         // Add location(s)
         Location entrance = new Location("entrance", "This is the starting position of the game. You are standing in front of a door.",entranceItem);
@@ -65,7 +66,7 @@ public class Driver {
         } else if( start.equals("y") ) {
 			System.out.println("\nYou are an adventurer going on a quest to destroy the mighty dragon that is causing terror to the miserable village." +
 					"\nAt the beginning of the game, you are given an ancient scroll and a torch." );
-			setLocation(entrance);
+			setLocation( entrance );
 	
             String command;
             while ( true ) {
@@ -77,14 +78,20 @@ public class Driver {
                     System.out.println( String.format("\t%d\nItem found there:", curLocation.retrieveNumOfItems()) );
 
                     for (int i = 0; i<curLocation.getItem().size(); i++) { //TODO
-                    	System.out.println("\t\t"+ curLocation.getItem().get(i).getName());
+                    	System.out.println( String.format("\t\t%s", curLocation.getItem().get(i).getName()) );
                     }
+//                    for( Item i : curLocation.getItem()) {
+//                    	System.out.println( String.format("\t\t%s", i.getName()) );
+//					}
                     
                     System.out.println( String.format("\tYou are currently having %d items.\n\tNamely:", curItems.size()) );
 
-                    for(int i =0; i<curItems.size(); i++) { //TODO
+                    for (int i =0; i<curItems.size(); i++) { //TODO
                     	System.out.println( String.format("\t\t%s", curItems.get(i).getName()) );
                     }
+//                    for ( Item i : curItems ) {
+//                    	System.out.println(String.format("\t\t%s", i.getName()) );
+//					}
 
                 } else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
@@ -107,6 +114,13 @@ public class Driver {
                 			found = true;
                 		}
                 	}
+//                	for( Item i : curItems ) {
+//                		if ( command.contains(i.getName()) ) {
+//                			i.print();
+//                			found = true;
+//						}
+//					}
+
                 	if ( !found ) {
                 		System.out.println( "Cannot find the item." );
                 	}
