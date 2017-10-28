@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version October 26, 2017
+*@version October 28, 2017
 */
 
 import java.io.*;
@@ -12,9 +12,11 @@ import java.util.*;
 public class Driver {
 	
 	private static Location curLocation = new Location();
-	private static List<Item> curItems = new ArrayList<>();
+	private static ContainerItem inventory = new ContainerItem();
 
-    // Set attributes to current location
+	private static List<Item> curItems = new ArrayList<>(); // TODO: This should be replaced with ContainerItem
+
+	// Set attributes to current location
 	private static void setLocation(Location curLoc) {
 		curLocation = curLoc;
 
@@ -24,6 +26,7 @@ public class Driver {
 		curItems = curLocation.getItem();
 	}
 
+
 	public static void main(String[] args) throws FileNotFoundException {
         // All items given in the game
         Item mirror = new Item("mirror", "tool", "This is the mirror of totally deflecting light. Use it to defend yourself and kill the dragon.");
@@ -32,7 +35,7 @@ public class Driver {
         Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
         Item sword = new Item ("sword", "weapon", "This is the divine sword of cutting things. Use it to kill the dragon and defend yourself.");
 
-        // Add items into an ArrayList //TODO (Not Being Used)
+        // Add items into an ArrayList //TODO (Below are Not Being Used)
         List<Item> itemList = new ArrayList<>();
         itemList.add(mirror);
         itemList.add(scroll);
@@ -40,13 +43,12 @@ public class Driver {
         itemList.add(sword);
         itemList.add(pearl);
 
-        //
-        List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance
-//        List<Item> indoorItem = new ArrayList<>(Arrays.asList(mirror)); //items given in the 1st room //TODO
-		List<Item> indoorItem = Collections.singletonList(mirror);
+        // Create Item lists
+        List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance //TODO: This should be replaced with ContainerItem
+		List<Item> indoorItem = Collections.singletonList(mirror); //items given in the 1st room //TODO: This should be replaced with ContainerItem
         
         // Add location(s)
-        Location entrance = new Location("entrance", "This is the starting position of the game. You are standing in front of a door.",entranceItem);
+        Location entrance = new Location("entrance", "This is the starting position of the game. You are standing in front of a door.", entranceItem);
         Location inside = new Location("inside", "You are now standing in side the house. There is a small mirror hung on the wall. There are 2 locked doors: One to the left, One to the right.", indoorItem);
         
 
