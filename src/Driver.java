@@ -17,7 +17,7 @@ public class Driver {
 	private static List<Item> curItems = new ArrayList<>(); // TODO: This should be replaced with ContainerItem
 
 	// Set attributes to current location
-	private static void setLocation(Location curLoc) {
+	private static void setLocation( Location curLoc ) {
 		curLocation = curLoc;
 
 //		for (int i = 0; i<curLocation.getItem().size(); i++) { //TODO
@@ -29,13 +29,28 @@ public class Driver {
 
 	public static void main(String[] args) throws FileNotFoundException {
         // All items given in the game
-        Item mirror = new Item("mirror", "tool", "This is the mirror of totally deflecting light. Use it to defend yourself and kill the dragon.");
-        Item scroll = new Item("scroll", "hint", "The ancient scroll says: 'You need to find three legendary artifacts to defeat the dragon. They are the pearl of the Sun, the divine sword of cutting things, and the mirror of totally deflecting light.' ");
-        Item torch = new Item("torch", "tool", "a small torch to light up the way");
-        Item pearl = new Item("pearl", "tool", "This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
-        Item sword = new Item ("sword", "weapon", "This is the divine sword of cutting things. Use it to kill the dragon and defend yourself.");
+        Item mirror = new Item("mirror",
+				"tool",
+				"This is the mirror of totally deflecting light." +
+						" Use it to defend yourself and kill the dragon.");
+        Item scroll = new Item("scroll",
+				"hint",
+				"The ancient scroll says:" +
+						"'You need to find three legendary artifacts to defeat the dragon." +
+						" They are the pearl of the Sun, the divine sword of cutting things," +
+						" and the mirror of totally deflecting light.'");
+        Item torch = new Item("torch",
+				"tool",
+				"a small torch to light up the way");
+        Item pearl = new Item("pearl",
+				"tool",
+				"This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
+        Item sword = new Item ("sword",
+				"weapon",
+				"This is the divine sword of cutting things." +
+						" Use it to kill the dragon and defend yourself.");
 
-        // Add items into an ArrayList //TODO (Below are Not Being Used)
+        // Add items into an ArrayList //TODO (Items below are Not Being Used)
         List<Item> itemList = new ArrayList<>();
         itemList.add(mirror);
         itemList.add(scroll);
@@ -44,12 +59,19 @@ public class Driver {
         itemList.add(pearl);
 
         // Create Item lists
-        List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance //TODO: This should be replaced with ContainerItem
-		List<Item> indoorItem = Collections.singletonList(mirror); //items given in the 1st room //TODO: This should be replaced with ContainerItem
-        
+        List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance
+		List<Item> indoorItem = Collections.singletonList(mirror); //items given in the 1st room
+
+
         // Add location(s)
-        Location entrance = new Location("entrance", "This is the starting position of the game. You are standing in front of a door.", entranceItem);
-        Location inside = new Location("inside", "You are now standing in side the house. There is a small mirror hung on the wall. There are 2 locked doors: One to the left, One to the right.", indoorItem);
+        Location entrance = new Location("entrance",
+				"This is the starting position of the game.You are standing in front of a door.",
+				entranceItem);
+        Location inside = new Location("inside",
+				"You are now standing in side the house." +
+						" There is a small mirror hung on the wall." +
+						" There are 2 locked doors: One to the left, One to the right.",
+				indoorItem);
         
 
     	Scanner in = new Scanner( System.in );
@@ -74,30 +96,36 @@ public class Driver {
 	
             String command;
             while ( true ) {
-                System.out.print( "\nEnter a command: " );
-                command = in.nextLine().toLowerCase().trim();
+				System.out.print("\nEnter a command: ");
+				command = in.nextLine().toLowerCase().trim();
 
-                if ( command.contains("look") ) {
-                    System.out.println( String.format("\tCurrent location: %s", curLocation.getDesc()) );
-                    System.out.println( String.format("\t%d\nItem found there:", curLocation.retrieveNumOfItems()) );
+				if ( command.contains("look") ) {
+					System.out.println(String.format("\n\tCurrent location: %s", curLocation.getDesc()));
+					System.out.println(String.format("\tItem(s) found there: %d item(s)", curLocation.retrieveNumOfItems()));
 
-                    for (int i = 0; i<curLocation.getItem().size(); i++) { //TODO
-                    	System.out.println( String.format("\t\t%s", curLocation.getItem().get(i).getName()) );
-                    }
-//                    for( Item i : curLocation.getItem()) {
-//                    	System.out.println( String.format("\t\t%s", i.getName()) );
-//					}
-                    
-                    System.out.println( String.format("\tYou are currently having %d items.\n\tNamely:", curItems.size()) );
+                    for( Item i : curLocation.getItem() ) {
+                    	System.out.println( String.format("\t\t%s", i.getName()) );
+					}
 
-                    for (int i =0; i<curItems.size(); i++) { //TODO
-                    	System.out.println( String.format("\t\t%s", curItems.get(i).getName()) );
-                    }
-//                    for ( Item i : curItems ) {
-//                    	System.out.println(String.format("\t\t%s", i.getName()) );
-//					}
+				} else if ( command.contains("take") ) {
+					String temp = command.replaceAll("take", "").trim();
+					for ( Item i : curLocation.getItem() ) {
+						if ( i.getName().equals(temp) ) {
+							continue;
+						}
+					}
 
-                } else if ( command.contains("examine") ) {
+				} else if ( command.contains("drop") ) {
+					continue;
+
+				} else if ( command.contains("inventory") ) {
+//					System.out.println(String.format("\nYou are currently having %d items.\nNamely:", curItems.size()));
+					System.out.println( inventory );
+					
+
+				} else if ( command.contains("put") ) {
+					continue;
+				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
                     // if the item is there, print the description of it
                     // if not, print some sort of error message
@@ -111,7 +139,8 @@ public class Driver {
                 		command = in.nextLine().toLowerCase().trim(); //TODO
                     }
 
-                    // If command contains the item name that is included in the current state, print the details of the item
+                    // If command contains the item name that is included in the current state,
+					// print the details of the item
                 	for(int i = 0 ; i< curItems.size(); i++) { //TODO
                 		if ( command.contains(curItems.get(i).getName()) ) {
                 			curItems.get(i).print();
@@ -143,7 +172,8 @@ public class Driver {
 
 					// If enter wrong passcode (12 trials and 2 hints before giving the option to quit)
                 	while ( !passcode.equals("0743") ) {
-						// If wrong passcode more than 3 times after having 2 hints, offer the quit option. If don't quit, start over.
+						// If wrong passcode entered more than 3 times after having 2 hints,
+						// offer the quit option. If don't quit, start over.
 						if ( (attempt == 2) && (hintNo > 3) ) {
 							System.out.println( "You tried many time. Do you want to quit? (y/n)" ); //TODO
 							String quitBool = in.nextLine().toLowerCase().trim();
