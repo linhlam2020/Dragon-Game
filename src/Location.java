@@ -27,15 +27,15 @@ public class Location {
     }
 
     // Setter methods
-    public void setName(String n) {
+    public void setName( String n ) {
         name = n;
     }
 
-    public void setDesc(String d) {
+    public void setDesc( String d ) {
         desc = d;
     }
 
-    public void setItem(List<Item> i) {
+    public void setItem( List<Item> i ) {
         item = i;
     }
 
@@ -55,7 +55,7 @@ public class Location {
 
 
     // This method adds an item to the location
-    public void addItem(Item item) {
+    public void addItem( Item item ) {
         if (this.getItem() == null) {
             List<Item> temp = new ArrayList<>();
             temp.add(item);
@@ -67,7 +67,7 @@ public class Location {
     }
 
     // This method retrieves an item given its short name
-    public Item retrieveItem(String shortName) {
+    public Item retrieveItem( String shortName ) {
         int i = 0;
         Item item = null;
 

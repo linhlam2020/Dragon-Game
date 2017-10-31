@@ -65,9 +65,9 @@ public class Driver {
 
         // Add location(s)
         Location entrance = new Location("entrance",
-				"This is the starting position of the game.You are standing in front of a door.",
+				"This is the starting position of the game. You are standing in front of a door.",
 				entranceItem);
-        Location inside = new Location("inside",
+        Location inside = new Location("inside the house",
 				"You are now standing in side the house." +
 						" There is a small mirror hung on the wall." +
 						" There are 2 locked doors: One to the left, One to the right.",
@@ -109,22 +109,46 @@ public class Driver {
 
 				} else if ( command.contains("take") ) {
 					String temp = command.replaceAll("take", "").trim();
+
 					for ( Item i : curLocation.getItem() ) {
 						if ( i.getName().equals(temp) ) {
-							continue;
+							inventory.addItem(i);
 						}
 					}
 
+					// Add the method written below.
+					// take name from container:
+					// If there is an item with the given name in the specified container,
+					// remove it from the container and add it to the inventory
+
 				} else if ( command.contains("drop") ) {
-					continue;
+					String temp = command.replaceAll("drop", "").trim();
+
+					for ( Item i : curLocation.getItem() ) {
+						if ( i.getName().equals(temp) ) {
+							inventory.removeItem(i);
+						}
+					}
 
 				} else if ( command.contains("inventory") ) {
-//					System.out.println(String.format("\nYou are currently having %d items.\nNamely:", curItems.size()));
-					System.out.println( inventory );
-					
+					if ( inventory.getCollection().size() == 0 ) {
+						System.out.println( "You currently have no item in your hands." );
+
+					} else {
+						System.out.println( String.format("\nYou are currently having %d items.\nNamely:",
+								inventory.getCollection().size()) );
+
+						for ( Item i : inventory.getCollection() ) {
+							System.out.println( String.format("%s\n", i) );
+						}
+					}
 
 				} else if ( command.contains("put") ) {
+					// put name in container:
+					// If there is an item with the given name in the inventory,
+					// remove it from the inventory and add it to the specified container.
 					continue;
+
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
                     // if the item is there, print the description of it
@@ -135,19 +159,20 @@ public class Driver {
                     // If just type "examine", as what to examine (several items at a time is ok)
                 	if ( command.equals("examine") ) {
                 		System.out.println( String.format("\tYou are currently having %d items." +
-                                "\n\tTo see their names, try 'look' command. What do you want to examine?", curItems.size()) );
+                                "\n\tTo see their names, try 'look' command. What do you want to examine?",
+								curLocation.getItem().size()) );
                 		command = in.nextLine().toLowerCase().trim(); //TODO
                     }
 
                     // If command contains the item name that is included in the current state,
 					// print the details of the item
-                	for(int i = 0 ; i< curItems.size(); i++) { //TODO
-                		if ( command.contains(curItems.get(i).getName()) ) {
-                			curItems.get(i).print();
+                	for(int i = 0 ; i< curLocation.getItem().size(); i++) { //TODO
+                		if ( command.contains(curLocation.getItem().get(i).getName()) ) {
+                			curLocation.getItem().get(i).print();
                 			found = true;
                 		}
                 	}
-//                	for( Item i : curItems ) {
+//                	for( Item i : curLocation.getItem() ) {
 //                		if ( command.contains(i.getName()) ) {
 //                			i.print();
 //                			found = true;
