@@ -14,10 +14,6 @@ public class ContainerItem extends Item {
         collection = new ArrayList<>();
     }
 
-    public List<Item> getCollection() {
-        return collection;
-    }
-
     // This method adds an item to the collection
     public void addItem( Item item ) {
         this.getCollection().add(item);
@@ -29,8 +25,8 @@ public class ContainerItem extends Item {
     }
 
     // This methods queries the collection
-    public void queryColl() {
-
+    public List<Item> getCollection() {
+        return collection;
     }
 
 }

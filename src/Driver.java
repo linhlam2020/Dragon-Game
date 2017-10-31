@@ -14,16 +14,16 @@ public class Driver {
 	private static Location curLocation = new Location();
 	private static ContainerItem inventory = new ContainerItem();
 
-	private static List<Item> curItems = new ArrayList<>(); // TODO: This should be replaced with ContainerItem
+	private static List<Item> curItems = new ArrayList<>(); // TODO: Is this should be replaced with ContainerItem?
 
 	// Set attributes to current location
 	private static void setLocation( Location curLoc ) {
 		curLocation = curLoc;
 
-//		for (int i = 0; i<curLocation.getItem().size(); i++) { //TODO
+//		for (int i = 0; i<curLocation.getItem().size(); i++) {
 //			curItems.add(curLocation.getItem().get(i));
 //		}
-		curItems = curLocation.getItem();
+//		curItems = curLocation.getItem();
 	}
 
 
@@ -108,19 +108,22 @@ public class Driver {
 					}
 
 				} else if ( command.contains("take") ) {
-					String temp = command.replaceAll("take", "").trim();
+					if ( command.contains("from") ) {
+						String temp = command.replaceAll("take", "").replaceAll("from", "").trim();
+						String[] words = temp.split(" ");
+						//TODO: take item from container and put it in the inventory
 
-					for ( Item i : curLocation.getItem() ) {
-						if ( i.getName().equals(temp) ) {
-							inventory.addItem(i);
-							System.out.println( String.format("Taken %s", i.getName()) );
+					} else {
+						String temp = command.replaceAll("take", "").trim();
+
+						for (Item i : curLocation.getItem()) {
+							if (i.getName().equals(temp)) {
+								inventory.addItem(i);
+								System.out.println(String.format("Taken %s", i.getName()));
+								curLocation.getItem().remove(i); //TODO: Error occurs when "scroll" is taken
+							}
 						}
 					}
-
-					// Add the method written below.
-					// take name from container:
-					// If there is an item with the given name in the specified container,
-					// remove it from the container and add it to the inventory
 
 				} else if ( command.contains("drop") ) {
 					String temp = command.replaceAll("drop", "").trim();
@@ -129,6 +132,7 @@ public class Driver {
 						if ( i.getName().equals(temp) ) {
 							inventory.removeItem(i);
 							System.out.println( String.format("Dropped %s", i.getName()) );
+							curLocation.getItem().add(i);
 						}
 					}
 
@@ -141,12 +145,12 @@ public class Driver {
 								inventory.getCollection().size()) );
 
 						for ( Item i : inventory.getCollection() ) {
-							System.out.println( String.format("%s\n", i) );
+							System.out.println( String.format("%s\n", i.getName()) );
 						}
 					}
 
 				} else if ( command.contains("put") ) {
-					// put name in container:
+					// TODO: put name in container:
 					// If there is an item with the given name in the inventory,
 					// remove it from the inventory and add it to the specified container.
 					continue;
@@ -168,18 +172,12 @@ public class Driver {
 
                     // If command contains the item name that is included in the current state,
 					// print the details of the item
-                	for(int i = 0 ; i< curLocation.getItem().size(); i++) { //TODO
-                		if ( command.contains(curLocation.getItem().get(i).getName()) ) {
-                			curLocation.getItem().get(i).print();
+                	for( Item i : curLocation.getItem() ) {
+                		if ( command.contains(i.getName()) ) {
+                			i.print();
                 			found = true;
-                		}
-                	}
-//                	for( Item i : curLocation.getItem() ) {
-//                		if ( command.contains(i.getName()) ) {
-//                			i.print();
-//                			found = true;
-//						}
-//					}
+						}
+					}
 
                 	if ( !found ) {
                 		System.out.println( "Cannot find the item." );
