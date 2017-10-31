@@ -38,17 +38,17 @@ public class Driver {
 				"The ancient scroll says:" +
 						"'You need to find three legendary artifacts to defeat the dragon." +
 						" They are the pearl of the Sun, the divine sword of cutting things," +
-						" and the mirror of totally deflecting light.'");
+						" and the mirror of totally deflecting light.'" );
         Item torch = new Item("torch",
 				"tool",
-				"a small torch to light up the way");
+				"a small torch to light up the way" );
         Item pearl = new Item("pearl",
 				"tool",
-				"This is the pearl of the Sun. Use it to defend yourself and kill the dragon.");
+				"This is the pearl of the Sun. Use it to defend yourself and kill the dragon." );
         Item sword = new Item ("sword",
 				"weapon",
 				"This is the divine sword of cutting things." +
-						" Use it to kill the dragon and defend yourself.");
+						" Use it to kill the dragon and defend yourself." );
 
         // Add items into an ArrayList //TODO (Items below are Not Being Used)
         List<Item> itemList = new ArrayList<>();
@@ -113,6 +113,7 @@ public class Driver {
 					for ( Item i : curLocation.getItem() ) {
 						if ( i.getName().equals(temp) ) {
 							inventory.addItem(i);
+							System.out.println( String.format("Taken %s", i.getName()) );
 						}
 					}
 
@@ -127,6 +128,7 @@ public class Driver {
 					for ( Item i : curLocation.getItem() ) {
 						if ( i.getName().equals(temp) ) {
 							inventory.removeItem(i);
+							System.out.println( String.format("Dropped %s", i.getName()) );
 						}
 					}
 
