@@ -2,10 +2,11 @@
 *@description Location class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version October 26, 2017
+*@version November 1, 2017
 */
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class Location {
@@ -73,6 +74,7 @@ public class Location {
 
         while (i < this.getItem().size()) {
             Item temp = this.getItem().get(i);
+
             if (temp.getName().contains(shortName)) {
                 item = temp;
             } else {

@@ -5,8 +5,11 @@
 *@version November 1, 2017
 */
 
-import java.io.*;
-import java.util.*;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Driver {
@@ -22,7 +25,7 @@ public class Driver {
 		curLocation = curLoc;
 	}
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
         // All items given in the game
         Item mirror = new Item("mirror",
 				"tool",
@@ -102,6 +105,7 @@ public class Driver {
 						String[] words = temp.split(" ");
 						String name = words[0];
 						String tempContainer = words[1];
+
 
 						//TODO: take item from container and put it in the inventory
 //						for ( Item i : tempContainer.getCollection() ) { //TODO
@@ -225,7 +229,7 @@ public class Driver {
 							System.out.println( "You tried many time. Do you want to quit? (y/n)" ); //TODO
 							String quitBool = in.nextLine().toLowerCase().trim();
 
-							if (quitBool.equals("y")) { //TODO
+							if (quitBool.equals("y")) {
 								System.out.println( "Thanks for playing!" );
 								System.exit(1);
 

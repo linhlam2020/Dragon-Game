@@ -5,7 +5,8 @@
 *@version November 1, 2017
 */
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ContainerItem extends Item {
     private List<Item> collection;
