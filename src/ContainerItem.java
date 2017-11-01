@@ -2,7 +2,7 @@
 *@description Location class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version October 28, 2017
+*@version November 1, 2017
 */
 
 import java.util.*;

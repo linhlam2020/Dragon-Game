@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version October 28, 2017
+*@version November 1, 2017
 */
 
 import java.io.*;
@@ -96,12 +96,12 @@ public class Driver {
 	
             String command;
             while ( true ) {
-				System.out.print("\nEnter a command: ");
+				System.out.print( "\nEnter a command: " );
 				command = in.nextLine().toLowerCase().trim();
 
 				if ( command.contains("look") ) {
-					System.out.println(String.format("\n\tCurrent location: %s", curLocation.getDesc()));
-					System.out.println(String.format("\tItem(s) found there: %d item(s)", curLocation.retrieveNumOfItems()));
+					System.out.println( String.format("\n\tCurrent location: %s", curLocation.getDesc()) );
+					System.out.println( String.format("\tItem(s) found there: %d item(s)", curLocation.retrieveNumOfItems()) );
 
                     for( Item i : curLocation.getItem() ) {
                     	System.out.println( String.format("\t\t%s", i.getName()) );
@@ -111,15 +111,25 @@ public class Driver {
 					if ( command.contains("from") ) {
 						String temp = command.replaceAll("take", "").replaceAll("from", "").trim();
 						String[] words = temp.split(" ");
+						String name = words[0];
+						String tempColleciton = words[1];
+
 						//TODO: take item from container and put it in the inventory
+//						for ( Item i : tempColleciton.getCollection() ) { //TODO
+//							if ( i.getName().equals(name) ) {
+//								inventory.addItem(i);
+//								System.out.println( String.format("Taken %s from %s", i.getName(), name) );
+//								tempColleciton.removeItem(i); //TODO
+//							}
+//						}
 
 					} else {
 						String temp = command.replaceAll("take", "").trim();
 
-						for (Item i : curLocation.getItem()) {
-							if (i.getName().equals(temp)) {
+						for ( Item i : curLocation.getItem() ) {
+							if ( i.getName().equals(temp) ) {
 								inventory.addItem(i);
-								System.out.println(String.format("Taken %s", i.getName()));
+								System.out.println( String.format("Taken %s", i.getName()) );
 								curLocation.getItem().remove(i); //TODO: Error occurs when "scroll" is taken
 							}
 						}
@@ -128,11 +138,11 @@ public class Driver {
 				} else if ( command.contains("drop") ) {
 					String temp = command.replaceAll("drop", "").trim();
 
-					for ( Item i : curLocation.getItem() ) {
+					for ( Item i : inventory.getCollection() ) {
 						if ( i.getName().equals(temp) ) {
+							curLocation.getItem().add(i);
 							inventory.removeItem(i);
 							System.out.println( String.format("Dropped %s", i.getName()) );
-							curLocation.getItem().add(i);
 						}
 					}
 
@@ -145,15 +155,24 @@ public class Driver {
 								inventory.getCollection().size()) );
 
 						for ( Item i : inventory.getCollection() ) {
-							System.out.println( String.format("%s\n", i.getName()) );
+							System.out.println( String.format("\n%s", i.getName()) );
 						}
 					}
 
-				} else if ( command.contains("put") ) {
+				} else if ( command.contains("put") && command.contains("in")) {
+					String temp = command.replaceAll("put", "").replaceAll("in", "").trim();
+					String[] words = temp.split(" ");
+					String name = words[0];
+					String tempCollection = words[1];
+
 					// TODO: put name in container:
-					// If there is an item with the given name in the inventory,
-					// remove it from the inventory and add it to the specified container.
-					continue;
+//					for ( Item i : inventory.getCollection() ) {
+//						if ( i.getName().equals(words[0]) ) {
+//							tempCollection.addItem(i); //TODO
+//							inventory.removeItem(i);
+//							System.out.println( String.format("Put %s into %s from inventory", i.getName(), name) );
+//						}
+//					}
 
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
