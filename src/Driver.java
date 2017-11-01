@@ -11,7 +11,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 public class Driver {
 	
 	private static Location curLocation = new Location();
@@ -53,7 +52,6 @@ public class Driver {
         List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance
 		List<Item> indoorItem = Collections.singletonList(mirror); //items given in the 1st room
 
-
         // Add location(s)
         Location entrance = new Location("entrance",
 				"This is the starting position of the game. You are standing in front of a door.",
@@ -92,8 +90,10 @@ public class Driver {
 				command = in.nextLine().toLowerCase().trim();
 
 				if ( command.contains("look") ) {
-					System.out.println( String.format("\n\tCurrent location: %s", curLocation.getDesc()) );
-					System.out.println( String.format("\tItem(s) found there: %d item(s)", curLocation.retrieveNumOfItems()) );
+					System.out.println( String.format("\n\tCurrent location: %s",
+							curLocation.getDesc()) );
+					System.out.println( String.format("\tItem(s) found there: %d item(s)",
+							curLocation.retrieveNumOfItems()) );
 
                     for( Item i : curLocation.getItem() ) {
                     	System.out.println( String.format("\t\t%s", i.getName()) );
@@ -107,7 +107,7 @@ public class Driver {
 						String tempContainer = words[1];
 
 
-						//TODO: take item from container and put it in the inventory
+						//TODO: take item from container and put it in the inventory method
 //						for ( Item i : tempContainer.getCollection() ) { //TODO
 //							if ( i.getName().equals(name) ) {
 //								inventory.addItem(i);
@@ -172,7 +172,7 @@ public class Driver {
 					String name = words[0];
 					String tempContainer = words[1];
 
-					// TODO: put name in container:
+					// TODO: put name in container method:
 //					for ( Item i : inventory.getCollection() ) {
 //						if ( i.getName().equals(words[0]) ) {
 //							tempContainer.addItem(i); //TODO
