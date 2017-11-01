@@ -101,14 +101,14 @@ public class Driver {
 						String temp = command.replaceAll("take", "").replaceAll("from", "").trim();
 						String[] words = temp.split(" ");
 						String name = words[0];
-						String tempColleciton = words[1];
+						String tempContainer = words[1];
 
 						//TODO: take item from container and put it in the inventory
-//						for ( Item i : tempColleciton.getCollection() ) { //TODO
+//						for ( Item i : tempContainer.getCollection() ) { //TODO
 //							if ( i.getName().equals(name) ) {
 //								inventory.addItem(i);
 //								System.out.println( String.format("Taken %s from %s", i.getName(), name) );
-//								tempColleciton.removeItem(i); //TODO
+//								tempContainer.removeItem(i); //TODO
 //							}
 //						}
 
@@ -166,12 +166,12 @@ public class Driver {
 					String temp = command.replaceAll("put", "").replaceAll("in", "").trim();
 					String[] words = temp.split(" ");
 					String name = words[0];
-					String tempCollection = words[1];
+					String tempContainer = words[1];
 
 					// TODO: put name in container:
 //					for ( Item i : inventory.getCollection() ) {
 //						if ( i.getName().equals(words[0]) ) {
-//							tempCollection.addItem(i); //TODO
+//							tempContainer.addItem(i); //TODO
 //							inventory.removeItem(i);
 //							System.out.println( String.format("Put %s into %s from inventory", i.getName(), name) );
 //						}
