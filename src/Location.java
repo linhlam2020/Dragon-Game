@@ -88,9 +88,12 @@ public class Location {
         return this.getItem().size();
     }
 
-
     public void print() {
         System.out.println("Current Location:");
         System.out.println(String.format("\tShortName: %s", this.getName()));
+    }
+
+    public String toString() {
+        return "Name: " + name + "\nDescription: " + desc + "\nItem(s): " + item;
     }
 }

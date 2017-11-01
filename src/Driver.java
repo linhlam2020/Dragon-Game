@@ -14,18 +14,13 @@ public class Driver {
 	private static Location curLocation = new Location();
 	private static ContainerItem inventory = new ContainerItem();
 
-	private static List<Item> curItems = new ArrayList<>(); // TODO: Is this should be replaced with ContainerItem?
-
 	// Set attributes to current location
 	private static void setLocation( Location curLoc ) {
-		curLocation = curLoc;
-
-//		for (int i = 0; i<curLocation.getItem().size(); i++) {
-//			curItems.add(curLocation.getItem().get(i));
+//		for ( Item i : curLoc.getItem() ) {
+//			curLocation.addItem(i);
 //		}
-//		curItems = curLocation.getItem();
+		curLocation = curLoc;
 	}
-
 
 	public static void main(String[] args) throws FileNotFoundException {
         // All items given in the game
@@ -35,8 +30,8 @@ public class Driver {
 						" Use it to defend yourself and kill the dragon.");
         Item scroll = new Item("scroll",
 				"hint",
-				"The ancient scroll says:" +
-						"'You need to find three legendary artifacts to defeat the dragon." +
+				"The ancient scroll says," +
+						" 'You need to find three legendary artifacts to defeat the dragon." +
 						" They are the pearl of the Sun, the divine sword of cutting things," +
 						" and the mirror of totally deflecting light.'" );
         Item torch = new Item("torch",
@@ -50,13 +45,6 @@ public class Driver {
 				"This is the divine sword of cutting things." +
 						" Use it to kill the dragon and defend yourself." );
 
-        // Add items into an ArrayList //TODO (Items below are Not Being Used)
-        List<Item> itemList = new ArrayList<>();
-        itemList.add(mirror);
-        itemList.add(scroll);
-        itemList.add(torch);
-        itemList.add(sword);
-        itemList.add(pearl);
 
         // Create Item lists
         List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance
@@ -75,12 +63,13 @@ public class Driver {
         
 
     	Scanner in = new Scanner( System.in );
+
 		System.out.print( "Welcome to the The Legendary Tale of the Dragon Slayer game!" +
 				"\nDo you want to start the game? (y/n): " );
 		String start = in.nextLine().toLowerCase().trim();
 		
 		while ( !start.equals("n") && !start.equals("y") ) {
-			System.out.println( "Please enter y or n to start or close the game" );
+			System.out.println( "Please enter y or n to start or close the game." );
 			start = in.nextLine().toLowerCase().trim();
 		}
 		
@@ -125,37 +114,51 @@ public class Driver {
 
 					} else {
 						String temp = command.replaceAll("take", "").trim();
+						int count = 0;
 
 						for ( Item i : curLocation.getItem() ) {
 							if ( i.getName().equals(temp) ) {
 								inventory.addItem(i);
 								System.out.println( String.format("Taken %s", i.getName()) );
-								curLocation.getItem().remove(i); //TODO: Error occurs when "scroll" is taken
+								curLocation.getItem().remove(i);
+								count++;
+								break;
 							}
+						}
+
+						if ( count == 0 ) {
+							System.out.println( "The item you entered doesn't exist in this location." );
 						}
 					}
 
 				} else if ( command.contains("drop") ) {
 					String temp = command.replaceAll("drop", "").trim();
+					int count = 0;
 
 					for ( Item i : inventory.getCollection() ) {
 						if ( i.getName().equals(temp) ) {
 							curLocation.getItem().add(i);
 							inventory.removeItem(i);
 							System.out.println( String.format("Dropped %s", i.getName()) );
+							count++;
+							break;
 						}
+					}
+
+					if ( count == 0 ) {
+						System.out.println( "The item you entered doesn't exist in your inventory." );
 					}
 
 				} else if ( command.contains("inventory") ) {
 					if ( inventory.getCollection().size() == 0 ) {
-						System.out.println( "You currently have no item in your hands." );
+						System.out.println( "You currently have no item." );
 
 					} else {
-						System.out.println( String.format("\nYou are currently having %d items.\nNamely:",
+						System.out.println( String.format("\nYou are currently having %d items.\nNamely:\n",
 								inventory.getCollection().size()) );
 
 						for ( Item i : inventory.getCollection() ) {
-							System.out.println( String.format("\n%s", i.getName()) );
+							System.out.println( String.format("\t%s", i.getName()) );
 						}
 					}
 
