@@ -42,21 +42,8 @@ public class ContainerItem extends Item {
         return collection;
     }
     
-    public Item retrieveContainedItem( String shortName ) {
-        for (Item i: collection) {
-
-            if (i.getName().contains(shortName)) {
-               return i;           
-        
-            }
-        }
-
-        return null;
-    }
     
-    
-   
-    
+    //whether an item is in the container
     public boolean isHolding(String item) {
     	for( Item i : this.collection ) {
     		if ( item.contains(i.getName()))  {

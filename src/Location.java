@@ -82,7 +82,6 @@ public class Location {
 
             if (temp.getName().contains(shortName)) {
                 item = temp;
-                i++;
             } else {
                 i++;
             }
@@ -91,22 +90,7 @@ public class Location {
         return item;
     }
     
-    public Item retrieveContainerItem( String shortName ) {
-        int i = 0;
-        Item item = null;
 
-        while (i < this.getItem().size()) {
-            Item temp = this.getItem().get(i);
-
-            if (temp.getName().contains(shortName)) {
-                item = temp;
-            } else {
-                i++;
-            }
-        }
-
-        return item;
-    }
 
     // This method retrieves a count of the number of items in the location
     public int retrieveNumOfItems() {
