@@ -2,14 +2,12 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 1, 2017
+*@version November 2, 2017
 */
 
 import java.util.List;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Driver {
 	
@@ -63,10 +61,11 @@ public class Driver {
         entranceItem.add(torch);
         entranceItem.add(box);
 	    
-		 List<Item> indoorItem = new ArrayList<>();
-		 indoorItem.add(satchel);
+		List<Item> indoorItem = new ArrayList<>();
+		indoorItem.add(satchel);
+
 		//items given in the 1st room
-		 List<ContainerItem> containers = new ArrayList<>();
+		List<ContainerItem> containers = new ArrayList<>();
 		containers.add(box);
 		containers.add(satchel);
 		

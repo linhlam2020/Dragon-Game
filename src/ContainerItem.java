@@ -2,7 +2,7 @@
 *@description Location class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 1, 2017
+*@version November 2, 2017
 */
 
 import java.util.List;
@@ -10,17 +10,19 @@ import java.util.ArrayList;
 
 public class ContainerItem extends Item {
     private List<Item> collection;
-    
+
+    //
     public ContainerItem( String Name, String Type, String Description ) {
         super(  Name,  Type,  Description );
         collection = new ArrayList<>();
     }
 
-
+    //
     public ContainerItem() {
         collection = new ArrayList<>();
     }
-    
+
+    //
     public String getName() {
     	return super.getName();
     }
@@ -41,36 +43,35 @@ public class ContainerItem extends Item {
     public List<Item> getCollection() {
         return collection;
     }
-    
-    
+
     //whether an item is in the container
-    public boolean isHolding(String item) {
+    public boolean isHolding( String item ) {
     	for( Item i : this.collection ) {
-    		if ( item.contains(i.getName()))  {
-    			//System.out.println("True");
+    		if ( item.contains(i.getName()) )  {
     			return true;
-    			
 			}
 		}
-    	//System.out.println("false");
+
     	return false;
-    	
-    	}
+    }
+
+    //
     public void print() {
-    	System.out.println("\t\tShortname: " + super.getName() + "\n\t\tType: " + super.getType() + "\n\t\tDescription: It contains: ") ;
+    	System.out.println( "\t\tShortname: " + super.getName() + "\n\t\tType: " + super.getType() + "\n\t\tDescription: It contains: " ) ;
     	int countBox = 0;
-    	for( Item i : collection ) {
+
+    	for ( Item i : collection ) {
     		countBox++;
         	System.out.println(  String.format("\t\t%s", i.getName())) ;
     	}
+
     	if (countBox == 0)
-    		System.out.print("\t\tNothing");
+    		System.out.print( "\t\tNothing" );
     }
 
+    //
     public String toString( ) {
-    	
         return "\t\tShortname: " + super.getName( ) + "\n\t\tType: " + super.getType() + "\n\t\tDescription: "+ super.getDescription() ;
-        
     } 
     
 }

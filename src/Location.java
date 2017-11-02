@@ -2,7 +2,7 @@
 *@description Location class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 1, 2017
+*@version November 2, 2017
 */
 
 import java.util.List;
@@ -23,6 +23,7 @@ public class Location {
         item = Items;
     }
 
+    //
     public Location( ) {
 
     }
@@ -57,7 +58,7 @@ public class Location {
 
     // This method adds an item to the location
     public void addItem( Item item ) {
-        if (this.getItem() == null) {
+        if ( this.getItem() == null ) {
             List<Item> temp = new ArrayList<>();
             temp.add(item);
             setItem(temp);
@@ -66,11 +67,12 @@ public class Location {
             this.getItem().add(item);
         }
     }
-    public void removeItem(Item item) {
-    	if(this.getItem()!= null)
-            this.getItem().remove(item);
-        }
 
+    //
+    public void removeItem( Item item ) {
+    	if( this.getItem()!= null )
+            this.getItem().remove(item);
+    }
 
     // This method retrieves an item given its short name
     public Item retrieveItem( String shortName ) {
@@ -89,41 +91,42 @@ public class Location {
 
         return item;
     }
-    
-
 
     // This method retrieves a count of the number of items in the location
     public int retrieveNumOfItems() {
         return this.getItem().size();
     }
 
+    //
     public void print() {
-        System.out.println("Current Location:");
-        System.out.println(String.format("\tShortName: %s", this.getName()));
+        System.out.println( "Current Location:" );
+        System.out.println( String.format("\tShortName: %s", this.getName()) );
     }
 
+    //
     public String toString() {
         return "Name: " + name + "\nDescription: " + desc + "\nItem(s): " + item;
     }
 
-
-	public boolean isMember(String a) {
+    //
+	public boolean isMember( String a ) {
 	for( Item i : item ) {
 		if ( a.contains(i.getName()))  {
 			return true;
 		}
 	}
+
 	return false;
 	}
 
-public ContainerItem getContainers(List<ContainerItem> a, String shortName) {
-    for (ContainerItem i: a) {
-    if (i.getName().contains(shortName)) {
-       return i;           
-    
+	//
+    public ContainerItem getContainers( List<ContainerItem> a, String shortName ) {
+        for ( ContainerItem i: a ) {
+            if ( i.getName().contains(shortName) ) {
+                return i;
+            }
         }
-    }
 
-    return null;
-}
+        return null;
+    }
 }

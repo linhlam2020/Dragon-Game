@@ -2,7 +2,7 @@
 *@description Item class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 1, 2017
+*@version November 2, 2017
 */
 
 public class Item 
@@ -66,6 +66,7 @@ public class Item
         return "\t\tShortname: " + getName() + "\n\t\tType: " + getType( ) + "\n\t\tDescription: " + getDescription();
     } 
 
+    //
     public void print() {
         System.out.println( String.format("\tShortName: %s", name) );
         System.out.println( String.format("\tType: %s", type) );
