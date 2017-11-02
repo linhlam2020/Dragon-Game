@@ -23,7 +23,7 @@ public class Location {
         item = Items;
     }
 
-    public Location() {
+    public Location( ) {
 
     }
 

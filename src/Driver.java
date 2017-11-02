@@ -18,7 +18,7 @@ public class Driver {
 
 	// Set attributes to current location
 	private static void setLocation( Location curLoc ) {
-//		for ( Item i : curLoc.getItem() ) {
+//		for ( Item i : curLoc.getItem( ) ) {
 //			curLocation.addItem(i);
 //		}
 		curLocation = curLoc;
@@ -50,7 +50,7 @@ public class Driver {
 						" Use it to kill the dragon and defend yourself." );
         ContainerItem box = new ContainerItem("box", 
         		"container", 
-        		"contains a scroll");
+        		"contains a scroll" );
         
         box.addItem(scroll);
    
@@ -330,7 +330,7 @@ public class Driver {
                     	System.out.println( "You successfully broke the lock. The door is opened and you enter the house." );
                     	setLocation(inside);
                 	}
-                } else if ( command.equals("quit") ) { //TODO
+                } else if ( command.equals("quit" ) ) { //TODO
                 	System.out.println( "Thanks for playing!" );
                     break;
 

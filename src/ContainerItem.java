@@ -69,7 +69,7 @@ public class ContainerItem extends Item {
 
     public String toString( ) {
     	
-        return "\t\tShortname: " + super.getName() + "\n\t\tType: " + super.getType() + "\n\t\tDescription: "+ super.getDescription() ;
+        return "\t\tShortname: " + super.getName( ) + "\n\t\tType: " + super.getType() + "\n\t\tDescription: "+ super.getDescription() ;
         
     } 
     
