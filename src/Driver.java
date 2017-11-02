@@ -94,7 +94,7 @@ public class Driver {
 			start = in.nextLine().toLowerCase().trim();
 		}
 		
-		if ( start.equals("n") ) { //TODO
+		if ( start.equals("n") ) {
             System.out.println( "Thanks for playing" );
             System.exit(1);
 
@@ -235,7 +235,7 @@ public class Driver {
                 		System.out.println( String.format("\tYou are currently having %d items." +
                                 "\n\tTo see their names, try 'look' command. What do you want to examine?",
 								inventory.getCollection().size()) );
-                		command = in.nextLine().toLowerCase().trim(); //TODO
+                		command = in.nextLine().toLowerCase().trim();
                     }
 
                     // If command contains the item name that is included in the current state,
@@ -252,7 +252,7 @@ public class Driver {
                 		System.out.println( "Cannot find the item." );
                 	}
 
-                } else if ( command.contains("open") && command.contains("door") ) {
+                } else if ( command.contains("open") && command.contains("door") ) { //TODO: open door method works even though after entering the door
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock. " +
 							"On the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
@@ -269,7 +269,7 @@ public class Driver {
 						// If wrong passcode entered more than 3 times after having 2 hints,
 						// offer the quit option. If don't quit, start over.
 						if ( (attempt == 2) && (hintNo > 3) ) {
-							System.out.println( "You tried many time. Do you want to quit? (y/n)" ); //TODO
+							System.out.println( "You tried many time. Do you want to quit? (y/n)" );
 							String quitBool = in.nextLine().toLowerCase().trim();
 
 							if (quitBool.equals("y")) {
@@ -300,11 +300,11 @@ public class Driver {
 							// If wrong passcode > 3 times before having 2 hints
 							System.out.println( "You tried 3 times." +
 									"The lock automatically gives you a hint. Enter the figure that you want to see hint." );
-							String hint = in.nextLine().toLowerCase().trim(); //TODO
+							String hint = in.nextLine().toLowerCase().trim();
 
 							while ( !(hint.contains("rainbow") || hint.contains("circle") || hint.contains("square") || hint.contains("triangle")) ) {
 								System.out.println( "Please enter one of a given figure. For example, 'rainbow'" );
-								hint = in.nextLine().toLowerCase().trim(); //TODO
+								hint = in.nextLine().toLowerCase().trim();
 							}
 
 							if ( hint.contains("rainbow") ) {
@@ -333,7 +333,7 @@ public class Driver {
                     	System.out.println( "You successfully broke the lock. The door is opened and you enter the house." );
                     	setLocation(inside);
                 	}
-                } else if ( command.equals("quit" ) ) { //TODO
+                } else if ( command.equals("quit" ) ) {
                 	System.out.println( "Thanks for playing!" );
                     break;
 
