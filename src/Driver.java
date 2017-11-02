@@ -74,7 +74,8 @@ public class Driver {
 
         // Add location(s)
         Location entrance = new Location("entrance",
-				"This is the starting position of the game. You are standing in front of a door. There is a box next to you",
+				"This is the starting position of the game. You are standing in front of a door." +
+						" There is a box next to you",
 				entranceItem);
         Location inside = new Location("inside the house",
 				"You are now standing in side the house." +
@@ -126,13 +127,13 @@ public class Driver {
 						String[] words = temp.split(" ");
 						String object = words[0];
 						String tempContainer = words[1];
-						//System.out.println(object);
-						//System.out.println(tempContainer);
-						//if take something from the container, which is either in inventory or in current location
 						ContainerItem target = curLocation.getContainers(containers, tempContainer);
-						if (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer)) {
+
+						//if take something from the container, which is either in inventory or in current location
+						if ( inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer) ) {
 							int count = 0;
-							for ( Item i : target.getCollection()) {
+
+							for ( Item i : target.getCollection() ) {
 								if ( i.getName().contains(object) ) {
 									inventory.addItem(i);
 									System.out.println( String.format("Taken %s", i.getName()) );
@@ -140,19 +141,16 @@ public class Driver {
 									count++;
 									break;
 								}
-								
-								
 							}
-						if (count == 0)
-						{
-							System.out.println("Cannot do this command");
+							if ( count == 0 ) {
+								System.out.println( "Cannot do this command" );
+							}
 						}
-						}
-					}
-						
-					else {
+
+					} else {
 						String temp = command.replaceAll("take", "").trim();
 						int count = 0;
+
 						for ( Item i : curLocation.getItem() ) {
 							if ( i.getName().contains(temp) ) {
 								inventory.addItem(i);
@@ -165,9 +163,7 @@ public class Driver {
 
 						if ( count == 0 ) {
 							System.out.println( "The item you entered doesn't exist in this location." );
-							
 						}
-						
 					}
 
 				} else if ( command.contains("drop") ) {
@@ -207,12 +203,13 @@ public class Driver {
 							String object = words[0];
 							String tempContainer = words[1];
 							ContainerItem target = curLocation.getContainers(containers, tempContainer);
+
 							// if holding the object and put it into the container, which is either in inventory or at current location
-							if ((inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer))&&inventory.isHolding(object)) {
+							if ( (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) {
 								int count = 0;
-								for ( Item i : inventory.getCollection()) 
-									//find a given object to take it from the container
-								{
+
+								//find a given object to take it from the container
+								for ( Item i : inventory.getCollection() ) {
 									if ( i.getName().contains(object) ) {
 										inventory.removeItem(i);
 										System.out.println( String.format("Placed %s", i.getName()) );
@@ -220,16 +217,12 @@ public class Driver {
 										count++;
 										break;
 									}
-									
 								}
-							if (count == 0)
-							{
-								System.out.println("Cannot do this command");
-							}
-							}
-						
 
-					
+								if (count == 0) {
+									System.out.println( "Cannot do this command" );
+								}
+							}
 
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
