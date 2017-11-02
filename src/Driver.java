@@ -121,8 +121,9 @@ public class Driver {
 						String[] words = temp.split(" ");
 						String object = words[0];
 						String tempContainer = words[1];
+						//if take something from the container, which is either in inventory or in current location
 						ContainerItem target = curLocation.getContainers(containers, tempContainer);
-						if (inventory.isHolding(tempContainer)) {
+						if (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer)) {
 							int count = 0;
 							for ( Item i : target.getCollection()) {
 								if ( i.getName().contains(object) ) {
@@ -199,7 +200,8 @@ public class Driver {
 							String object = words[0];
 							String tempContainer = words[1];
 							ContainerItem target = curLocation.getContainers(containers, tempContainer);
-							if (inventory.isHolding(tempContainer)&&inventory.isHolding(object)) {
+							// if holding the object and put it into the container, which is either in inventory or at current location
+							if ((inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer))&&inventory.isHolding(object)) {
 								int count = 0;
 								for ( Item i : inventory.getCollection()) {
 									if ( i.getName().contains(object) ) {

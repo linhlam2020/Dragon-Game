@@ -107,7 +107,7 @@ public class Location {
     }
 
 
-	public boolean inLocation(String a) {
+	public boolean isMember(String a) {
 	for( Item i : item ) {
 		if ( a.contains(i.getName()))  {
 			return true;
