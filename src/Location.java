@@ -66,9 +66,32 @@ public class Location {
             this.getItem().add(item);
         }
     }
+    public void removeItem(Item item) {
+    	if(this.getItem()!= null)
+            this.getItem().remove(item);
+        }
+
 
     // This method retrieves an item given its short name
     public Item retrieveItem( String shortName ) {
+        int i = 0;
+        Item item = null;
+
+        while (i < this.getItem().size()) {
+            Item temp = this.getItem().get(i);
+
+            if (temp.getName().contains(shortName)) {
+                item = temp;
+                i++;
+            } else {
+                i++;
+            }
+        }
+
+        return item;
+    }
+    
+    public Item retrieveContainerItem( String shortName ) {
         int i = 0;
         Item item = null;
 
@@ -98,4 +121,25 @@ public class Location {
     public String toString() {
         return "Name: " + name + "\nDescription: " + desc + "\nItem(s): " + item;
     }
+
+
+	public boolean inLocation(String a) {
+	for( Item i : item ) {
+		if ( a.contains(i.getName()))  {
+			return true;
+		}
+	}
+	return false;
+	}
+
+public ContainerItem getContainers(List<ContainerItem> a, String shortName) {
+    for (ContainerItem i: a) {
+    if (i.getName().contains(shortName)) {
+       return i;           
+    
+        }
+    }
+
+    return null;
+}
 }

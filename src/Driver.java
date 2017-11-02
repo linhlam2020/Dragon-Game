@@ -23,8 +23,10 @@ public class Driver {
 //		}
 		curLocation = curLoc;
 	}
+   
 
 	public static void main(String[] args) {
+		
         // All items given in the game
         Item mirror = new Item("mirror",
 				"tool",
@@ -46,15 +48,28 @@ public class Driver {
 				"weapon",
 				"This is the divine sword of cutting things." +
 						" Use it to kill the dragon and defend yourself." );
-
+        ContainerItem box = new ContainerItem("box", 
+        		"container", 
+        		"contains a scroll");
+        
+        box.addItem(scroll);
+   
 
         // Create Item lists
-        List<Item> entranceItem = new ArrayList<>(Arrays.asList(torch,scroll)); //items given at entrance
-		List<Item> indoorItem = Collections.singletonList(mirror); //items given in the 1st room
+        List<Item> entranceItem = new ArrayList<>();
+        entranceItem.add(torch);
+        entranceItem.add(box);
+	    
+		 List<Item> indoorItem = new ArrayList<>();
+		//items given in the 1st room
+		 List<ContainerItem> containers = new ArrayList<>();
+		containers.add(box);
+		
+		 
 
         // Add location(s)
         Location entrance = new Location("entrance",
-				"This is the starting position of the game. You are standing in front of a door.",
+				"This is the starting position of the game. You are standing in front of a door. There is a box next to you",
 				entranceItem);
         Location inside = new Location("inside the house",
 				"You are now standing in side the house." +
@@ -81,7 +96,7 @@ public class Driver {
         } else if( start.equals("y") ) {
 			System.out.println("\nYou are an adventurer going on a quest to destroy the mighty dragon " +
 					" that is causing terror to the miserable village." +
-					"\nAt the beginning of the game, you are given an ancient scroll and a torch." );
+					"\nAt the beginning of the game, you are given a torch." );
 			setLocation( entrance );
 	
             String command;
@@ -92,36 +107,51 @@ public class Driver {
 				if ( command.contains("look") ) {
 					System.out.println( String.format("\n\tCurrent location: %s",
 							curLocation.getDesc()) );
-					System.out.println( String.format("\tItem(s) found there: %d item(s)",
+					System.out.println( String.format("\tItem(s) left there: %d item(s)",
 							curLocation.retrieveNumOfItems()) );
 
                     for( Item i : curLocation.getItem() ) {
                     	System.out.println( String.format("\t\t%s", i.getName()) );
 					}
+                
 
 				} else if ( command.contains("take") ) {
-					if ( command.contains("from") ) {
-						String temp = command.replaceAll("take", "").replaceAll("from", "").trim();
+					if ( command.contains("from") ) {						
+						String temp = command.replaceAll("take", "").replaceAll(" from", "").trim();
 						String[] words = temp.split(" ");
-						String name = words[0];
+						String object = words[0];
 						String tempContainer = words[1];
+						ContainerItem target = curLocation.getContainers(containers, tempContainer);
+						if (inventory.isHolding(tempContainer)) {
+							int count = 0;
+							for ( Item i : target.getCollection()) {
+								if ( i.getName().contains(object) ) {
+									inventory.addItem(i);
+									System.out.println( String.format("Taken %s", i.getName()) );
+									target.getCollection().remove(i);
+									count++;
+									break;
+								}
+								
+								
+							}
+						if (count == 0)
+						{
+							System.out.println("Cannot do this command");
+						}
+						}
+					}
+									
+								
+							
+						
 
-
-						//TODO: take item from container and put it in the inventory method
-//						for ( Item i : tempContainer.getCollection() ) { //TODO
-//							if ( i.getName().equals(name) ) {
-//								inventory.addItem(i);
-//								System.out.println( String.format("Taken %s from %s", i.getName(), name) );
-//								tempContainer.removeItem(i); //TODO
-//							}
-//						}
-
-					} else {
+					
+					else {
 						String temp = command.replaceAll("take", "").trim();
 						int count = 0;
-
 						for ( Item i : curLocation.getItem() ) {
-							if ( i.getName().equals(temp) ) {
+							if ( i.getName().contains(temp) ) {
 								inventory.addItem(i);
 								System.out.println( String.format("Taken %s", i.getName()) );
 								curLocation.getItem().remove(i);
@@ -132,7 +162,9 @@ public class Driver {
 
 						if ( count == 0 ) {
 							System.out.println( "The item you entered doesn't exist in this location." );
+							
 						}
+						
 					}
 
 				} else if ( command.contains("drop") ) {
@@ -167,19 +199,31 @@ public class Driver {
 					}
 
 				} else if ( command.contains("put") && command.contains("in")) {
-					String temp = command.replaceAll("put", "").replaceAll("in", "").trim();
-					String[] words = temp.split(" ");
-					String name = words[0];
-					String tempContainer = words[1];
+							String temp = command.replaceAll("put", "").replaceAll(" in", "").trim();
+							String[] words = temp.split(" ");
+							String object = words[0];
+							String tempContainer = words[1];
+							ContainerItem target = curLocation.getContainers(containers, tempContainer);
+							if (inventory.isHolding(tempContainer)&&inventory.isHolding(object)) {
+								int count = 0;
+								for ( Item i : inventory.getCollection()) {
+									if ( i.getName().contains(object) ) {
+										inventory.removeItem(i);
+										System.out.println( String.format("Placed %s", i.getName()) );
+										target.getCollection().add(i);
+										count++;
+										break;
+									}
+									
+								}
+							if (count == 0)
+							{
+								System.out.println("Cannot do this command");
+							}
+							}
+						
 
-					// TODO: put name in container method:
-//					for ( Item i : inventory.getCollection() ) {
-//						if ( i.getName().equals(words[0]) ) {
-//							tempContainer.addItem(i); //TODO
-//							inventory.removeItem(i);
-//							System.out.println( String.format("Put %s into %s from inventory", i.getName(), name) );
-//						}
-//					}
+					
 
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
@@ -192,15 +236,16 @@ public class Driver {
                 	if ( command.equals("examine") ) {
                 		System.out.println( String.format("\tYou are currently having %d items." +
                                 "\n\tTo see their names, try 'look' command. What do you want to examine?",
-								curLocation.getItem().size()) );
+								inventory.getCollection().size()) );
                 		command = in.nextLine().toLowerCase().trim(); //TODO
                     }
 
                     // If command contains the item name that is included in the current state,
 					// print the details of the item
-                	for( Item i : curLocation.getItem() ) {
+                	for( Item i : inventory.getCollection() ) {
                 		if ( command.contains(i.getName()) ) {
                 			i.print();
+                			//System.out.println(i);
                 			found = true;
 						}
 					}
