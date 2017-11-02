@@ -53,7 +53,10 @@ public class Driver {
         		"contains a scroll" );
         
         box.addItem(scroll);
-   
+        ContainerItem satchel = new ContainerItem("satchel", 
+        		"container", 
+        		"contains a mirror" );
+        satchel.addItem(mirror);
 
         // Create Item lists
         List<Item> entranceItem = new ArrayList<>();
@@ -61,9 +64,11 @@ public class Driver {
         entranceItem.add(box);
 	    
 		 List<Item> indoorItem = new ArrayList<>();
+		 indoorItem.add(satchel);
 		//items given in the 1st room
 		 List<ContainerItem> containers = new ArrayList<>();
 		containers.add(box);
+		containers.add(satchel);
 		
 		 
 
@@ -121,6 +126,8 @@ public class Driver {
 						String[] words = temp.split(" ");
 						String object = words[0];
 						String tempContainer = words[1];
+						//System.out.println(object);
+						//System.out.println(tempContainer);
 						//if take something from the container, which is either in inventory or in current location
 						ContainerItem target = curLocation.getContainers(containers, tempContainer);
 						if (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer)) {
@@ -203,7 +210,9 @@ public class Driver {
 							// if holding the object and put it into the container, which is either in inventory or at current location
 							if ((inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer))&&inventory.isHolding(object)) {
 								int count = 0;
-								for ( Item i : inventory.getCollection()) {
+								for ( Item i : inventory.getCollection()) 
+									//find a given object to take it from the container
+								{
 									if ( i.getName().contains(object) ) {
 										inventory.removeItem(i);
 										System.out.println( String.format("Placed %s", i.getName()) );
