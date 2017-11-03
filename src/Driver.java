@@ -20,7 +20,7 @@ public class Driver {
 	}
    
 
-	public static void main(String[] args) {
+	public static void main( String[] args ) {
 		
         // All items given in the game
         Item mirror = new Item("mirror",
