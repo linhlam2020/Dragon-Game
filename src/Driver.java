@@ -95,7 +95,7 @@ public class Driver {
             System.exit(1);
 
         } else if( start.equals("y") ) {
-			System.out.println("\nYou are an adventurer going on a quest to destroy the mighty dragon " +
+			System.out.println( "\nYou are an adventurer going on a quest to destroy the mighty dragon " +
 					" that is causing terror to the miserable village." +
 					"\nAt the beginning of the game, you are given a torch." );
 			setLocation( entrance );
@@ -146,12 +146,12 @@ public class Driver {
 							}
 
 							if ( count == 0 ) {
-								System.out.println("Cannot do this command");
+								System.out.println( "Cannot do this command" );
 							}
 						}
 
 					} else {
-						int count =0;
+						int count = 0;
 
 						for( Item i : curLocation.getItem() ) {
 	                		if ( command.contains(i.getName()) ) {
@@ -246,7 +246,6 @@ public class Driver {
                 	for( Item i : inventory.getCollection() ) {
                 		if ( command.contains(i.getName()) ) {
                 			i.print( );
-                			
                 			found = true;
 						}
 					}
@@ -257,11 +256,11 @@ public class Driver {
 
                 } else if ( command.contains("open") && command.contains("door") ) { //TODO: this method work even though after entering the door
                     // Open the door
-                	System.out.println( "You try to open the door and realized that it was locked with an ancient lock. " +
-							"On the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
-							"Under each figure, there is a place for you to put one digit from 0 to 9 on it." +
-							"To open the door, you have to guess correctly all 4 digits corresponding to 4 figures." );
-                	System.out.println( "Please enter the 4 digits (without spaces; for example, 0000)" );
+                	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
+							"\nOn the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
+							"\nUnder each figure, there is a place for you to put one digit from 0 to 9 on it." +
+							"\nTo open the door, you have to guess correctly all 4 digits corresponding to 4 figures." );
+                	System.out.println( "\nPlease enter the 4 digits (without spaces; for example, 0000)" );
                 	String passcode = in.nextLine();
 
                 	int attempt = 1;
@@ -336,13 +335,12 @@ public class Driver {
                     	System.out.println( "You successfully broke the lock. The door is opened and you enter the house." );
                     	setLocation(inside);
                 	}
-                } else if ( command.equals("quit") ) 
-                { 
+
+                } else if ( command.equals("quit") ) {
                 	System.out.println( "Thanks for playing!" );
                     break;
 
-                } 
-                else {
+                } else {
                     System.out.println( "I don't know how to do that." );
                 }
             }

@@ -29,14 +29,16 @@ public class ContainerItem extends Item {
 
     // This method adds an item to the collection
     public void addItem( Item item ) {
-    	if (collection!= null)
-        collection.add(item);
+    	if ( collection!= null ) {
+            collection.add(item);
+        }
     }
 
     // This method removes an item to the collection
     public void removeItem( Item item ) {
-    	if( collection!=null )
-        collection.remove(item);
+    	if( collection!=null ) {
+            collection.remove(item);
+        }
     }
 
     // This methods queries the collection

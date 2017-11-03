@@ -21,7 +21,7 @@ public class Item
 
 
     // This constructor takes no parameters and sets variables to arbitrary values.
-    public Item( ) {
+    public Item() {
         name = null;
         type = null;
         desc = null;
