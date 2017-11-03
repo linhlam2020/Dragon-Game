@@ -2,14 +2,12 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 2nd, 2017
+*@version November 3, 2017
 */
 
 import java.util.List;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Driver {
 	
@@ -18,9 +16,6 @@ public class Driver {
 
 	// Set attributes to current location
 	private static void setLocation( Location curLoc ) {
-//		for ( Item i : curLoc.getItem( ) ) {
-//			curLocation.addItem(i);
-//		}
 		curLocation = curLoc;
 	}
    
@@ -63,10 +58,11 @@ public class Driver {
         entranceItem.add(torch);
         entranceItem.add(box);
 	    
-		 List<Item> indoorItem = new ArrayList<>( );
-		 indoorItem.add(satchel);
+		List<Item> indoorItem = new ArrayList<>( );
+		indoorItem.add(satchel);
+
 		//items given in the 1st room
-		 List<ContainerItem> containers = new ArrayList<>();
+		List<ContainerItem> containers = new ArrayList<>();
 		containers.add(box);
 		containers.add(satchel);
 		
@@ -94,7 +90,7 @@ public class Driver {
 			start = in.nextLine().toLowerCase().trim();
 		}
 		
-		if ( start.equals("n") ) { //TODO
+		if ( start.equals("n") ) {
             System.out.println( "Thanks for playing" );
             System.exit(1);
 
@@ -133,13 +129,13 @@ public class Driver {
 						String[] words = temp.split(" ");
 						String object = words[0];
 						String tempContainer = words[1];
-						//System.out.println(object);
-						//System.out.println(tempContainer);
+
 						//if take something from the container, which is either in inventory or in current location
-						ContainerItem target = curLocation.getContainers(containers, tempContainer);
-						if (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer)) {
+						ContainerItem target = curLocation.getContainers( containers, tempContainer );
+						if ( inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer) ) {
 							int count = 0;
-							for ( Item i : target.getCollection()) {
+
+							for ( Item i : target.getCollection() ) {
 								if ( i.getName().contains(object) ) {
 									inventory.addItem(i);
 									System.out.println( String.format("Taken %s", i.getName()) );
@@ -147,21 +143,18 @@ public class Driver {
 									count++;
 									break;
 								}
-								
-								
 							}
-						if (count == 0)
-						{
-							System.out.println("Cannot do this command");
+
+							if ( count == 0 ) {
+								System.out.println("Cannot do this command");
+							}
 						}
-						}
-					}
-						
-					else {
+
+					} else {
 						int count =0;
+
 						for( Item i : curLocation.getItem() ) {
 	                		if ( command.contains(i.getName()) ) {
-						
 								inventory.addItem(i);
 								System.out.println( String.format("Taken %s", i.getName()) );
 								curLocation.getItem().remove(i);
@@ -172,9 +165,7 @@ public class Driver {
 
 						if ( count == 0 ) {
 							System.out.println( "The item you entered doesn't exist in this location." );
-							
 						}
-						
 					}
 
 				} else if ( command.contains("drop") ) {
@@ -208,18 +199,19 @@ public class Driver {
 						}
 					}
 
-				} else if ( command.contains("put") && command.contains("in")) {
+				} else if ( command.contains("put") && command.contains("in") ) {
 							String temp = command.replaceAll("put", "").replaceAll(" in", "").trim();
 							String[] words = temp.split(" ");
 							String object = words[0];
 							String tempContainer = words[1];
 							ContainerItem target = curLocation.getContainers(containers, tempContainer);
+
 							// if holding the object and put it into the container, which is either in inventory or at current location
-							if ((inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer))&&inventory.isHolding(object)) {
+							if ( (inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer))&&inventory.isHolding(object) ) {
 								int count = 0;
-								for ( Item i : inventory.getCollection()) 
-									//find a given object to take it from the container
-								{
+
+								//find a given object to take it from the container
+								for ( Item i : inventory.getCollection() ) {
 									if ( i.getName().contains(object) ) {
 										inventory.removeItem(i);
 										System.out.println( String.format("Placed %s", i.getName()) );
@@ -227,16 +219,12 @@ public class Driver {
 										count++;
 										break;
 									}
-									
 								}
-							if ( count == 0 )
-							{
-								System.out.println( "Cannot do this command" );
-							}
-							}
-						
 
-					
+								if ( count == 0 ) {
+									System.out.println( "Cannot do this command" );
+								}
+							}
 
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
@@ -284,7 +272,7 @@ public class Driver {
 						// If wrong passcode entered more than 3 times after having 2 hints,
 						// offer the quit option. If don't quit, start over.
 						if ( (attempt == 2) && (hintNo > 3) ) {
-							System.out.println( "You tried many time. Do you want to quit? (y/n)" ); //TODO
+							System.out.println( "You tried many time. Do you want to quit? (y/n)" );
 							String quitBool = in.nextLine().toLowerCase().trim();
 
 							if (quitBool.equals("y")) {
@@ -315,11 +303,11 @@ public class Driver {
 							// If wrong passcode > 3 times before having 2 hints
 							System.out.println( "You tried 3 times." +
 									"The lock automatically gives you a hint. Enter the figure that you want to see hint." );
-							String hint = in.nextLine().toLowerCase().trim(); //TODO
+							String hint = in.nextLine().toLowerCase().trim();
 
 							while ( !(hint.contains("rainbow") || hint.contains("circle") || hint.contains("square") || hint.contains("triangle")) ) {
 								System.out.println( "Please enter one of a given figure. For example, 'rainbow'" );
-								hint = in.nextLine().toLowerCase().trim(); //TODO
+								hint = in.nextLine().toLowerCase().trim();
 							}
 
 							if ( hint.contains("rainbow") ) {

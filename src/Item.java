@@ -2,7 +2,7 @@
 *@description Item class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 2, 2017
+*@version November 3, 2017
 */
 
 public class Item 
@@ -39,8 +39,7 @@ public class Item
         type = iType;
     }
 
-    public void setDescription( String iDesc )
-    {
+    public void setDescription( String iDesc ) {
         desc= iDesc;
     }
 
