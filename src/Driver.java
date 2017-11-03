@@ -255,7 +255,7 @@ public class Driver {
                 		System.out.println( "Cannot find the item." );
                 	}
 
-                } else if ( command.contains("open") && command.contains("door") ) {
+                } else if ( command.contains("open") && command.contains("door") ) { //TODO: this method work even though after entering the door
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock. " +
 							"On the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
@@ -275,7 +275,7 @@ public class Driver {
 							System.out.println( "You tried many time. Do you want to quit? (y/n)" );
 							String quitBool = in.nextLine().toLowerCase().trim();
 
-							if (quitBool.equals("y")) {
+							if ( quitBool.equals("y") ) {
 								System.out.println( "Thanks for playing!" );
 								System.exit(1);
 
