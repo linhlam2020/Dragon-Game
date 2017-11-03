@@ -17,7 +17,7 @@ public class Location {
     // A constructor that takes three parameters and
     // sets the variables accordingly. Parameters must
     // be in order: name, type, description.
-    public Location(String Name, String Description, List<Item> Items) {
+    public Location( String Name, String Description, List<Item> Items ) {
         name = Name;
         desc = Description;
         item = Items;
@@ -79,10 +79,10 @@ public class Location {
         int i = 0;
         Item item = null;
 
-        while (i < this.getItem().size()) {
+        while ( i < this.getItem().size() ) {
             Item temp = this.getItem().get(i);
 
-            if (temp.getName().contains(shortName)) {
+            if ( temp.getName().contains(shortName) ) {
                 item = temp;
             } else {
                 i++;
@@ -111,7 +111,7 @@ public class Location {
     //
 	public boolean isMember( String a ) {
 	for( Item i : item ) {
-		if ( a.contains(i.getName()))  {
+		if ( a.contains(i.getName()) )  {
 			return true;
 		}
 	}

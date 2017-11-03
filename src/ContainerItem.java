@@ -13,7 +13,7 @@ public class ContainerItem extends Item {
 
     //
     public ContainerItem( String Name, String Type, String Description ) {
-        super(  Name,  Type,  Description );
+        super( Name,  Type,  Description );
         collection = new ArrayList<>();
     }
 
@@ -35,7 +35,7 @@ public class ContainerItem extends Item {
 
     // This method removes an item to the collection
     public void removeItem( Item item ) {
-    	if(collection!=null)
+    	if( collection!=null )
         collection.remove(item);
     }
 
@@ -62,10 +62,10 @@ public class ContainerItem extends Item {
 
     	for ( Item i : collection ) {
     		countBox++;
-        	System.out.println(  String.format("\t\t%s", i.getName())) ;
+        	System.out.println( String.format("\t\t%s", i.getName()) ) ;
     	}
 
-    	if (countBox == 0)
+    	if ( countBox == 0 )
     		System.out.print( "\t\tNothing" );
     }
 
