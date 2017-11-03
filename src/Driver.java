@@ -2,12 +2,14 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 2, 2017
+*@version November 2nd, 2017
 */
 
 import java.util.List;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Driver {
 	
@@ -57,15 +59,14 @@ public class Driver {
         satchel.addItem(mirror);
 
         // Create Item lists
-        List<Item> entranceItem = new ArrayList<>();
+        List<Item> entranceItem = new ArrayList<>( );
         entranceItem.add(torch);
         entranceItem.add(box);
 	    
-		List<Item> indoorItem = new ArrayList<>();
-		indoorItem.add(satchel);
-
+		 List<Item> indoorItem = new ArrayList<>( );
+		 indoorItem.add(satchel);
 		//items given in the 1st room
-		List<ContainerItem> containers = new ArrayList<>();
+		 List<ContainerItem> containers = new ArrayList<>();
 		containers.add(box);
 		containers.add(satchel);
 		
@@ -73,8 +74,7 @@ public class Driver {
 
         // Add location(s)
         Location entrance = new Location("entrance",
-				"This is the starting position of the game. You are standing in front of a door." +
-						" There is a box next to you",
+				"This is the starting position of the game. You are standing in front of a door. There is a box next to you",
 				entranceItem);
         Location inside = new Location("inside the house",
 				"You are now standing in side the house." +
@@ -94,7 +94,7 @@ public class Driver {
 			start = in.nextLine().toLowerCase().trim();
 		}
 		
-		if ( start.equals("n") ) {
+		if ( start.equals("n") ) { //TODO
             System.out.println( "Thanks for playing" );
             System.exit(1);
 
@@ -121,18 +121,25 @@ public class Driver {
                 
 
 				} else if ( command.contains("take") ) {
+					if ( command.equals("take") ) {
+                		System.out.println( String.format("\tThe location is currently having %d items." +
+                                "\n\tTo see their names, try 'look' command. What do you want to take?",
+								curLocation.getItem().size()) );
+                		command = in.nextLine().toLowerCase().trim();
+                    }
+					
 					if ( command.contains("from") ) {						
 						String temp = command.replaceAll("take", "").replaceAll(" from", "").trim();
 						String[] words = temp.split(" ");
 						String object = words[0];
 						String tempContainer = words[1];
-						ContainerItem target = curLocation.getContainers(containers, tempContainer);
-
+						//System.out.println(object);
+						//System.out.println(tempContainer);
 						//if take something from the container, which is either in inventory or in current location
-						if ( inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer) ) {
+						ContainerItem target = curLocation.getContainers(containers, tempContainer);
+						if (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer)) {
 							int count = 0;
-
-							for ( Item i : target.getCollection() ) {
+							for ( Item i : target.getCollection()) {
 								if ( i.getName().contains(object) ) {
 									inventory.addItem(i);
 									System.out.println( String.format("Taken %s", i.getName()) );
@@ -140,18 +147,21 @@ public class Driver {
 									count++;
 									break;
 								}
+								
+								
 							}
-							if ( count == 0 ) {
-								System.out.println( "Cannot do this command" );
-							}
+						if (count == 0)
+						{
+							System.out.println("Cannot do this command");
 						}
-
-					} else {
-						String temp = command.replaceAll("take", "").trim();
-						int count = 0;
-
-						for ( Item i : curLocation.getItem() ) {
-							if ( i.getName().contains(temp) ) {
+						}
+					}
+						
+					else {
+						int count =0;
+						for( Item i : curLocation.getItem() ) {
+	                		if ( command.contains(i.getName()) ) {
+						
 								inventory.addItem(i);
 								System.out.println( String.format("Taken %s", i.getName()) );
 								curLocation.getItem().remove(i);
@@ -162,7 +172,9 @@ public class Driver {
 
 						if ( count == 0 ) {
 							System.out.println( "The item you entered doesn't exist in this location." );
+							
 						}
+						
 					}
 
 				} else if ( command.contains("drop") ) {
@@ -202,13 +214,12 @@ public class Driver {
 							String object = words[0];
 							String tempContainer = words[1];
 							ContainerItem target = curLocation.getContainers(containers, tempContainer);
-
 							// if holding the object and put it into the container, which is either in inventory or at current location
-							if ( (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) {
+							if ((inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer))&&inventory.isHolding(object)) {
 								int count = 0;
-
-								//find a given object to take it from the container
-								for ( Item i : inventory.getCollection() ) {
+								for ( Item i : inventory.getCollection()) 
+									//find a given object to take it from the container
+								{
 									if ( i.getName().contains(object) ) {
 										inventory.removeItem(i);
 										System.out.println( String.format("Placed %s", i.getName()) );
@@ -216,12 +227,16 @@ public class Driver {
 										count++;
 										break;
 									}
+									
 								}
-
-								if (count == 0) {
-									System.out.println( "Cannot do this command" );
-								}
+							if ( count == 0 )
+							{
+								System.out.println( "Cannot do this command" );
 							}
+							}
+						
+
+					
 
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
@@ -235,15 +250,15 @@ public class Driver {
                 		System.out.println( String.format("\tYou are currently having %d items." +
                                 "\n\tTo see their names, try 'look' command. What do you want to examine?",
 								inventory.getCollection().size()) );
-                		command = in.nextLine().toLowerCase().trim();
+                		command = in.nextLine().toLowerCase().trim(); 
                     }
 
                     // If command contains the item name that is included in the current state,
 					// print the details of the item
                 	for( Item i : inventory.getCollection() ) {
                 		if ( command.contains(i.getName()) ) {
-                			i.print();
-                			//System.out.println(i);
+                			i.print( );
+                			
                 			found = true;
 						}
 					}
@@ -252,7 +267,7 @@ public class Driver {
                 		System.out.println( "Cannot find the item." );
                 	}
 
-                } else if ( command.contains("open") && command.contains("door") ) { //TODO: open door method works even though after entering the door
+                } else if ( command.contains("open") && command.contains("door") ) {
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock. " +
 							"On the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
@@ -269,7 +284,7 @@ public class Driver {
 						// If wrong passcode entered more than 3 times after having 2 hints,
 						// offer the quit option. If don't quit, start over.
 						if ( (attempt == 2) && (hintNo > 3) ) {
-							System.out.println( "You tried many time. Do you want to quit? (y/n)" );
+							System.out.println( "You tried many time. Do you want to quit? (y/n)" ); //TODO
 							String quitBool = in.nextLine().toLowerCase().trim();
 
 							if (quitBool.equals("y")) {
@@ -300,11 +315,11 @@ public class Driver {
 							// If wrong passcode > 3 times before having 2 hints
 							System.out.println( "You tried 3 times." +
 									"The lock automatically gives you a hint. Enter the figure that you want to see hint." );
-							String hint = in.nextLine().toLowerCase().trim();
+							String hint = in.nextLine().toLowerCase().trim(); //TODO
 
 							while ( !(hint.contains("rainbow") || hint.contains("circle") || hint.contains("square") || hint.contains("triangle")) ) {
 								System.out.println( "Please enter one of a given figure. For example, 'rainbow'" );
-								hint = in.nextLine().toLowerCase().trim();
+								hint = in.nextLine().toLowerCase().trim(); //TODO
 							}
 
 							if ( hint.contains("rainbow") ) {
@@ -333,11 +348,13 @@ public class Driver {
                     	System.out.println( "You successfully broke the lock. The door is opened and you enter the house." );
                     	setLocation(inside);
                 	}
-                } else if ( command.equals("quit" ) ) {
+                } else if ( command.equals("quit") ) 
+                { 
                 	System.out.println( "Thanks for playing!" );
                     break;
 
-                } else {
+                } 
+                else {
                     System.out.println( "I don't know how to do that." );
                 }
             }
