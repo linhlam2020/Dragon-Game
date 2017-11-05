@@ -23,7 +23,6 @@ public class Location {
         item = Items;
     }
 
-    //
     public Location( ) {
 
     }
@@ -68,9 +67,9 @@ public class Location {
         }
     }
 
-    //
+    // This method removes an item from the location
     public void removeItem( Item item ) {
-    	if( this.getItem()!= null )
+    	if ( this.getItem()!= null )
             this.getItem().remove(item);
     }
 
@@ -97,29 +96,18 @@ public class Location {
         return this.getItem().size();
     }
 
-    //
-    public void print() {
-        System.out.println( "Current Location:" );
-        System.out.println( String.format("\tShortName: %s", this.getName()) );
-    }
-
-    //
-    public String toString() {
-        return "Name: " + name + "\nDescription: " + desc + "\nItem(s): " + item;
-    }
-
-    //
+    // This method returns true if an item entered is a member of the container
 	public boolean isMember( String a ) {
-	for( Item i : item ) {
-		if ( a.contains(i.getName()) )  {
-			return true;
-		}
+        for( Item i : item ) {
+            if ( a.contains(i.getName()) )  {
+                return true;
+            }
+        }
+
+        return false;
 	}
 
-	return false;
-	}
-
-	//
+	// This method gets container
     public ContainerItem getContainers( List<ContainerItem> a, String shortName ) {
         for ( ContainerItem i: a ) {
             if ( i.getName().contains(shortName) ) {
@@ -128,5 +116,14 @@ public class Location {
         }
 
         return null;
+    }
+
+    public void print() {
+        System.out.println( "Current Location:" );
+        System.out.println( String.format("\tShortName: %s", this.getName()) );
+    }
+
+    public String toString() {
+        return "Name: " + name + "\nDescription: " + desc + "\nItem(s): " + item;
     }
 }

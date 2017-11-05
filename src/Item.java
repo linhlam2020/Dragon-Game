@@ -2,7 +2,7 @@
 *@description Item class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 3, 2017
+*@version November 5, 2017
 */
 
 public class Item 
@@ -60,12 +60,11 @@ public class Item
         return desc;
     }
 
-    // To String method: set the template to prints out the information about the item.
+
     public String toString( ) {
         return "\t\tShortname: " + getName() + "\n\t\tType: " + getType( ) + "\n\t\tDescription: " + getDescription();
     } 
 
-    //
     public void print() {
         System.out.println( String.format("\tShortName: %s", name) );
         System.out.println( String.format("\tType: %s", type) );

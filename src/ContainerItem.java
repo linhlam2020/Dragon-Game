@@ -2,7 +2,7 @@
 *@description Location class
 *
 *@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 3, 2017
+*@version November 5, 2017
 */
 
 import java.util.List;
@@ -11,18 +11,16 @@ import java.util.ArrayList;
 public class ContainerItem extends Item {
     private List<Item> collection;
 
-    //
     public ContainerItem( String Name, String Type, String Description ) {
         super( Name,  Type,  Description );
         collection = new ArrayList<>();
     }
 
-    //
     public ContainerItem() {
         collection = new ArrayList<>();
     }
 
-    //
+    // This method return name of an item
     public String getName() {
     	return super.getName();
     }
@@ -36,7 +34,7 @@ public class ContainerItem extends Item {
 
     // This method removes an item to the collection
     public void removeItem( Item item ) {
-    	if( collection!=null ) {
+    	if ( collection!=null ) {
             collection.remove(item);
         }
     }
@@ -46,9 +44,9 @@ public class ContainerItem extends Item {
         return collection;
     }
 
-    //whether an item is in the container
+    // This method return true if an item is in the container
     public boolean isHolding( String item ) {
-    	for( Item i : this.collection ) {
+    	for ( Item i : this.collection ) {
     		if ( item.contains(i.getName()) )  {
     			return true;
 			}
@@ -57,7 +55,6 @@ public class ContainerItem extends Item {
     	return false;
     }
 
-    //
     public void print() {
     	System.out.println( "\t\tShortname: " + super.getName() + "\n\t\tType: " + super.getType() + "\n\t\tDescription:\n\t\t\tIt contains: " ) ;
     	int countBox = 0;
@@ -71,7 +68,6 @@ public class ContainerItem extends Item {
     		System.out.print( "\t\t\t\tNothing" );
     }
 
-    //
     public String toString( ) {
         return "\t\tShortname: " + super.getName( ) + "\n\t\tType: " + super.getType() + "\n\t\tDescription: "+ super.getDescription() ;
     } 

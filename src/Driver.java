@@ -94,7 +94,7 @@ public class Driver {
             System.out.println( "Thanks for playing" );
             System.exit(1);
 
-        } else if( start.equals("y") ) {
+        } else if ( start.equals("y") ) {
 			System.out.println( "\nYou are an adventurer going on a quest to destroy the mighty dragon " +
 					" that is causing terror to the miserable village." +
 					"\nAt the beginning of the game, you are given a torch." );
@@ -130,7 +130,7 @@ public class Driver {
 						String object = words[0];
 						String tempContainer = words[1];
 
-						//if take something from the container, which is either in inventory or in current location
+						//if a command takes something from the container, which is either in inventory or in current location
 						ContainerItem target = curLocation.getContainers( containers, tempContainer );
 						if ( inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer) ) {
 							int count = 0;
@@ -243,7 +243,7 @@ public class Driver {
 
                     // If command contains the item name that is included in the current state,
 					// print the details of the item
-                	for( Item i : inventory.getCollection() ) {
+                	for ( Item i : inventory.getCollection() ) {
                 		if ( command.contains(i.getName()) ) {
                 			i.print( );
                 			found = true;
@@ -254,7 +254,7 @@ public class Driver {
                 		System.out.println( "Cannot find the item." );
                 	}
 
-                } else if ( command.contains("open") && command.contains("door") ) { //TODO: this method work even though after entering the door
+                } else if ( command.contains("open") && command.contains("door") && curLocation == entrance) {
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
 							"\nOn the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
