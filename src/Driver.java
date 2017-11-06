@@ -85,8 +85,7 @@ public class Driver {
 				entranceItem);
         Location inside = new Location("inside the house",
 				"You are now standing in side the house." +
-						" There is a small satchel on the table." +
-						" There are 2 locked doors: One to the left, One to the right.",
+				" There are 2 locked doors: One to the left, One to the right.",
 				indoorItem);
         
 
@@ -135,33 +134,41 @@ public class Driver {
                 		command = in.nextLine().toLowerCase().trim();
                     }
 					
-					if ( command.contains("from") ) {						
+					if ( command.contains("from") && command.contains(" ")) {
+						
 						String temp = command.replaceAll("take", "").replaceAll(" from", "").trim();
 						String[] words = temp.split(" ");
-						String object = words[0];
-						String tempContainer = words[1];
-
-						//if a command takes something from the container, which is either in inventory or in current location
-						ContainerItem target = curLocation.getContainers( containers, tempContainer );
-						if ( inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer) ) {
-							int count = 0;
-
-							for ( Item i : target.getCollection() ) {
-								if ( i.getName().contains(object) ) {
-									inventory.addItem(i);
-									System.out.println( String.format("Took %s", i.getName()) );
-									target.getCollection().remove(i);
-									count++;
-									break;
+						String object;
+						String tempContainer;						
+						if (words.length >= 2) {
+							object = words[0];
+							tempContainer = words[1];
+							//if a command takes something from the container, which is either in inventory or in current location
+							ContainerItem target = curLocation.getContainers( containers, tempContainer );
+							if ( (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer))  && !object.equals(tempContainer) && (isContainer(tempContainer))) {
+								int count = 0;
+								for ( Item i : target.getCollection() ) {
+									if ( i.getName().contains(object) ) {
+										inventory.addItem(i);
+										System.out.println( String.format("Took %s", i.getName()) );
+										target.getCollection().remove(i);
+										count++;
+										break;
+									}
 								}
-							}
 
-							if ( count == 0 ) {
-								System.out.println( "Cannot do this command" );
+								if ( count == 0 ) 
+									System.out.println( "Cannot do this command" );
+							
 							}
+							else
+								System.out.println("Cannot do the command");
 						}
+						else
+							System.out.println("Syntax error. Please type 'take [item] from [container]'");
 
-					} else {
+					
+						} else {
 						int count = 0;
 
 						for( Item i : curLocation.getItem() ) {
@@ -210,35 +217,39 @@ public class Driver {
 						}
 					}
 
-				} else if ( command.contains("put") && command.contains("in") ) {
-							String temp = command.replaceAll("put", "").replaceAll(" in", "").trim();
-							String[] words = temp.split(" ");
-							String object = words[0];
-							String tempContainer = words[1];
-							ContainerItem target = curLocation.getContainers(containers, tempContainer);
+				} else if ( command.contains("put") && command.contains("in") && command.contains(" ") ) {
+									
+					String temp = command.replaceAll("put", "").replaceAll(" in", "").trim();
+					String[] words = temp.split(" ");
+					String object = words[0];
+					if (words.length >= 2) 
+					{
+						String tempContainer = words[1];
+						ContainerItem target = curLocation.getContainers(containers, tempContainer);
 
-							// if holding the object and put it into the container, which is either in inventory or at current location
-							if (( ( (inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) && !object.equals(tempContainer)) && (isContainer(tempContainer)))  {
-								int count = 0;
-
-								//find a given object to take it from the container
-								for ( Item i : inventory.getCollection() ) {
-									if ( i.getName().contains(object) ) {
-										inventory.removeItem(i);
-										System.out.println( String.format("Placed %s", i.getName()) );
-										target.getCollection().add(i);
-										count++;
-										break;
-									}
+						// if holding the object and put it into the container, which is either in inventory or at current location
+						if (( ( (inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) && !object.equals(tempContainer)) && (isContainer(tempContainer)))  {
+							int count = 0;
+							//find a given object to take it from the container
+							for ( Item i : inventory.getCollection() ) {
+								if ( i.getName().contains(object) ) {
+									inventory.removeItem(i);
+									System.out.println( String.format("Placed %s", i.getName()) );
+									target.getCollection().add(i);
+									count++;
+									break;
 								}
-
-								if ( count == 0 ) {
-									System.out.println( "Cannot do this command" );
-								}
-								
 							}
-							else
+
+							if ( count == 0 ) 
 								System.out.println( "Cannot do this command" );
+																
+						}
+						else
+							System.out.println("Cannot do this command");
+					}
+						else
+							System.out.println( "Syntax error. Please type 'put [item] in [container]'" );
 
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
