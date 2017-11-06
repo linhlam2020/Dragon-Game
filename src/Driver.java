@@ -1,8 +1,8 @@
 /*
 *@description Driver class
 *
-*@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 5, 2017
+*@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
+*@version November 6, 2017
 */
 
 import java.util.List;
@@ -138,11 +138,9 @@ public class Driver {
 						
 						String temp = command.replaceAll("take", "").replaceAll(" from", "").trim();
 						String[] words = temp.split(" ");
-						String object;
-						String tempContainer;						
 						if (words.length >= 2) {
-							object = words[0];
-							tempContainer = words[1];
+							String object = words[0];
+							String tempContainer = words[1];
 							//if a command takes something from the container, which is either in inventory or in current location
 							ContainerItem target = curLocation.getContainers( containers, tempContainer );
 							if ( (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer))  && !object.equals(tempContainer) && (isContainer(tempContainer))) {
@@ -221,9 +219,9 @@ public class Driver {
 									
 					String temp = command.replaceAll("put", "").replaceAll(" in", "").trim();
 					String[] words = temp.split(" ");
-					String object = words[0];
 					if (words.length >= 2) 
 					{
+						String object = words[0];
 						String tempContainer = words[1];
 						ContainerItem target = curLocation.getContainers(containers, tempContainer);
 

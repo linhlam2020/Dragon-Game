@@ -1,8 +1,8 @@
 /*
 *@description Location class
 *
-*@author Team 4B : Linh Lam, So Negishi, Hoang Pham, Duc Nguyen
-*@version November 5, 2017
+*@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
+*@version November 6, 2017
 */
 
 import java.util.List;
