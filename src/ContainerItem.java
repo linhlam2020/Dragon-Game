@@ -57,16 +57,19 @@ public class ContainerItem extends Item {
     }
 
     public void print() {
-    	System.out.println( "\t\tShortname: " + super.getName() + "\n\t\tType: " + super.getType() + "\n\t\tDescription:\n\t\t\tIt contains: " ) ;
+    	System.out.println( "\tShortname: " + super.getName() + "\n\tType: " + super.getType() + "\n\tDescription: " + super.getDescription() + "\n\tIt contains: " ) ;
     	int countBox = 0;
 
     	for ( Item i : collection ) {
     		countBox++;
-        	System.out.println( String.format("\t\t\t\t%s", i.getName()) ) ;
+        	System.out.println( String.format("\t\t%s", i.getName()) ) ;
     	}
 
-    	if ( countBox == 0 )
-    		System.out.print( "\t\t\t\tNothing" );
+    	if ( countBox == 0 ) {
+    		System.out.print( "\t\tNothing" );
+    		System.out.println();}
+    	System.out.println();
+    	
     }
 
     public String toString( ) {

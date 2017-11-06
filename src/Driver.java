@@ -55,12 +55,12 @@ public class Driver {
 						" Use it to kill the dragon and defend yourself." );
         ContainerItem box = new ContainerItem("box", 
         		"container", 
-        		"contains a scroll" );
+        		"A silver box." );
         
         box.addItem(scroll);
         ContainerItem satchel = new ContainerItem("satchel", 
         		"container", 
-        		"contains a mirror" );
+        		"A small satchel" );
         satchel.addItem(mirror);
 
         // Create Item lists
@@ -81,11 +81,11 @@ public class Driver {
 
         // Add location(s)
         Location entrance = new Location("entrance",
-				"This is the starting position of the game. You are standing in front of a door. There is a box next to you",
+				"This is the starting position of the game. You are standing in front of a door.",
 				entranceItem);
         Location inside = new Location("inside the house",
 				"You are now standing in side the house." +
-						" There is a small mirror hung on the wall." +
+						" There is a small satchel on the table." +
 						" There are 2 locked doors: One to the left, One to the right.",
 				indoorItem);
         
