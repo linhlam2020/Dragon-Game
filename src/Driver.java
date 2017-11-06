@@ -13,10 +13,20 @@ public class Driver {
 	
 	private static Location curLocation = new Location();
 	private static ContainerItem inventory = new ContainerItem();
+	private static List<ContainerItem> containers = new ArrayList<ContainerItem>();
 
 	// Set attributes to current location
 	private static void setLocation( Location curLoc ) {
 		curLocation = curLoc;
+	}
+	
+	private static boolean isContainer( String s ) {
+		for (Item e: containers)
+		{
+			if ( (s.equals(e.getName())) )  
+    			return true;
+		}
+		return false;
 	}
    
 
@@ -62,9 +72,10 @@ public class Driver {
 		indoorItem.add(satchel);
 
 		//items given in the 1st room
-		List<ContainerItem> containers = new ArrayList<>();
+		
 		containers.add(box);
 		containers.add(satchel);
+		
 		
 		 
 
@@ -138,7 +149,7 @@ public class Driver {
 							for ( Item i : target.getCollection() ) {
 								if ( i.getName().contains(object) ) {
 									inventory.addItem(i);
-									System.out.println( String.format("Taken %s", i.getName()) );
+									System.out.println( String.format("Took %s", i.getName()) );
 									target.getCollection().remove(i);
 									count++;
 									break;
@@ -156,7 +167,7 @@ public class Driver {
 						for( Item i : curLocation.getItem() ) {
 	                		if ( command.contains(i.getName()) ) {
 								inventory.addItem(i);
-								System.out.println( String.format("Taken %s", i.getName()) );
+								System.out.println( String.format("Took %s", i.getName()) );
 								curLocation.getItem().remove(i);
 								count++;
 								break;
@@ -207,7 +218,7 @@ public class Driver {
 							ContainerItem target = curLocation.getContainers(containers, tempContainer);
 
 							// if holding the object and put it into the container, which is either in inventory or at current location
-							if ( (inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer))&&inventory.isHolding(object) ) {
+							if (( ( (inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) && !object.equals(tempContainer)) && (isContainer(tempContainer)))  {
 								int count = 0;
 
 								//find a given object to take it from the container
@@ -224,7 +235,10 @@ public class Driver {
 								if ( count == 0 ) {
 									System.out.println( "Cannot do this command" );
 								}
+								
 							}
+							else
+								System.out.println( "Cannot do this command" );
 
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description

@@ -43,6 +43,7 @@ public class ContainerItem extends Item {
     public List<Item> getCollection() {
         return collection;
     }
+    
 
     // This method return true if an item is in the container
     public boolean isHolding( String item ) {
