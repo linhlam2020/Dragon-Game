@@ -87,7 +87,7 @@ public class ContainerItem extends Item {
     	
     }
     	else
-    		System.out.println("\n\tThis item is locked. You should unlock it to see things inside");
+    		System.out.println("\n\tThis item is locked. You should unlock it to see things inside it.");
     }
 
     public String toString( ) {
