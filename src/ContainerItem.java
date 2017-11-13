@@ -2,7 +2,7 @@
 *@description ContainerItem class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 12, 2017
+*@version November 13, 2017
 */
 
 import java.util.List;
@@ -47,15 +47,13 @@ public class ContainerItem extends Item {
         return collection;
     }
     
-    public void unLocked(boolean a) {
-    	unlocked = a;
+    public void unLocked( boolean bool ) {
+    	unlocked = bool;
     }
     
     public boolean isUnlocked() {
     	return unlocked;
     }
-    
-    
 
     // This method return true if an item is in the container
     public boolean isHolding( String item ) {
@@ -70,25 +68,25 @@ public class ContainerItem extends Item {
 
     public void print() {
     	System.out.println( "\tShortname: " + super.getName() + "\n\tType: " + super.getType() + "\n\tDescription: " + super.getDescription() ) ;
-    	
-    	if (isUnlocked()) {
-    	System.out.println("\n\tIt contains: " );
-    	int countBox = 0;
+    	if ( isUnlocked() ) {
+    	    System.out.println("\n\tIt contains: " );
+            int countBox = 0;
 
-    	for ( Item i : collection ) {
-    		countBox++;
-        	System.out.println( String.format("\t\t%s", i.getName()) ) ;
-    	}
+            for ( Item i : collection ) {
+                countBox++;
+                System.out.println( String.format("\t\t%s", i.getName()) ) ;
+            }
 
-    	if ( countBox == 0 ) {
-    		System.out.print( "\t\tNothing" );
-    		System.out.println();}
-    	System.out.println();
-    	
-    }
-    	else
-    		System.out.println("\n\tThis item is locked. You should unlock it to see things inside it.");
-    }
+            if ( countBox == 0 ) {
+                System.out.print( "\t\tNothing" );
+                System.out.println();
+            }
+
+            System.out.println();
+
+        } else
+    		System.out.println( "\n\tThis item is locked. You should unlock it to see things inside it." );
+        }
 
     public String toString( ) {
         return "\t\tShortname: " + super.getName( ) + "\n\t\tType: " + super.getType() + "\n\t\tDescription: "+ super.getDescription() ;

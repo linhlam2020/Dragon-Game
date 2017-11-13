@@ -2,7 +2,7 @@
 *@description Location class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 12, 2017
+*@version November 13, 2017
 */
 
 import java.util.List;
@@ -14,21 +14,21 @@ public class Location {
     private String name;
     private String desc;
     private List<Item> item;
-    private HashMap<String, Location> map = new HashMap<String, Location>();
+    private HashMap<String, Location> map = new HashMap<>();
     private boolean unlocked;
 
     // A constructor that takes three parameters and
     // sets the variables accordingly. Parameters must
     // be in order: name, type, description.
-    public Location( String Name, String Description, List<Item> Items, boolean a ) {
+    public Location( String Name, String Description, List<Item> Items, boolean bool ) {
         name = Name;
         desc = Description;
         item = Items;
         map.put( "east", null );
-        map.put("west", null);
-        map.put("south", null);
-        map.put("north", null);
-        unlocked = a;
+        map.put( "west", null );
+        map.put( "south", null );
+        map.put( "north", null );
+        unlocked = bool;
     }
 
     public Location( ) {
@@ -48,20 +48,20 @@ public class Location {
         item = i;
     }
     
-    public void setMap(Location e, Location w, Location s, Location n) {
+    public void setMap( Location e, Location w, Location s, Location n ) {
     	map.put( "east", e );
-        map.put("west", w);
-        map.put("south", s);
-        map.put("north", n);
+        map.put( "west", w );
+        map.put( "south", s );
+        map.put( "north", n );
     }
     
-    public void changeMap(String dir, Location e) {
-    	map.put(dir,e);
+    public void changeMap( String dir, Location e ) {
+    	map.put( dir,e );
     }
     
     
-    public void unLocked(boolean a) {
-    	unlocked = a;
+    public void unLocked( boolean bool ) {
+    	unlocked = bool;
     }
     
     public boolean isUnlocked() {

@@ -2,7 +2,7 @@
 *@description Item class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 12, 2017
+*@version November 13, 2017
 */
 
 public class Item 
