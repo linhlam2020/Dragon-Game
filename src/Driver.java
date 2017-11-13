@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 12, 2017
+*@version November 13, 2017
 */
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class Driver {
 	
 	private static Location curLocation = new Location();
 	private static ContainerItem inventory = new ContainerItem();
-	private static List<ContainerItem> containers = new ArrayList<ContainerItem>();
+	private static List<ContainerItem> containers = new ArrayList<>();
 
 	// Set attributes to current location
 	private static void setLocation( Location curLoc ) {
@@ -21,11 +21,11 @@ public class Driver {
 	}
 	
 	private static boolean isContainer( String s ) {
-		for (Item e: containers)
-		{
-			if ( (s.equals(e.getName())) )  
+		for ( Item e: containers ) {
+			if ( s.equals(e.getName()) )
     			return true;
 		}
+
 		return false;
 	}
    
@@ -165,97 +165,95 @@ public class Driver {
 
 				} else if ( command.contains("take") ) {
 					try {
-					if ( command.equals("take") ) {
-                		System.out.println( String.format("\tThe location is currently having %d items." +
-                                "\n\tTo see their names, try 'look' command. What do you want to take?",
-								curLocation.getItem().size()) );
-                		command = in.nextLine().toLowerCase().trim();
-                    }
+						if ( command.equals("take") ) {
+							System.out.println( String.format("\tThe location is currently having %d items." +
+									"\n\tTo see their names, try 'look' command. What do you want to take?",
+									curLocation.getItem().size()) );
+							command = in.nextLine().toLowerCase().trim();
+						}
 					
-					if ( command.contains("from") && command.contains(" ")) {
-						
-						String temp = command.replaceAll("take", "").replaceAll(" from", "").trim();
-						String[] words = temp.split(" ");
-						if (words.length >= 2) {
-							String object = words[0];
-							String tempContainer = words[1];
-							//if a command takes something from the container, which is either in inventory or in current location
-							ContainerItem target = curLocation.getContainers( containers, tempContainer );
-							if ( (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer))  && !object.equals(tempContainer) && (isContainer(tempContainer) && target.isUnlocked())) {
+						if ( command.contains("from") && command.contains(" ")) {
+
+							String temp = command.replaceAll("take", "").replaceAll(" from", "").trim();
+							String[] words = temp.split(" ");
+
+							if ( words.length >= 2 ) {
+								String object = words[0];
+								String tempContainer = words[1];
+
+								//if a command takes something from the container, which is either in inventory or in current location
+								ContainerItem target = curLocation.getContainers(containers, tempContainer);
+								if ((inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer)) && !object.equals(tempContainer) && (isContainer(tempContainer) && target.isUnlocked())) {
+									int count = 0;
+
+									for ( Item i : target.getCollection() ) {
+										if ( i.getName().contains(object) ) {
+											inventory.addItem(i);
+											System.out.println( String.format("Took %s", i.getName()) );
+											target.getCollection().remove(i);
+											count++;
+											break;
+										}
+									}
+
+									if (count == 0) { //TODO
+										System.out.println( "Cannot do this command" );
+									} else {
+										System.out.println( "Cannot do the command" );
+									}
+
+								} else {
+									System.out.println( "Syntax error. Please type 'take [item] from [container]'" );
+								}
+
+							} else {
 								int count = 0;
-								for ( Item i : target.getCollection() ) {
-									if ( i.getName().contains(object) ) {
+
+								for ( Item i : curLocation.getItem() ) {
+									if ( command.contains(i.getName()) ) {
 										inventory.addItem(i);
 										System.out.println( String.format("Took %s", i.getName()) );
-										target.getCollection().remove(i);
+										curLocation.getItem().remove(i);
 										count++;
 										break;
 									}
 								}
 
-								if ( count == 0 ) 
-									System.out.println( "Cannot do this command" );
-							
+								if ( count == 0 ) {
+									System.out.println( "The item you entered doesn't exist in this location." );
+								}
 							}
-							else
-								System.out.println("Cannot do the command");
 						}
-						else
-							System.out.println("Syntax error. Please type 'take [item] from [container]'");
 
-					
-						} else {
+					} catch( NullPointerException e ) {
+                	   	 System.out.print( "Cannot find item" );
+                	}
+
+				} else if ( command.contains("drop") ) {
+					try {
+						String temp = command.replaceAll("drop", "").trim();
 						int count = 0;
 
-						for( Item i : curLocation.getItem() ) {
-	                		if ( command.contains(i.getName()) ) {
-								inventory.addItem(i);
-								System.out.println( String.format("Took %s", i.getName()) );
-								curLocation.getItem().remove(i);
-								count++;
+						for ( Item i : inventory.getCollection() ) {
+							if ( i.getName().equals(temp) ) {
+								curLocation.getItem().add(i);
+								inventory.removeItem(i);
+								System.out.println( String.format("Dropped %s", i.getName()) );
+								//count++;
 								break;
 							}
 						}
 
 						if ( count == 0 ) {
-							System.out.println( "The item you entered doesn't exist in this location." );
+							System.out.println( "The item you entered doesn't exist in your inventory." );
 						}
+
+					} catch( NullPointerException e ) {
+						System.out.print( "Cannot find item" ); //TODO
+						System.out.println();
 					}
 
-				}
-				catch(NullPointerException e)
-                {
-                    System.out.print("Cannot find item");
-                }
-			}
-				else if ( command.contains("drop") ) {
-				try
-				{
-					String temp = command.replaceAll("drop", "").trim();
-					int count = 0;
-
-					for ( Item i : inventory.getCollection() ) {
-						if ( i.getName().equals(temp) ) {
-							curLocation.getItem().add(i);
-							inventory.removeItem(i);
-							System.out.println( String.format("Dropped %s", i.getName()) );
-							//count++;
-							break;
-						}
-					}
-
-					if ( count == 0 ) {
-						System.out.println( "The item you entered doesn't exist in your inventory." );
-					}
-
-				}
-				catch(NullPointerException e)
-                {
-                    System.out.print("Cannot find item");
-                    System.out.println();
-                }
-			}
-				else if ( command.contains("inventory") ) {
+				} else if ( command.contains("inventory") ) {
 					if ( inventory.getCollection().size() == 0 ) {
 						System.out.println( "You currently have no item." );
 
@@ -272,14 +270,13 @@ public class Driver {
 									
 					String temp = command.replaceAll("put", "").replaceAll(" in", "").trim();
 					String[] words = temp.split(" ");
-					if (words.length >= 2) 
-					{
+					if ( words.length >= 2 ) {
 						String object = words[0];
 						String tempContainer = words[1];
 						ContainerItem target = curLocation.getContainers(containers, tempContainer);
 
 						// if holding the object and put it into the container, which is either in inventory or at current location
-						if (( ( (inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) && !object.equals(tempContainer)) && (isContainer(tempContainer) && target.isUnlocked()))  {
+						if ( ( ( (inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) && !object.equals(tempContainer)) && (isContainer(tempContainer) && target.isUnlocked()) )  {
 							int count = 0;
 							//find a given object to take it from the container
 							for ( Item i : inventory.getCollection() ) {
@@ -292,12 +289,12 @@ public class Driver {
 								}
 							}
 
-							if ( count == 0 ) 
+							if ( count == 0 ) {
 								System.out.println( "Cannot do this command" );
+							}
 																
-						}
-						else
-							System.out.println("Cannot do this command");
+						} else
+							System.out.println ( "Cannot do this command" );
 					}
 						else
 							System.out.println( "Syntax error. Please type 'put [item] in [container]'" );
@@ -317,35 +314,30 @@ public class Driver {
 
                     // If command contains the item name that is included in the current state,
 					// print the details of the item
-                	try
-                	{
+                	try {
                 		for ( Item i : curLocation.getItem() ) {
-                		if ( command.contains(i.getName()) ) {
-                			i.print( );
-                			found = true;
+							if ( command.contains(i.getName()) ) {
+								i.print( );
+								found = true;
+							}
 						}
-					}
-                	for ( Item i : inventory.getCollection() ) {
-                		if ( command.contains(i.getName()) ) {
-                			i.print( );
-                			found = true;
+
+						for ( Item i : inventory.getCollection() ) {
+							if ( command.contains(i.getName()) ) {
+								i.print( );
+								found = true;
+							}
 						}
-					}
-                	
 
-                	if ( !found ) 
-                		System.out.println( "Cannot find the item." );
-                	
-                	}
+						if ( !found ) {
+							System.out.println( "Cannot find the item." );
+						}
 
-                
-                	catch(NullPointerException e)
-                    {
-                        System.out.print("Cannot find the given item");
-                        System.out.println();
+					} catch( NullPointerException e ) {
+                        System.out.print( "Cannot find the given item.\n" );
                     }
-				}
-                	else if ( command.contains("open") && command.contains("door") && curLocation == entrance) { //TODO: Can't I go back to the place where I was?
+
+				} else if ( command.contains("open") && command.contains("door") && curLocation == entrance) { //TODO: Can't I go back to the place where I was?
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
 							"\nOn the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
@@ -438,36 +430,44 @@ public class Driver {
 			
 				}
                 else if ( command.contains("go") ) {
-                	if(command.contains("east")) {
-						if (curLocation.getMap().get("east") !=null && curLocation.getMap().get("east").isUnlocked()  ) {
+                	if( command.contains("east") ) {
+						if ( curLocation.getMap().get("east") !=null && curLocation.getMap().get("east").isUnlocked() ) {
 							setLocation(curLocation.getMap().get("east"));
-							System.out.println("Headed East!");
-							}
-						else
-							System.out.println("Cannot go to this direction!");}
-					else if(command.contains("west")) {
-                		if (curLocation.getMap().get("west") !=null && curLocation.getMap().get("west").isUnlocked()) {
+							System.out.println( "Headed East!" );
+
+						} else {
+							System.out.println( "Cannot go to this direction!" );
+						}
+
+                	} else if( command.contains("west") ) {
+						if (curLocation.getMap().get("west") != null && curLocation.getMap().get("west").isUnlocked()) {
 							setLocation(curLocation.getMap().get("west"));
-							System.out.println("Headed West!");
-							}
-                		else
-                			System.out.println("Cannot go to this direction!");}
-					else if(command.contains("south")) {
-                		if (curLocation.getMap().get("south") !=null && curLocation.getMap().get("south").isUnlocked()) {
+							System.out.println( "Headed West!" );
+
+						} else {
+							System.out.println( "Cannot go to this direction!" );
+						}
+
+					} else if( command.contains("south") ) {
+						if (curLocation.getMap().get("south") != null && curLocation.getMap().get("south").isUnlocked()) {
 							setLocation(curLocation.getMap().get("south"));
-							System.out.println("Headed South!");}
-                		else
-                			System.out.println("Cannot go to this direction!");}
-					else if(command.contains("north")) {
-                		if (curLocation.getMap().get("north") !=null && curLocation.getMap().get("north").isUnlocked()) {
+							System.out.println( "Headed South!" );
+
+						} else {
+							System.out.println( "Cannot go to this direction!" );
+						}
+
+					} else if( command.contains("north") ) {
+						if (curLocation.getMap().get("north") != null && curLocation.getMap().get("north").isUnlocked()) {
 							setLocation(curLocation.getMap().get("north"));
-							System.out.println("Headed North!");}
-                		else
-                			System.out.println("Cannot go to this direction!");}
-					else
-						System.out.println("Cannot do this command");
-                	
-			
+							System.out.println( "Headed North!" );
+						} else {
+							System.out.println( "Cannot go to this direction!" );
+						}
+					}else {
+						System.out.println( "Cannot do this command." );
+					}
+
 				} else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && curLocation.isMember("chest") ) {
                 	System.out.println( "You sucessfully unlocked the chest. Now you can examine it" );
                 	chest.unLocked(true);
@@ -497,9 +497,9 @@ public class Driver {
                 	while ( !passcode.equals("xiebh") ) {
 						// If wrong passcode entered more than 3 times after having 2 hints,
 						// offer the quit option. If don't quit, start over.
-                		if (passcode.contains("mirror")&&passcode.contains("reflect")&& inventory.isHolding("mirror"))
+                		if ( passcode.contains("mirror")&&passcode.contains("reflect")&& inventory.isHolding("mirror") )
                 			reflected = true;
-                		if (reflected) {
+                		if ( reflected ) {
 							System.out.println("You reflected the code and realized that VICDU is the upperhalf of XIEBH");
 							System.out.println("You entered the code and successfully open the door.");
 							setLocation(west);
@@ -572,8 +572,6 @@ public class Driver {
 
 							attempt = 0;
 						}
-						
-						
 					}
 
 					// If passcode is correct
@@ -585,12 +583,7 @@ public class Driver {
                     	west.changeMap("east", inside);
                 	}
 
-                }
-				
-				
-				
-                
-                else if ( command.equals("quit") ) {
+                } else if ( command.equals("quit") ) {
                 	System.out.println( "Thanks for playing!" );
                     break;
 
@@ -598,7 +591,7 @@ public class Driver {
                     System.out.println( "I don't know how to do that." );
                 }
 				
-				if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") ) {
+				if ( inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") ) {
 					System.out.println("Congratulations! You have collected all items needed to defeat the dragon right before it was trying to attack you. " +
 							 "\nYou wisely use the mirror to reflect the light from the pearl to distract the dragon, then use the sword to kill it! "
 							+ "\nYou became the village's hero!!!");
