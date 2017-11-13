@@ -69,7 +69,10 @@ public class ContainerItem extends Item {
     }
 
     public void print() {
-    	System.out.println( "\tShortname: " + super.getName() + "\n\tType: " + super.getType() + "\n\tDescription: " + super.getDescription() + "\n\tIt contains: " ) ;
+    	System.out.println( "\tShortname: " + super.getName() + "\n\tType: " + super.getType() + "\n\tDescription: " + super.getDescription() ) ;
+    	
+    	if (isUnlocked()) {
+    	System.out.println("\n\tIt contains: " );
     	int countBox = 0;
 
     	for ( Item i : collection ) {
@@ -82,6 +85,9 @@ public class ContainerItem extends Item {
     		System.out.println();}
     	System.out.println();
     	
+    }
+    	else
+    		System.out.println("\n\tThis item is locked. You should unlock it to see things inside");
     }
 
     public String toString( ) {

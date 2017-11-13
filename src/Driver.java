@@ -164,6 +164,7 @@ public class Driver {
 					}
 
 				} else if ( command.contains("take") ) {
+					try {
 					if ( command.equals("take") ) {
                 		System.out.println( String.format("\tThe location is currently having %d items." +
                                 "\n\tTo see their names, try 'look' command. What do you want to take?",
@@ -221,7 +222,15 @@ public class Driver {
 						}
 					}
 
-				} else if ( command.contains("drop") ) {
+				}
+				catch(NullPointerException e)
+                {
+                    System.out.print("Cannot find item");
+                }
+			}
+				else if ( command.contains("drop") ) {
+				try
+				{
 					String temp = command.replaceAll("drop", "").trim();
 					int count = 0;
 
@@ -230,7 +239,7 @@ public class Driver {
 							curLocation.getItem().add(i);
 							inventory.removeItem(i);
 							System.out.println( String.format("Dropped %s", i.getName()) );
-							count++;
+							//count++;
 							break;
 						}
 					}
@@ -239,7 +248,14 @@ public class Driver {
 						System.out.println( "The item you entered doesn't exist in your inventory." );
 					}
 
-				} else if ( command.contains("inventory") ) {
+				}
+				catch(NullPointerException e)
+                {
+                    System.out.print("Cannot find item");
+                    System.out.println();
+                }
+			}
+				else if ( command.contains("inventory") ) {
 					if ( inventory.getCollection().size() == 0 ) {
 						System.out.println( "You currently have no item." );
 
@@ -295,26 +311,41 @@ public class Driver {
 
                     // If just type "examine", as what to examine (several items at a time is ok)
                 	if ( command.equals("examine") ) {
-                		System.out.println( String.format("\tYou are currently having %d items." +
-                                "\n\tTo see their names, try 'look' command. What do you want to examine?",
-								inventory.getCollection().size()) );
+                		System.out.println( String.format("What do you want to examine?"));
                 		command = in.nextLine().toLowerCase().trim(); 
                     }
 
                     // If command contains the item name that is included in the current state,
 					// print the details of the item
-                	for ( Item i : curLocation.getItem() ) {
+                	try
+                	{
+                		for ( Item i : curLocation.getItem() ) {
                 		if ( command.contains(i.getName()) ) {
                 			i.print( );
                 			found = true;
 						}
 					}
+                	for ( Item i : inventory.getCollection() ) {
+                		if ( command.contains(i.getName()) ) {
+                			i.print( );
+                			found = true;
+						}
+					}
+                	
 
-                	if ( !found ) {
+                	if ( !found ) 
                 		System.out.println( "Cannot find the item." );
+                	
                 	}
 
-                } else if ( command.contains("open") && command.contains("door") && curLocation == entrance) {
+                
+                	catch(NullPointerException e)
+                    {
+                        System.out.print("Cannot find the item");
+                        System.out.println();
+                    }
+				}
+                	else if ( command.contains("open") && command.contains("door") && curLocation == entrance) {
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
 							"\nOn the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
@@ -438,7 +469,7 @@ public class Driver {
                 	
 			
 				}
-                else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && inventory.isHolding("chest") ) {
+                else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && curLocation.isMember("chest") ) {
                 	System.out.println( "You sucessfully unlocked the chest. Now you can examine it" );
                 	chest.unLocked(true);
                 } 
