@@ -2,7 +2,7 @@
 *@description ContainerItem class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 6, 2017
+*@version November 12, 2017
 */
 
 import java.util.List;
