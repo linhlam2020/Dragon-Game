@@ -10,10 +10,13 @@ import java.util.ArrayList;
 
 public class ContainerItem extends Item {
     private List<Item> collection;
+    private boolean unlocked;
+
 
     public ContainerItem( String Name, String Type, String Description ) {
         super( Name,  Type,  Description );
         collection = new ArrayList<>();
+        unlocked = true;
     }
 
     public ContainerItem() {
@@ -43,6 +46,15 @@ public class ContainerItem extends Item {
     public List<Item> getCollection() {
         return collection;
     }
+    
+    public void unLocked(boolean a) {
+    	unlocked = a;
+    }
+    
+    public boolean isUnlocked() {
+    	return unlocked;
+    }
+    
     
 
     // This method return true if an item is in the container

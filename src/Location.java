@@ -7,20 +7,28 @@
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Location {
     private String name;
     private String desc;
     private List<Item> item;
+    private HashMap<String, Location> map = new HashMap<String, Location>();
+    private boolean unlocked;
 
     // A constructor that takes three parameters and
     // sets the variables accordingly. Parameters must
     // be in order: name, type, description.
-    public Location( String Name, String Description, List<Item> Items ) {
+    public Location( String Name, String Description, List<Item> Items, boolean a ) {
         name = Name;
         desc = Description;
         item = Items;
+        map.put( "east", null );
+        map.put("west", null);
+        map.put("south", null);
+        map.put("north", null);
+        unlocked = a;
     }
 
     public Location( ) {
@@ -38,6 +46,30 @@ public class Location {
 
     public void setItem( List<Item> i ) {
         item = i;
+    }
+    
+    public void setMap(Location e, Location w, Location s, Location n) {
+    	map.put( "east", e );
+        map.put("west", w);
+        map.put("south", s);
+        map.put("north", n);
+    }
+    
+    public void changeMap(String dir, Location e) {
+    	map.put(dir,e);
+    }
+    
+    
+    public void unLocked(boolean a) {
+    	unlocked = a;
+    }
+    
+    public boolean isUnlocked() {
+    	return unlocked;
+    }
+    
+    public HashMap<String, Location> getMap() {
+    	return map;
     }
 
 
