@@ -345,7 +345,7 @@ public class Driver {
                         System.out.println();
                     }
 				}
-                	else if ( command.contains("open") && command.contains("door") && curLocation == entrance) {
+                	else if ( command.contains("open") && command.contains("door") && curLocation == entrance) { //TODO: Can't I go back to the place where I was?
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
 							"\nOn the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
@@ -468,12 +468,11 @@ public class Driver {
 						System.out.println("Cannot do this command");
                 	
 			
-				}
-                else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && curLocation.isMember("chest") ) {
+				} else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && curLocation.isMember("chest") ) {
                 	System.out.println( "You sucessfully unlocked the chest. Now you can examine it" );
                 	chest.unLocked(true);
-                } 
-                else if ( command.contains("mirror") && inventory.isHolding("mirror") && command.contains("reflect") && (curLocation == westEntrance)) {
+
+                } else if ( command.contains("mirror") && inventory.isHolding("mirror") && command.contains("reflect") && (curLocation == westEntrance)) {
                 	System.out.println( "With the mirror, you discovered that 'VICDU' is the upper-half of 'XIEBH'. You then use the code to open the door" );
 					setLocation(west);
 					west.unLocked(true);
@@ -481,9 +480,7 @@ public class Driver {
 					west.changeMap("east", inside);
 			
 				
-                }
-				
-                else if ( command.contains("open") && command.contains("door") && curLocation == westEntrance) {
+                } else if ( command.contains("open") && command.contains("door") && curLocation == westEntrance) {
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
 							"\nOn the lock, there are five letters: 'VICDU'." +
