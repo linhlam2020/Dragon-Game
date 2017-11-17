@@ -98,15 +98,15 @@ public class Driver {
 				"This is the starting position of the game. You are standing in front of a door.",
 				entranceItem, true);
         Location inside = new Location("inside the house",
-				"You are now standing in side the house." +
+				"You are now standing inside the house." +
 				" There are 2 locked doors: One to the West, One to the East.",
 				indoorItem, false);
         Location east = new Location("The East room",
-        		"You are now standing in the East room" +
+        		"You are now standing in the East room." +
         		" There is a mysterious light.", eastItem, false);
         Location eastEntrance = new Location("The East door",
         		"You are now standing in front of the East door." +
-        		" It is a wood door and it is locked with a sturdy chain", null, true);
+        		" It is a wood door. There is no lock. However, it is stuck and you cannot open it", null, true);
         
         Location west = new Location("The West room",
         		"You are now standing in the West room", 
@@ -196,7 +196,7 @@ public class Driver {
 									}
 
 								} else {
-									System.out.println( "Error: Cannot take item from itself, or You are not holding the container" );
+									System.out.println( "Error: Cannot take an item from itself, or the container is not in (your inventory||the current location)" );
 								}
 							} else {
 								System.out.println( "Syntax error: Please type 'take [item] from [container]'" );
@@ -286,7 +286,7 @@ public class Driver {
 							}
 																
 						} else {
-							System.out.println( " Cannot put an item into a box that's (not in your inventory || not in curLocation). Cannot put an item into (itself/non-containers). " );
+							System.out.println( "Error: Cannot put an item into a box that's (not in your inventory || not in curLocation). Cannot put an item into (itself/non-containers). " );
 						}
 					} else {
 						System.out.println("Syntax error. Please type 'put [item] in [container]'");
@@ -463,7 +463,7 @@ public class Driver {
 						System.out.println( "Cannot do this command" );
 					}
 
-				} else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && curLocation.isMember("chest") ) {
+				} else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && (curLocation.isMember("chest") || inventory.isHolding("chest")) ) {
                 	System.out.println( "You sucessfully unlocked the chest. Now you can examine it" );
                 	chest.unLocked(true);
 
@@ -484,16 +484,17 @@ public class Driver {
                 	String passcode = in.nextLine();
                 	boolean reflected = false;
 
-                	if ( passcode.contains("help") ) {
-                		System.out.println( "\nYou can guess the password yourself. However, holding a mirror may help you, since the mirror can REFLECT letters."
-                				+ "\nThe password contains letter that are symmetrical" );
-                	}
+
 
                 	int attempt = 1;
                 	int hintNo = 1;
 
 					// If enter wrong passcode (12 trials and 2 hints before giving the option to quit)
                 	while ( !passcode.equals("xiebh") ) {
+                    	if ( passcode.contains("help") ) {
+                    		System.out.println( "\nYou can guess the password yourself. However, holding a mirror may help you, since the mirror can REFLECT letters."
+                    				+ "\nThe password contains letter that are symmetrical" );
+                    	}
 						// If wrong passcode entered more than 3 times after having 2 hints,
 						// offer the quit option. If don't quit, start over.
                 		if (passcode.contains("mirror")&&passcode.contains("reflect")&& inventory.isHolding("mirror")) {
@@ -595,9 +596,9 @@ public class Driver {
 					}
 					if (curLocation == eastEntrance){
 						System.out.println("You are standing in front of a wood door. This door leads to the East room "
-								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, use...to...door, take, drop, take...from..., put...in..., help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
-								+ "\nThere is no lock so that you cannot use key. However, FIRE CAN BURN WOOD");
+								+ "\nThere is no lock so that you cannot use any key. However, FIRE CAN BURN WOOD");
 					}
                 	if ( curLocation == westEntrance ) {
 						System.out.println("You are standing in front of an iron door. This door leads to the West room "
@@ -607,7 +608,7 @@ public class Driver {
 					}
                 	if ( curLocation == east ) {
 						System.out.println("You are standing in the East room"
-								+ "\nAvailable commands: look, examine, inventory, use...to open chest, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, use...to...chest, take, drop, take...from..., put...in..., help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nTry to open the chest. It needs a key to open. Things you find in the chest are necessary to defeat the dragon");
 					}
