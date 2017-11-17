@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 12, 2017
+*@version November 17, 2017
 */
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class Driver {
 	
 	private static Location curLocation = new Location();
 	private static ContainerItem inventory = new ContainerItem();
-	private static List<ContainerItem> containers = new ArrayList<ContainerItem>();
+	private static List<ContainerItem> containers = new ArrayList<>();
 
 	// Set attributes to current location
 	private static void setLocation( Location curLoc ) {
@@ -163,98 +163,89 @@ public class Driver {
 
 				} else if ( command.contains("take") ) {
 					try {
-					if ( command.equals("take") ) {
-                		System.out.println( String.format("\tThe location is currently having %d items." +
-                                "\n\tTo see their names, try 'look' command. What do you want to take?",
-								curLocation.getItem().size()) );
-                		command = in.nextLine().toLowerCase().trim();
-                    }
-					
-					if ( command.contains("from") && command.contains(" ")) {
-						
-						String temp = command.replaceAll("take", "").replaceAll(" from", "").trim();
-						String[] words = temp.split(" ");
-						if (words.length >= 2) {
-							String object = words[0];
-							String tempContainer = words[1];
-							//if a command takes something from the container, which is either in inventory or in current location
-							ContainerItem target = curLocation.getContainers( containers, tempContainer );
-							if ( (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer))  && !object.equals(tempContainer) && (isContainer(tempContainer) && target.isUnlocked())) {
-								int count = 0;
-								for ( Item i : target.getCollection() ) {
-									if ( i.getName().contains(object) ) {
-										inventory.addItem(i);
-										System.out.println( String.format("Took %s", i.getName()) );
-										target.getCollection().remove(i);
-										count++;
-										break;
-									}
-								}
-
-								if ( count == 0 ) 
-									System.out.println( "The item you entered doesn't exist in the container." );
-							
-							}
-							else
-								System.out.println("Error: Cannot take item from itself, or You are not holding the container");
+						if ( command.equals("take") ) {
+							System.out.println( String.format("\tThe location is currently having %d items." +
+									"\n\tTo see their names, try 'look' command. What do you want to take?",
+									curLocation.getItem().size()) );
+							command = in.nextLine().toLowerCase().trim();
 						}
-						else
-							System.out.println("Syntax error: Please type 'take [item] from [container]'");
 
-					
-						} else //if command == "take [anItem]"
-						{
+						if ( command.contains("from") && command.contains(" ")) {
+
+							String temp = command.replaceAll("take", "").replaceAll(" from", "").trim();
+							String[] words = temp.split(" ");
+							if ( words.length >= 2 ) {
+								String object = words[0];
+								String tempContainer = words[1];
+								//if a command takes something from the container, which is either in inventory or in current location
+								ContainerItem target = curLocation.getContainers( containers, tempContainer );
+								if ( (inventory.isHolding(tempContainer) || curLocation.isMember(tempContainer))  && !object.equals(tempContainer) && (isContainer(tempContainer) && target.isUnlocked())) {
+									int count = 0;
+									for ( Item i : target.getCollection() ) {
+										if ( i.getName().contains(object) ) {
+											inventory.addItem(i);
+											System.out.println( String.format("Took %s", i.getName()) );
+											target.getCollection().remove(i);
+											count++;
+											break;
+										}
+									}
+
+									if ( count == 0 ) {
+										System.out.println( "The item you entered doesn't exist in the container." );
+									}
+
+								} else {
+									System.out.println( "Error: Cannot take item from itself, or You are not holding the container" );
+								}
+							} else {
+								System.out.println( "Syntax error: Please type 'take [item] from [container]'" );
+							}
+
+
+						} else { //if command == "take [anItem]"
+							int count = 0;
+
+							for( Item i : curLocation.getItem() ) {
+								if ( command.contains(i.getName()) ) {
+									inventory.addItem(i);
+									System.out.println( String.format("Took %s", i.getName()) );
+									curLocation.getItem().remove(i);
+									count++;
+									break;
+								}
+							}
+
+							if ( count == 0 ) {
+								System.out.println( "The item you entered doesn't exist in this location." );
+							}
+						}
+					} catch( NullPointerException e ) {
+						System.out.print( "Cannot find item" );
+					}
+				} else if ( command.contains("drop") ) {
+					try {
+						String temp = command.replaceAll("drop", "").trim();
 						int count = 0;
 
-						for( Item i : curLocation.getItem() ) {
-	                		if ( command.contains(i.getName()) ) {
-								inventory.addItem(i);
-								System.out.println( String.format("Took %s", i.getName()) );
-								curLocation.getItem().remove(i);
+						for ( Item i : inventory.getCollection() ) {
+							if ( i.getName().equals(temp) ) {
+								curLocation.getItem().add(i);
+								inventory.removeItem(i);
+								System.out.println( String.format("Dropped %s", i.getName()) );
 								count++;
 								break;
 							}
 						}
 
 						if ( count == 0 ) {
-							System.out.println( "The item you entered doesn't exist in this location." );
+							System.out.println( "The item you entered doesn't exist in your inventory." );
 						}
+
+					} catch( NullPointerException e ) {
+						System.out.print( "Cannot find item\n" );
 					}
-				}
-
-				catch(NullPointerException e)
-                {
-                    System.out.print("Cannot find item");
-                }
-			}
-				else if ( command.contains("drop") ) {
-				try
-				{
-					String temp = command.replaceAll("drop", "").trim();
-					int count = 0;
-
-					for ( Item i : inventory.getCollection() ) {
-						if ( i.getName().equals(temp) ) {
-							curLocation.getItem().add(i);
-							inventory.removeItem(i);
-							System.out.println( String.format("Dropped %s", i.getName()) );
-							count++;
-							break;
-						}
-					}
-
-					if ( count == 0 ) {
-						System.out.println( "The item you entered doesn't exist in your inventory." );
-					}
-
-				}
-				catch(NullPointerException e)
-                {
-                    System.out.print("Cannot find item");
-                    System.out.println();
-                }
-			}
-				else if ( command.contains("inventory") ) {
+				} else if ( command.contains("inventory") ) {
 					if ( inventory.getCollection().size() == 0 ) {
 						System.out.println( "You currently have no item." );
 
@@ -271,14 +262,13 @@ public class Driver {
 									
 					String temp = command.replaceAll("put", "").replaceAll(" in", "").trim();
 					String[] words = temp.split(" ");
-					if (words.length >= 2) 
-					{
+					if ( words.length >= 2 ) {
 						String object = words[0];
 						String tempContainer = words[1];
 						ContainerItem target = curLocation.getContainers(containers, tempContainer);
 
 						// if holding the object and put it into the container, which is either in inventory or at current location
-						if (( ( (inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) && !object.equals(tempContainer)) && (isContainer(tempContainer) && target.isUnlocked()))  {
+						if ( (((inventory.isHolding(tempContainer) ||curLocation.isMember(tempContainer)) && inventory.isHolding(object) ) && !object.equals(tempContainer)) && (isContainer(tempContainer) && target.isUnlocked()) ) {
 							int count = 0;
 							//find a given object to take it from the container
 							for ( Item i : inventory.getCollection() ) {
@@ -291,15 +281,16 @@ public class Driver {
 								}
 							}
 
-							if ( count == 0 ) 
+							if ( count == 0 ) {
 								System.out.println( "The item you entered doesn't exist in your inventory." );
+							}
 																
+						} else {
+							System.out.println( " Cannot put an item into a box that's (not in your inventory || not in curLocation). Cannot put an item into (itself/non-containers). " );
 						}
-						else
-							System.out.println(" Cannot put an item into a box that's (not in your inventory || not in curLocation). Cannot put an item into (itself/non-containers). ");
+					} else {
+						System.out.println("Syntax error. Please type 'put [item] in [container]'");
 					}
-						else
-							System.out.println( "Syntax error. Please type 'put [item] in [container]'" );
 
 				} else if ( command.contains("examine") ) {
                 	// Get the item with the given name from the location and print its description
@@ -316,35 +307,30 @@ public class Driver {
 
                     // If command contains the item name that is included in the current state,
 					// print the details of the item
-                	try
-                	{
+                	try {
                 		for ( Item i : curLocation.getItem() ) {
-                		if ( command.contains(i.getName()) ) {
-                			i.print( );
-                			found = true;
+							if ( command.contains(i.getName()) ) {
+								i.print( );
+								found = true;
+							}
 						}
-					}
-                	for ( Item i : inventory.getCollection() ) {
-                		if ( command.contains(i.getName()) ) {
-                			i.print( );
-                			found = true;
+
+						for ( Item i : inventory.getCollection() ) {
+							if ( command.contains(i.getName()) ) {
+								i.print( );
+								found = true;
+							}
 						}
-					}
-                	
 
-                	if ( !found ) 
-                		System.out.println( "Cannot find the item." );
-                	
-                	}
+						if ( !found ) {
+							System.out.println( "Cannot find the item." );
+						}
 
-                
-                	catch(NullPointerException e)
-                    {
-                        System.out.print("Cannot find the given item");
-                        System.out.println();
+					} catch( NullPointerException e ) {
+                        System.out.print( "Cannot find the given item.\n" );
                     }
-				}
-                	else if ( command.contains("open") && command.contains("door") && curLocation == entrance) {
+
+				} else if ( command.contains("open") && command.contains("door") && curLocation == entrance ) {
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
 							"\nOn the lock, there are four figures: a circle, a rainbow, a square, and a triangle." +
@@ -358,8 +344,8 @@ public class Driver {
 
 					// If enter wrong passcode (12 trials and 2 hints before giving the option to quit)
                 	while ( !passcode.equals("0743") ) {
-                		if (passcode.equals("help"))
-                				System.out.println("Think about the number of edges/colors in each figure.");
+                		if ( passcode.equals("help") )
+                				System.out.println( "Think about the number of edges/colors in each figure." );
 						// If wrong passcode entered more than 3 times after having 2 hints,
 						// offer the quit option. If don't quit, start over.
 						if ( (attempt == 2) && (hintNo > 3) ) {
@@ -429,62 +415,66 @@ public class Driver {
                     	inside.unLocked(true);
                 	}
 
-                }
-                else if ( command.contains("torch") && inventory.isHolding("torch") && command.contains("burn") && (curLocation == eastEntrance)) {
+                } else if ( command.contains("torch") && inventory.isHolding("torch") && command.contains("burn") && (curLocation == eastEntrance)) {
                 	System.out.println( "You successfully burnt the door. The door is opened and you enter the East room." );
 					setLocation(east);
 					east.unLocked(true);
 					inside.changeMap("east", east);
 					east.changeMap("west", inside);
 			
-				}
-                else if ( command.contains("go") ) {
-                	if(command.contains("east")) {
-						if (curLocation.getMap().get("east") !=null && curLocation.getMap().get("east").isUnlocked()  ) {
+				} else if ( command.contains("go") ) {
+                	if( command.contains("east") ) {
+						if ( curLocation.getMap().get("east") !=null && curLocation.getMap().get("east").isUnlocked() ) {
 							setLocation(curLocation.getMap().get("east"));
-							System.out.println("Headed East!");
-							}
-						else
-							System.out.println("Cannot go to this direction!");}
-					else if(command.contains("west")) {
-                		if (curLocation.getMap().get("west") !=null && curLocation.getMap().get("west").isUnlocked()) {
+							System.out.println( "Headed East!" );
+
+						} else {
+							System.out.println( "Cannot go to this direction!" );
+						}
+
+                	} else if( command.contains("west") ) {
+                		if ( curLocation.getMap().get("west") !=null && curLocation.getMap().get("west").isUnlocked() ) {
 							setLocation(curLocation.getMap().get("west"));
-							System.out.println("Headed West!");
-							}
-                		else
-                			System.out.println("Cannot go to this direction!");}
-					else if(command.contains("south")) {
-                		if (curLocation.getMap().get("south") !=null && curLocation.getMap().get("south").isUnlocked()) {
+							System.out.println( "Headed West!" );
+
+						} else {
+							System.out.println( "Cannot go to this direction!" );
+						}
+
+                	} else if( command.contains("south") ) {
+                		if ( curLocation.getMap().get("south") !=null && curLocation.getMap().get("south" ).isUnlocked() ) {
 							setLocation(curLocation.getMap().get("south"));
-							System.out.println("Headed South!");}
-                		else
-                			System.out.println("Cannot go to this direction!");}
-					else if(command.contains("north")) {
-                		if (curLocation.getMap().get("north") !=null && curLocation.getMap().get("north").isUnlocked()) {
+							System.out.println( "Headed South!" );
+
+                		} else {
+                			System.out.println( "Cannot go to this direction!" );
+                		}
+
+                	} else if( command.contains("north") ) {
+                		if ( curLocation.getMap().get("north") !=null && curLocation.getMap().get("north").isUnlocked() ) {
 							setLocation(curLocation.getMap().get("north"));
-							System.out.println("Headed North!");}
-                		else
-                			System.out.println("Cannot go to this direction!");}
-					else
-						System.out.println("Cannot do this command");
-                	
-			
-				}
-                else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && curLocation.isMember("chest") ) {
+							System.out.println( "Headed North!" );
+
+                		} else {
+                			System.out.println( "Cannot go to this direction!" );
+                		}
+
+                	} else {
+						System.out.println( "Cannot do this command" );
+					}
+
+				} else if ( command.contains("key") && command.contains("chest") && inventory.isHolding("key") && curLocation.isMember("chest") ) {
                 	System.out.println( "You sucessfully unlocked the chest. Now you can examine it" );
                 	chest.unLocked(true);
-                } 
-                else if ( command.contains("mirror") && inventory.isHolding("mirror") && command.contains("reflect") && (curLocation == westEntrance)) {
+
+                } else if ( command.contains("mirror") && inventory.isHolding("mirror") && command.contains("reflect") && (curLocation == westEntrance)) {
                 	System.out.println( "With the mirror, you discovered that 'VICDU' is the upper-half of 'XIEBH'. You then use the code to open the door" );
 					setLocation(west);
 					west.unLocked(true);
 					inside.changeMap("west", west);
 					west.changeMap("east", inside);
-			
-				
-                }
-				
-                else if ( command.contains("open") && command.contains("door") && curLocation == westEntrance) {
+
+                } else if ( command.contains("open") && command.contains("door") && curLocation == westEntrance ) {
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
 							"\nOn the lock, there are five letters: 'VICDU'." +
@@ -493,9 +483,10 @@ public class Driver {
                 	System.out.println( "\nPlease enter the 5 letters (without spaces; for example, vicdu)" );
                 	String passcode = in.nextLine();
                 	boolean reflected = false;
-                	if (passcode.contains("help")) {
-                		System.out.println("\nYou can guess the password yourself. However, holding a mirror may help you, since the mirror can REFLECT letters."
-                				+ "\nThe password contains letter that are symmetrical");
+
+                	if ( passcode.contains("help") ) {
+                		System.out.println( "\nYou can guess the password yourself. However, holding a mirror may help you, since the mirror can REFLECT letters."
+                				+ "\nThe password contains letter that are symmetrical" );
                 	}
 
                 	int attempt = 1;
@@ -505,8 +496,10 @@ public class Driver {
                 	while ( !passcode.equals("xiebh") ) {
 						// If wrong passcode entered more than 3 times after having 2 hints,
 						// offer the quit option. If don't quit, start over.
-                		if (passcode.contains("mirror")&&passcode.contains("reflect")&& inventory.isHolding("mirror"))
-                			reflected = true;
+                		if (passcode.contains("mirror")&&passcode.contains("reflect")&& inventory.isHolding("mirror")) {
+							reflected = true;
+						}
+
                 		if (reflected) {
 							System.out.println("You reflected the code and realized that VICDU is the upperhalf of XIEBH");
 							System.out.println("You entered the code and successfully open the door.");
@@ -516,8 +509,7 @@ public class Driver {
 	                    	west.changeMap("east", inside);
 							break;
                 		}
-                		
-                			
+
 						if ( (attempt == 2) && (hintNo > 3) && !reflected ) {
 							System.out.println( "You tried many time. Do you want to quit? (y/n)" );
 							String quitBool = in.nextLine().toLowerCase().trim();
@@ -580,8 +572,6 @@ public class Driver {
 
 							attempt = 0;
 						}
-						
-						
 					}
 
 					// If passcode is correct
@@ -593,43 +583,42 @@ public class Driver {
                     	west.changeMap("east", inside);
                 	}
 
-                }
-				
-                else if ( command.contains("help")) {
-                	if (curLocation == entrance) 
-                		System.out.println("You are standing at the entrance. "
-                				+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit");
-                	
-                	if (curLocation == inside)
-                		System.out.println("You are standing inside the house. "
-                				+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
-                				+ "\nYou can go to the direction that you want: go east/west/south/north");
-                	
-                	if (curLocation == eastEntrance)
-                		System.out.println("You are standing in front of a wood door. This door leads to the East room "
-                				+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
-                				+ "\nYou can go to the direction that you want: go east/west/south/north"
-                				+ "\nThere is no lock so that you cannot use key. However, FIRE CAN BURN WOOD");
-                	
-                	if (curLocation == westEntrance)
-                		System.out.println("You are standing in front of an iron door. This door leads to the West room "
-                				+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
-                				+ "\nYou can go to the direction that you want: go east/west/south/north"
-                				+ "\nType 'open door' to open the door.");
-                	if (curLocation == east)
-                		System.out.println("You are standing in the East room"
-                				+ "\nAvailable commands: look, examine, inventory, use...to open chest, take, drop, take...from..., put...in..., help, quit"
-                				+ "\nYou can go to the direction that you want: go east/west/south/north"
-                				+ "\nTry to open the chest. It needs a key to open. Things you find in the chest are necessary to defeat the dragon");                	
-                	if (curLocation == west)
-                		System.out.println("You are standing in the West room"
-                				+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
-                				+ "\nYou can go to the direction that you want: go east/west/south/north"
-                				+ "\nTry to look around. To defeat the dragon, you need a pearl, a mirror, and a sword");
-                }
-				
-                
-                else if ( command.equals("quit") ) {
+                } else if ( command.contains("help") ) { //TODO: if to elif?
+					if (curLocation == entrance) {
+						System.out.println("You are standing at the entrance. "
+								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit");
+					}
+					if (curLocation == inside) {
+						System.out.println("You are standing inside the house. "
+								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
+								+ "\nYou can go to the direction that you want: go east/west/south/north");
+					}
+					if (curLocation == eastEntrance){
+						System.out.println("You are standing in front of a wood door. This door leads to the East room "
+								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
+								+ "\nYou can go to the direction that you want: go east/west/south/north"
+								+ "\nThere is no lock so that you cannot use key. However, FIRE CAN BURN WOOD");
+					}
+                	if ( curLocation == westEntrance ) {
+						System.out.println("You are standing in front of an iron door. This door leads to the West room "
+								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
+								+ "\nYou can go to the direction that you want: go east/west/south/north"
+								+ "\nType 'open door' to open the door.");
+					}
+                	if ( curLocation == east ) {
+						System.out.println("You are standing in the East room"
+								+ "\nAvailable commands: look, examine, inventory, use...to open chest, take, drop, take...from..., put...in..., help, quit"
+								+ "\nYou can go to the direction that you want: go east/west/south/north"
+								+ "\nTry to open the chest. It needs a key to open. Things you find in the chest are necessary to defeat the dragon");
+					}
+                	if ( curLocation == west ) {
+						System.out.println("You are standing in the West room"
+								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
+								+ "\nYou can go to the direction that you want: go east/west/south/north"
+								+ "\nTry to look around. To defeat the dragon, you need a pearl, a mirror, and a sword");
+					}
+
+                } else if ( command.equals("quit") ) {
                 	System.out.println( "Thanks for playing!" );
                     break;
 
