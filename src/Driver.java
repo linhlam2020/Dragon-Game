@@ -358,6 +358,8 @@ public class Driver {
 
 					// If enter wrong passcode (12 trials and 2 hints before giving the option to quit)
                 	while ( !passcode.equals("0743") ) {
+                		if (passcode.equals("help"))
+                				System.out.println("Think about the number of edges/colors in each figure.");
 						// If wrong passcode entered more than 3 times after having 2 hints,
 						// offer the quit option. If don't quit, start over.
 						if ( (attempt == 2) && (hintNo > 3) ) {
@@ -491,6 +493,10 @@ public class Driver {
                 	System.out.println( "\nPlease enter the 5 letters (without spaces; for example, vicdu)" );
                 	String passcode = in.nextLine();
                 	boolean reflected = false;
+                	if (passcode.contains("help")) {
+                		System.out.println("\nYou can guess the password yourself. However, holding a mirror may help you, since the mirror can REFLECT letters."
+                				+ "\nThe password contains letter that are symmetrical");
+                	}
 
                 	int attempt = 1;
                 	int hintNo = 1;
@@ -589,7 +595,38 @@ public class Driver {
 
                 }
 				
-				
+                else if ( command.contains("help")) {
+                	if (curLocation == entrance) 
+                		System.out.println("You are standing at the entrance. "
+                				+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit");
+                	
+                	if (curLocation == inside)
+                		System.out.println("You are standing inside the house. "
+                				+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
+                				+ "\nYou can go to the direction that you want: go east/west/south/north");
+                	
+                	if (curLocation == eastEntrance)
+                		System.out.println("You are standing in front of a wood door. This door leads to the East room "
+                				+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
+                				+ "\nYou can go to the direction that you want: go east/west/south/north"
+                				+ "\nThere is no lock so that you cannot use key. However, FIRE CAN BURN WOOD");
+                	
+                	if (curLocation == westEntrance)
+                		System.out.println("You are standing in front of an iron door. This door leads to the West room "
+                				+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
+                				+ "\nYou can go to the direction that you want: go east/west/south/north"
+                				+ "\nType 'open door' to open the door.");
+                	if (curLocation == east)
+                		System.out.println("You are standing in the East room"
+                				+ "\nAvailable commands: look, examine, inventory, use...to open chest, take, drop, take...from..., put...in..., help, quit"
+                				+ "\nYou can go to the direction that you want: go east/west/south/north"
+                				+ "\nTry to open the chest. It needs a key to open. Things you find in the chest are necessary to defeat the dragon");                	
+                	if (curLocation == west)
+                		System.out.println("You are standing in the West room"
+                				+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
+                				+ "\nYou can go to the direction that you want: go east/west/south/north"
+                				+ "\nTry to look around. To defeat the dragon, you need a pearl, a mirror, and a sword");
+                }
 				
                 
                 else if ( command.equals("quit") ) {
@@ -602,7 +639,7 @@ public class Driver {
 				
 				if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") ) {
 					System.out.println("Congratulations! You have collected all items needed to defeat the dragon right before it was trying to attack you. " +
-							 "\nYou wisely use the mirror to reflect the light from the pearl to distract the dragon, then use the sword to kill it! "
+							 "\nYou wisely used the mirror to reflect the light from the pearl to distract the dragon, then used the sword to kill it! "
 							+ "\nYou became the village's hero!!!");
 					break;
 				}
