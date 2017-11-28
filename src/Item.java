@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /*
 *@description Item class
 *
@@ -5,8 +7,10 @@
 *@version November 13, 2017
 */
 
-public class Item 
+public class Item  implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
     private String name;
     private String type;
     private String desc;

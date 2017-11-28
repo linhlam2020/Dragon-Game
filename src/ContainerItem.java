@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class ContainerItem extends Item {
+	
+	private static final long serialVersionUID = 1L;
+	
     private List<Item> collection;
     private boolean unlocked;
 

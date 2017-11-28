@@ -8,22 +8,23 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.Serializable;
 
-
-public class Location {
+public class Location implements Serializable {
+	private static final long serialVersionUID = 1L;
     private String name;
     private String desc;
     private List<Item> item;
     private HashMap<String, Location> map = new HashMap<>();
     private boolean unlocked;
 
-    // A constructor that takes three parameters and
+    // listItem constructor that takes three parameters and
     // sets the variables accordingly. Parameters must
     // be in order: name, type, description.
     public Location( String Name, String Description, List<Item> Items, boolean bool ) {
         name = Name;
         desc = Description;
-        item = Items;
+        item = Items;        
         map.put( "east", null );
         map.put( "west", null );
         map.put( "south", null );
@@ -123,15 +124,15 @@ public class Location {
         return item;
     }
 
-    // This method retrieves a count of the number of items in the location
+    // This method retrieves listItem count of the number of items in the location
     public int retrieveNumOfItems() {
         return this.getItem().size();
     }
 
-    // This method returns true if an item entered is a member of the container
-	public boolean isMember( String a ) {
+    // This method returns true if the item or container item entered is a member of the container
+	public boolean isMember( String listItem ) {
         for( Item i : item ) {
-            if ( a.contains(i.getName()) )  {
+            if ( listItem.contains(i.getName()) )  {
                 return true;
             }
         }
@@ -140,9 +141,9 @@ public class Location {
 	}
 
 	// This method gets container
-    public ContainerItem getContainers( List<ContainerItem> a, String shortName ) {
-        for ( ContainerItem i: a ) {
-            if ( i.getName().contains(shortName) ) {
+    public ContainerItem getContainer( List<ContainerItem> containerList, String containerName ) {
+        for ( ContainerItem i: containerList ) {
+            if ( i.getName().equals(containerName) ) {
                 return i;
             }
         }
@@ -156,6 +157,6 @@ public class Location {
     }
 
     public String toString() {
-        return "Name: " + name + "\nDescription: " + desc + "\nItem(s): " + item;
+        return "Name: " + name + "\nDescription: " + desc + "\nUnlocked: " + unlocked + "\nItem(s): " + item;
     }
 }
