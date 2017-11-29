@@ -4,11 +4,10 @@ import java.io.Serializable;
 *@description Item class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 13, 2017
+*@version November 29, 2017
 */
 
-public class Item  implements Serializable
-{
+public class Item  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
     private String name;
@@ -72,7 +71,6 @@ public class Item  implements Serializable
     public void print() {
         System.out.println( String.format("\tShortName: %s", name) );
         System.out.println( String.format("\tType: %s", type) );
-        System.out.println( String.format("\tDescription: %s", desc) );
-        System.out.println();
+        System.out.println( String.format("\tDescription: %s\n", desc) );
     }
 }

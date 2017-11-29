@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 17, 2017
+*@version November 29, 2017
 */
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class Driver {
 	
 	private static Location curLocation = new Location();
 	private static ContainerItem inventory = new ContainerItem();
-	private static List<Item> itemList = new ArrayList<>();
+	private static List<Item> itemList = new ArrayList<>(); //TODO
 	private static List<ContainerItem> containerList = new ArrayList<>();
 	private static List<Location> locationList = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class Driver {
     	System.out.println("Please enter the name for your save file: ");
     	FileOutputStream saveFile = new FileOutputStream(saveScan.nextLine());
     	ObjectOutputStream save = new ObjectOutputStream(saveFile);
-    	System.out.println(curLocation + "\nhehehelocation");
+    	System.out.println(curLocation + "\nhehehelocation"); //TODO
     	System.out.println(inventory + "\nheheheinventory");
     	System.out.println(locationList + "\nhehehelocationlist");
     	save.writeObject(curLocation);
@@ -64,8 +64,8 @@ public class Driver {
 		ObjectInputStream save = new ObjectInputStream(saveFile);
 		setLocation((Location) save.readObject());
 		setInventory((ContainerItem) save.readObject());
-		setLocationList((List<Location>) save.readObject());
-		System.out.println(curLocation + "\nhehehelocation");
+		setLocationList((List<Location>) save.readObject()); //TODO
+		System.out.println(curLocation + "\nhehehelocation"); //TODO
 		System.out.println(inventory + "\nheheheinventory");
 		System.out.println(locationList + "\nhehehelocationlist");
 		save.close();
@@ -383,7 +383,7 @@ public class Driver {
 
                     // If just type "examine", as what to examine (several items at a time is ok)
                 	if ( command.equals("examine") ) {
-                		System.out.println( String.format("What do you want to examine?"));
+                		System.out.println( String.format("What do you want to examine?")); //TODO
                 		command = in.nextLine().toLowerCase().trim(); 
                     }
 
@@ -624,7 +624,7 @@ public class Driver {
 							break;
                 		}
 
-						if ( (attempt == 2) && (hintNo > 3) && !reflected ) {
+						if ( (attempt == 2) && (hintNo > 3) && !reflected ) { //TODO
 							System.out.println( "You tried many time. Do you want to quit? (y/n)" );
 							String quitBool = in.nextLine().toLowerCase().trim();
 
@@ -636,7 +636,7 @@ public class Driver {
 								break;
 							}
 
-						} else if ( (attempt < 3) && (hintNo <= 4)  && !reflected ) {
+						} else if ( (attempt < 3) && (hintNo <= 4)  && !reflected ) { //TODO
 							// If wrong passcode <= 3 times before having 2 hints
 							attempt++;
 							System.out.println( "Please try again!" );

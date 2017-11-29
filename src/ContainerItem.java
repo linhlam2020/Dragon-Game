@@ -2,7 +2,7 @@
 *@description ContainerItem class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 13, 2017
+*@version November 29, 2017
 */
 
 import java.util.List;
@@ -72,7 +72,7 @@ public class ContainerItem extends Item {
     public void print() {
     	System.out.println( "\tShortname: " + super.getName() + "\n\tType: " + super.getType() + "\n\tDescription: " + super.getDescription() ) ;
     	if ( isUnlocked() ) {
-    	    System.out.println("\n\tIt contains: " );
+    	    System.out.println( "\n\tIt contains: " );
             int countBox = 0;
 
             for ( Item i : collection ) {
