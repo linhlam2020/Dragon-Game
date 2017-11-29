@@ -26,13 +26,14 @@ public class Driver {
 	private static void setLocation( Location curLoc ) {
 		curLocation = curLoc;
 	}
-	
 	private static void setInventory( ContainerItem inv) {
 		inventory = inv;
 	}
-	
 	private static void setLocationList (List<Location> locList) {
 		locationList = locList;
+	}
+	private static void setContainerList (List<ContainerItem> conList) {
+		containerList = conList;
 	}
 	
 	//Check if an item is a container item
@@ -43,31 +44,28 @@ public class Driver {
 		return false;
 	}
 	
+	//Save/Load Methods
 	private static Scanner saveScan = new Scanner(System.in);
 	
-    private static void Save(Location curLocation, ContainerItem inventory, List<Location> locationList) throws IOException  {
+    private static void Save(Location curLocation, ContainerItem inventory, List<Location> locationList, List<ContainerItem> containerList) throws IOException  {
     	System.out.println("Please enter the name for your save file: ");
     	FileOutputStream saveFile = new FileOutputStream(saveScan.nextLine());
     	ObjectOutputStream save = new ObjectOutputStream(saveFile);
-    	System.out.println(curLocation + "\nhehehelocation");
-    	System.out.println(inventory + "\nheheheinventory");
-    	System.out.println(locationList + "\nhehehelocationlist");
     	save.writeObject(curLocation);
     	save.writeObject(inventory);
     	save.writeObject(locationList);
+    	save.writeObject(containerList);
     	saveFile.close();
     }
     
-    public static void Load(Location curLocation, ContainerItem inventory, List<Location> locationList) throws IOException, ClassNotFoundException {
+    public static void Load(Location curLocation, ContainerItem inventory, List<Location> locationList, List<ContainerItem> containerList) throws IOException, ClassNotFoundException {
 		System.out.println("Please enter the name of your save file: ");
 		FileInputStream saveFile = new FileInputStream(saveScan.nextLine());
 		ObjectInputStream save = new ObjectInputStream(saveFile);
 		setLocation((Location) save.readObject());
 		setInventory((ContainerItem) save.readObject());
 		setLocationList((List<Location>) save.readObject());
-		System.out.println(curLocation + "\nhehehelocation");
-		System.out.println(inventory + "\nheheheinventory");
-		System.out.println(locationList + "\nhehehelocationlist");
+		setContainerList((List<ContainerItem>) save.readObject());
 		save.close();
     }
 
@@ -523,6 +521,8 @@ public class Driver {
 					east.unLocked(true);
 					inside.changeMap("east", east);
 					east.changeMap("west", inside);
+                	inside.unLocked(true);
+
 				} 
                 
 				//Go Command
@@ -584,6 +584,7 @@ public class Driver {
 					west.unLocked(true);
 					inside.changeMap("west", west);
 					west.changeMap("east", inside);
+					inside.unLocked(true);
                 } 
                 
 				//Open Door West Entrance Command
@@ -621,6 +622,8 @@ public class Driver {
 	                    	west.unLocked(true);
 	                    	inside.changeMap("west", west);
 	                    	west.changeMap("east", inside);
+	                    	inside.unLocked(true);
+
 							break;
                 		}
 
@@ -693,6 +696,7 @@ public class Driver {
                     	west.unLocked(true);
                     	inside.changeMap("west", west);
                     	west.changeMap("east", inside);
+                    	inside.unLocked(true);
                 	}
                 }
                 
@@ -700,34 +704,34 @@ public class Driver {
                 else if ( command.contains("help") ) { //TODO: if to elif?
 					if (curLocation == entrance) {
 						System.out.println("You are standing at the entrance. "
-								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit");
+								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., save, load, help, quit");
 					}
 					if (curLocation == inside) {
 						System.out.println("You are standing inside the house. "
-								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north");
 					}
 					if (curLocation == eastEntrance){
 						System.out.println("You are standing in front of a wood door. This door leads to the East room "
-								+ "\nAvailable commands: look, examine, inventory, use...to...door, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, use...to...door, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nThere is no lock so that you cannot use any key. However, FIRE CAN BURN WOOD");
 					}
                 	if ( curLocation == westEntrance ) {
 						System.out.println("You are standing in front of an iron door. This door leads to the West room "
-								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nType 'open door' to open the door.");
 					}
                 	if ( curLocation == east ) {
 						System.out.println("You are standing in the East room"
-								+ "\nAvailable commands: look, examine, inventory, use...to...chest, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, use...to...chest, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nTry to open the chest. It needs a key to open. Things you find in the chest are necessary to defeat the dragon");
 					}
                 	if ( curLocation == west ) {
 						System.out.println("You are standing in the West room"
-								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nTry to look around. To defeat the dragon, you need a pearl, a mirror, and a sword");
 					}
@@ -736,7 +740,8 @@ public class Driver {
 				//Save Command
                 else if ( command.contains("save") ) {
                 	try {
-						Save(curLocation, inventory, locationList);
+						Save(curLocation, inventory, locationList, containerList);
+						System.out.println("Saved");
 					}
                 	catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -747,7 +752,8 @@ public class Driver {
 				//Load Command
                 else if ( command.contains("load") ) {
                 	try {
-                		Load(curLocation, inventory, locationList);
+                		Load(curLocation, inventory, locationList, containerList);
+                		System.out.println("Loaded");
                 	}
                 	catch (IOException | ClassNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -764,15 +770,7 @@ public class Driver {
                 else {
                     System.out.println( "I don't know how to do that." );
                 }
-				if 
-				(inventory.isHolding("torch")) 
-					System.out.println("TRUE");
-				else 
-					System.out.println("FALSE");
-				if (curLocation.getName().equals("The East door"))
-					System.out.println("TRUE");
-				else 
-					System.out.println("FALSE");
+				
 				if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") ) {
 					System.out.println("Congratulations! You have collected all items needed to defeat the dragon right before it was trying to attack you. " +
 							 "\nYou wisely used the mirror to reflect the light from the pearl to distract the dragon, then used the sword to kill it! " +
