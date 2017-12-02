@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 29, 2017
+*@version November 17, 2017
 */
 
 import java.util.List;
@@ -18,7 +18,7 @@ public class Driver {
 	
 	private static Location curLocation = new Location();
 	private static ContainerItem inventory = new ContainerItem();
-	private static List<Item> itemList = new ArrayList<>(); //TODO
+	private static List<Item> itemList = new ArrayList<>();
 	private static List<ContainerItem> containerList = new ArrayList<>();
 	private static List<Location> locationList = new ArrayList<>();
 
@@ -26,13 +26,14 @@ public class Driver {
 	private static void setLocation( Location curLoc ) {
 		curLocation = curLoc;
 	}
-	
 	private static void setInventory( ContainerItem inv) {
 		inventory = inv;
 	}
-	
 	private static void setLocationList (List<Location> locList) {
 		locationList = locList;
+	}
+	private static void setContainerList (List<ContainerItem> conList) {
+		containerList = conList;
 	}
 	
 	//Check if an item is a container item
@@ -43,31 +44,28 @@ public class Driver {
 		return false;
 	}
 	
+	//Save/Load Methods
 	private static Scanner saveScan = new Scanner(System.in);
 	
-    private static void Save(Location curLocation, ContainerItem inventory, List<Location> locationList) throws IOException  {
+    private static void Save(Location curLocation, ContainerItem inventory, List<Location> locationList, List<ContainerItem> containerList) throws IOException  {
     	System.out.println("Please enter the name for your save file: ");
     	FileOutputStream saveFile = new FileOutputStream(saveScan.nextLine());
     	ObjectOutputStream save = new ObjectOutputStream(saveFile);
-    	System.out.println(curLocation + "\nhehehelocation"); //TODO
-    	System.out.println(inventory + "\nheheheinventory");
-    	System.out.println(locationList + "\nhehehelocationlist");
     	save.writeObject(curLocation);
     	save.writeObject(inventory);
     	save.writeObject(locationList);
+    	save.writeObject(containerList);
     	saveFile.close();
     }
     
-    public static void Load(Location curLocation, ContainerItem inventory, List<Location> locationList) throws IOException, ClassNotFoundException {
+    public static void Load(Location curLocation, ContainerItem inventory, List<Location> locationList, List<ContainerItem> containerList) throws IOException, ClassNotFoundException {
 		System.out.println("Please enter the name of your save file: ");
 		FileInputStream saveFile = new FileInputStream(saveScan.nextLine());
 		ObjectInputStream save = new ObjectInputStream(saveFile);
 		setLocation((Location) save.readObject());
 		setInventory((ContainerItem) save.readObject());
-		setLocationList((List<Location>) save.readObject()); //TODO
-		System.out.println(curLocation + "\nhehehelocation"); //TODO
-		System.out.println(inventory + "\nheheheinventory");
-		System.out.println(locationList + "\nhehehelocationlist");
+		setLocationList((List<Location>) save.readObject());
+		setContainerList((List<ContainerItem>) save.readObject());
 		save.close();
     }
 
@@ -120,7 +118,6 @@ public class Driver {
 
         // Create Item lists
         List<Item> entranceItem = new ArrayList<>( );
-        entranceItem.add(torch);
         entranceItem.add(box);
 	    
 		List<Item> indoorItem = new ArrayList<>( );
@@ -134,10 +131,12 @@ public class Driver {
 		
 		List<Item> eastDoor = new ArrayList<>( );
 		List<Item> westDoor = new ArrayList<>( );
+		List<Item> outItem = new ArrayList<>( );
+        outItem.add(torch);
 
         // Add location(s)
         Location entrance = new Location("entrance",
-				"This is the starting position of the game. You are standing in front of a door. You should try to open it!",
+				"You see a mysterious house on top of the hill. \nThere is an entrance door. You should try to open it!",
 				entranceItem, true);
         Location inside = new Location("inside the house",
 				"You are now standing inside the house." +
@@ -155,8 +154,15 @@ public class Driver {
         		westItem, false);
         Location westEntrance = new Location("The West door",
         		"You are now standing in front of the West door.", westDoor, true);
-        entrance.setMap(null, null, null, inside);
+        
+        
+        Location outside = new Location("outside",
+        		"You are now standing in the middle of a hill. \nThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
+        
+        outside.setMap(null, null, null, entrance);
+        entrance.setMap(null, null, outside, inside);
         inside.setMap(eastEntrance, westEntrance, entrance, null);
+        
         
         east.setMap(null, inside, null, null);
         west.setMap(inside, null, null, null);
@@ -202,9 +208,8 @@ public class Driver {
 		
 		else if ( start.equals("y") ) {
 			System.out.println( "\nYou are an adventurer going on a quest to destroy the mighty dragon " +
-					" that is causing terror to the miserable village." +
-					"\nAt the beginning of the game, you are given a torch." );
-			setLocation( entrance );
+					"that is causing terror to a miserable village.");
+			setLocation( outside );
 	
             String command;
             while ( true ) {
@@ -383,7 +388,7 @@ public class Driver {
 
                     // If just type "examine", as what to examine (several items at a time is ok)
                 	if ( command.equals("examine") ) {
-                		System.out.println( String.format("What do you want to examine?")); //TODO
+                		System.out.println( String.format("What do you want to examine?"));
                 		command = in.nextLine().toLowerCase().trim(); 
                     }
 
@@ -523,6 +528,8 @@ public class Driver {
 					east.unLocked(true);
 					inside.changeMap("east", east);
 					east.changeMap("west", inside);
+                	inside.unLocked(true);
+
 				} 
                 
 				//Go Command
@@ -584,6 +591,7 @@ public class Driver {
 					west.unLocked(true);
 					inside.changeMap("west", west);
 					west.changeMap("east", inside);
+					inside.unLocked(true);
                 } 
                 
 				//Open Door West Entrance Command
@@ -621,10 +629,12 @@ public class Driver {
 	                    	west.unLocked(true);
 	                    	inside.changeMap("west", west);
 	                    	west.changeMap("east", inside);
+	                    	inside.unLocked(true);
+
 							break;
                 		}
 
-						if ( (attempt == 2) && (hintNo > 3) && !reflected ) { //TODO
+						if ( (attempt == 2) && (hintNo > 3) && !reflected ) {
 							System.out.println( "You tried many time. Do you want to quit? (y/n)" );
 							String quitBool = in.nextLine().toLowerCase().trim();
 
@@ -636,7 +646,7 @@ public class Driver {
 								break;
 							}
 
-						} else if ( (attempt < 3) && (hintNo <= 4)  && !reflected ) { //TODO
+						} else if ( (attempt < 3) && (hintNo <= 4)  && !reflected ) {
 							// If wrong passcode <= 3 times before having 2 hints
 							attempt++;
 							System.out.println( "Please try again!" );
@@ -693,6 +703,7 @@ public class Driver {
                     	west.unLocked(true);
                     	inside.changeMap("west", west);
                     	west.changeMap("east", inside);
+                    	inside.unLocked(true);
                 	}
                 }
                 
@@ -700,34 +711,34 @@ public class Driver {
                 else if ( command.contains("help") ) { //TODO: if to elif?
 					if (curLocation == entrance) {
 						System.out.println("You are standing at the entrance. "
-								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit");
+								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., save, load, help, quit");
 					}
 					if (curLocation == inside) {
 						System.out.println("You are standing inside the house. "
-								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north");
 					}
 					if (curLocation == eastEntrance){
 						System.out.println("You are standing in front of a wood door. This door leads to the East room "
-								+ "\nAvailable commands: look, examine, inventory, use...to...door, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, use...to...door, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nThere is no lock so that you cannot use any key. However, FIRE CAN BURN WOOD");
 					}
                 	if ( curLocation == westEntrance ) {
 						System.out.println("You are standing in front of an iron door. This door leads to the West room "
-								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nType 'open door' to open the door.");
 					}
                 	if ( curLocation == east ) {
 						System.out.println("You are standing in the East room"
-								+ "\nAvailable commands: look, examine, inventory, use...to...chest, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, use...to...chest, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nTry to open the chest. It needs a key to open. Things you find in the chest are necessary to defeat the dragon");
 					}
                 	if ( curLocation == west ) {
 						System.out.println("You are standing in the West room"
-								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., help, quit"
+								+ "\nAvailable commands: look, examine, inventory, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north"
 								+ "\nTry to look around. To defeat the dragon, you need a pearl, a mirror, and a sword");
 					}
@@ -736,7 +747,8 @@ public class Driver {
 				//Save Command
                 else if ( command.contains("save") ) {
                 	try {
-						Save(curLocation, inventory, locationList);
+						Save(curLocation, inventory, locationList, containerList);
+						System.out.println("Saved");
 					}
                 	catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -747,7 +759,8 @@ public class Driver {
 				//Load Command
                 else if ( command.contains("load") ) {
                 	try {
-                		Load(curLocation, inventory, locationList);
+                		Load(curLocation, inventory, locationList, containerList);
+                		System.out.println("Loaded");
                 	}
                 	catch (IOException | ClassNotFoundException e) {
 						// TODO Auto-generated catch block
