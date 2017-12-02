@@ -703,16 +703,16 @@ public class Driver {
 	public static class Load implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			loadScreen =  new JFrame();
-			loadScreen.setSize(1000,500);
+			loadScreen.setSize(600,250);
 			//popup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			loadScreen.getContentPane().setBackground(Color.cyan);
+			loadScreen.getContentPane().setBackground(Color.pink);
 			loadScreen.setLayout(null);
 			loadScreen.setVisible(true);
 			loadCon = loadScreen.getContentPane();
 			
 			loadTextPanel = new JPanel();
-			loadTextPanel.setBounds(100,100,600,250);
-			loadTextPanel.setBackground(Color.black);
+			loadTextPanel.setBounds(0,0,600,250);
+			loadTextPanel.setBackground(Color.pink);
 			loadCon.add(loadTextPanel);
 			
 			loadTextArea.setBounds(100,100,600,250);
@@ -725,7 +725,7 @@ public class Driver {
 			
 			loadcommandArea = new JPanel();
 			loadcommandArea.setBounds(100,250,600,100);
-			loadcommandArea.setBackground(Color.cyan);
+			loadcommandArea.setBackground(Color.pink);
 			loadcommandArea.setForeground(Color.white);
 			loadTextPanel.add(loadcommandArea);
 			
@@ -733,7 +733,7 @@ public class Driver {
 			loadcommandTextArea.setText("Enter a file name: ");
 			loadcommandTextArea.setBounds(100,100,200,250);
 			loadcommandTextArea.setFont(normalFont);
-			loadcommandTextArea.setBackground(Color.red);
+			loadcommandTextArea.setBackground(Color.pink);
 			loadcommandTextArea.setForeground(Color.white);
 			loadcommandTextArea.setLineWrap(true);
 			loadcommandArea.add(loadcommandTextArea);
