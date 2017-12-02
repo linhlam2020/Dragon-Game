@@ -711,6 +711,11 @@ public class Driver {
                 
 				//Help Command
                 else if ( command.contains("help") ) { //TODO: if to elif?
+                	
+                	if (curLocation == outside) {
+						System.out.println("You are standing outside of a house. "
+								+ "\nAvailable commands: look, examine, inventory, take, drop, save, load, help, quit");
+					}
 					if (curLocation == entrance) {
 						System.out.println("You are standing at the entrance. "
 								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., save, load, help, quit");
