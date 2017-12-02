@@ -764,15 +764,7 @@ public class Driver {
                 else {
                     System.out.println( "I don't know how to do that." );
                 }
-				if 
-				(inventory.isHolding("torch")) 
-					System.out.println("TRUE");
-				else 
-					System.out.println("FALSE");
-				if (curLocation.getName().equals("The East door"))
-					System.out.println("TRUE");
-				else 
-					System.out.println("FALSE");
+				
 				if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") ) {
 					System.out.println("Congratulations! You have collected all items needed to defeat the dragon right before it was trying to attack you. " +
 							 "\nYou wisely used the mirror to reflect the light from the pearl to distract the dragon, then used the sword to kill it! " +
