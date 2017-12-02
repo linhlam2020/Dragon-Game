@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version November 17, 2017
+*@version December 2, 2017
 */
 
 import java.util.List;
@@ -136,7 +136,7 @@ public class Driver {
 
         // Add location(s)
         Location entrance = new Location("entrance",
-				"You see a mysterious house on top of the hill. \nThere is an entrance door. You should try to open it!",
+				"You see a mysterious house on top of the hill. \n\tThere is an entrance door. You should try to open it!",
 				entranceItem, true);
         Location inside = new Location("inside the house",
 				"You are now standing inside the house." +
@@ -157,7 +157,8 @@ public class Driver {
         
         
         Location outside = new Location("outside",
-        		"You are now standing in the middle of a hill. \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
+        		"You are now standing in the middle of a hill. This is your starting point."
+        		+ " \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
         
         outside.setMap(null, null, null, entrance);
         entrance.setMap(null, null, outside, inside);
