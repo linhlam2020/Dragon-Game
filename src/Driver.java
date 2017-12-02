@@ -157,7 +157,7 @@ public class Driver {
         
         
         Location outside = new Location("outside",
-        		"You are now standing in the middle of a hill. \nThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
+        		"You are now standing in the middle of a hill. \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
         
         outside.setMap(null, null, null, entrance);
         entrance.setMap(null, null, outside, inside);
@@ -183,6 +183,7 @@ public class Driver {
 		containerList.add(chest);
 		
 		//add all locations to the location list
+		locationList.add(outside);
 		locationList.add(entrance);
 		locationList.add(inside);
 		locationList.add(east);
