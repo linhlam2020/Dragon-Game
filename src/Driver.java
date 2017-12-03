@@ -597,7 +597,7 @@ public class Driver {
                 } 
                 
 				//Open Door West Entrance Command
-                else if ( command.contains("open") && command.contains("door") && curLocation.getName().equals("westEntrance") ) {
+                else if ( command.contains("open") && command.contains("door") && curLocation.getName().equals("The West door") ) {
                     // Open the door
                 	System.out.println( "You try to open the door and realized that it was locked with an ancient lock." +
 							"\nOn the lock, there are five letters: 'VICDU'." +
