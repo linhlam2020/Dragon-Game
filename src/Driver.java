@@ -2,7 +2,7 @@
 *@description Driver class
 *
 *@author Team 4B : Linh Lam, So Negishi, Duc Nguyen, Hoang Pham
-*@version December 2, 2017
+*@version December 3, 2017
 */
 
 import java.util.List;
@@ -714,11 +714,13 @@ public class Driver {
                 	
                 	if (curLocation == outside) {
 						System.out.println("You are standing outside of a house. "
-								+ "\nAvailable commands: look, examine, inventory, take, drop, save, load, help, quit");
+								+ "\nAvailable commands: look, examine, inventory, take, drop, save, load, help, quit"
+								+ "\nYou can go to the direction that you want: go east/west/south/north");
 					}
 					if (curLocation == entrance) {
 						System.out.println("You are standing at the entrance. "
-								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., save, load, help, quit");
+								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., save, load, help, quit"
+								+ "\nYou can go to the direction that you want: go east/west/south/north");
 					}
 					if (curLocation == inside) {
 						System.out.println("You are standing inside the house. "
