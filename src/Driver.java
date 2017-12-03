@@ -172,6 +172,7 @@ public class Driver {
     static List<Item> eastDoor = new ArrayList<>( );
     static List<Item> westDoor = new ArrayList<>( );
     static List<Item> outItem = new ArrayList<>( );
+    static List<Item> dragonItem = new ArrayList( );
 
     // Add location(s)
     static Location entrance = new Location("entrance",
@@ -197,6 +198,8 @@ public class Driver {
     static Location outside = new Location("outside",
     		"You are now standing in the middle of a hill. This is your starting point."
     		+ " \n\tThere is a beautiful village here. A villager offers you a torch.", outItem, true);
+    
+    static Location dragon = new Location ("dragon", "You entered a forest and you see the dragon is sleeping.", dragonItem, true);
     
    
 	
@@ -579,7 +582,8 @@ public class Driver {
 		
         // All items given in the game
 		
-		 	outside.setMap(null, null, null, entrance);
+			dragon.setMap(null, outside, null, null);
+		 	outside.setMap(dragon, null, null, entrance);
 		 	entrance.setMap(null, null, outside, inside);
 		   	inside.setMap(eastEntrance, westEntrance, entrance, null);
 		    
@@ -687,6 +691,21 @@ public class Driver {
 							+ "\nAvailable commands: examine [item], take [item], drop [item], "
 							+ "\ntake [item] from [item] , put [item] in [item] "
 							+ "\nTry to look around. To defeat the dragon, you need a pearl, a mirror, and a sword");
+				}
+					
+				if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") && !curLocation.getName().equals("dragon")) {
+					System.out.println("You are now having enough items to defeat the dragon. "
+							+ "\nYou should find it as soon as possible!");
+				}
+				
+				if (curLocation == dragon) {
+					System.out.println("You do not want to wake it up without having enough weapons. Weapons can be found in the house a legendary sensei");
+				}
+				
+				
+				if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") && curLocation.getName().equals("dragon")) {
+					System.out.println("You have enough weapons to attack the dragon. "
+							+ "\nATTACK IT!");
 				}
             	command = enterCommand.getText();
             }
@@ -933,6 +952,10 @@ public class Driver {
 				for( Item i : curLocation.getItem() ) {
 					System.out.println( String.format("%s", i.getName()) );
 				}
+			}
+			if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") && curLocation.getName().equals("dragon")) {
+				System.out.println("You have enough weapons to attack the dragon. "
+						+ "\nATTACK IT!");
 			}
 		}
 	}
@@ -1284,8 +1307,7 @@ public class Driver {
 				west.changeMap("east", inside);
             }
 			
-			
-			if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") ) {
+			if (command.contains("attack") && inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") && curLocation.getName().equals("dragon") ) {
 				System.out.println("Congratulations! You have collected all items needed to defeat the dragon right before it was trying to attack you. " +
 						 "\nYou wisely used the mirror to reflect the light from the pearl to distract the dragon, then used the sword to kill it! " +
 						 "\nYou became the village's hero!!!\n\n\n\n" );
