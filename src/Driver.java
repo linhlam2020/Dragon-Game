@@ -171,6 +171,7 @@ public class Driver {
 	
     static List<Item> eastDoor = new ArrayList<>( );
     static List<Item> westDoor = new ArrayList<>( );
+    static List<Item> outItem = new ArrayList<>( );
 
     // Add location(s)
     static Location entrance = new Location("entrance",
@@ -192,6 +193,11 @@ public class Driver {
     		westItem, false);
     static Location westEntrance = new Location("The West door",
     		"You are now standing in front of the West door.", westDoor, true);
+    
+    static Location outside = new Location("outside",
+    		"You are now standing in the middle of a hill. This is your starting point."
+    		+ " \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
+    
    
 	
 	private static void setImage() {
@@ -573,8 +579,9 @@ public class Driver {
 		
         // All items given in the game
 		
-		 entrance.setMap(null, null, null, inside);
-		  inside.setMap(eastEntrance, westEntrance, entrance, null);
+		 	outside.setMap(null, null, null, entrance);
+		 	entrance.setMap(null, null, outside, inside);
+		   	inside.setMap(eastEntrance, westEntrance, entrance, null);
 		    
 		    east.setMap(null, inside, null, null);
 		    west.setMap(inside, null, null, null);
@@ -586,7 +593,7 @@ public class Driver {
 		    box.addItem(scroll);
 		    chest.unLocked(false);
 		    chest.addItem(pearl);
-		    entranceItem.add(torch);
+		    outItem.add(torch);
 		    entranceItem.add(box);
 		    indoorItem.add(satchel);
 			eastItem.add(chest);
@@ -608,6 +615,7 @@ public class Driver {
 		containerList.add(chest);
 		
 		//add all locations to the location list
+		locationList.add(outside);
 		locationList.add(entrance);
 		locationList.add(inside);
 		locationList.add(east);
@@ -621,9 +629,8 @@ public class Driver {
 
 		System.out.print( "Welcome to The Legendary Tale of the Dragon Slayer Game!");
 		System.out.println( "\nYou are an adventurer going on a quest to destroy the mighty dragon " +
-					" that is causing terror to the miserable village." +
-					"\nAt the beginning of the game, you are given a torch." );
-		setLocation( entrance );
+					" that is causing terror to the miserable village." );
+		setLocation( outside );
 
 	}
     
