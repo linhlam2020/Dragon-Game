@@ -175,7 +175,7 @@ public class Driver {
 
     // Add location(s)
     static Location entrance = new Location("entrance",
-			"This is the starting position of the game. You are standing in front of a door. You should try to open it!",
+			"You see a mysterious house. You are standing in front of an entrance door. You should try to open it!",
 			entranceItem, true);
     static Location inside = new Location("inside",
 			"You are now standing inside the house." +
@@ -196,7 +196,7 @@ public class Driver {
     
     static Location outside = new Location("outside",
     		"You are now standing in the middle of a hill. This is your starting point."
-    		+ " \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
+    		+ " \n\tThere is a beautiful village here. A villager offers you a torch.", outItem, true);
     
    
 	
@@ -646,6 +646,14 @@ public class Driver {
 		public void actionPerformed (ActionEvent event) {
 		//TODO: if to elif?
 			updateGameScreen();
+			
+				if (curLocation == outside) {
+					System.out.println("You are standing in the middle of a hill. "
+							+ "\nAvailable commands:  examine [item], take [item], "
+							+ "\ndrop [item], take [item] from [item] , put [item] in [item] ");
+				}
+			
+			
 				if (curLocation == entrance) {
 					System.out.println("You are standing at the entrance. "
 							+ "\nAvailable commands:  open door, examine [item], "
