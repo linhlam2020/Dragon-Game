@@ -132,6 +132,7 @@ public class Driver {
 		List<Item> eastDoor = new ArrayList<>( );
 		List<Item> westDoor = new ArrayList<>( );
 		List<Item> outItem = new ArrayList<>( );
+		List<Item> dragonItem = new ArrayList<>( );
         outItem.add(torch);
 
         // Add location(s)
@@ -160,7 +161,12 @@ public class Driver {
         		"You are now standing in the middle of a hill. This is your starting point."
         		+ " \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
         
-        outside.setMap(null, null, null, entrance);
+        Location dragon = new Location("dragon", 
+        		"You are now standing in the middle of a hill. This is your starting point."
+        		+ " \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", dragonItem, true);
+        
+        dragon.setMap(null, outside, null, null);
+        outside.setMap(dragon, null, null, entrance);
         entrance.setMap(null, null, outside, inside);
         inside.setMap(eastEntrance, westEntrance, entrance, null);
         
@@ -787,10 +793,10 @@ public class Driver {
                     System.out.println( "I don't know how to do that." );
                 }
 				
-				if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") ) {
+				if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") && curLocation.getName().equals("dragon") ) {
 					System.out.println("Congratulations! You have collected all items needed to defeat the dragon right before it was trying to attack you. " +
 							 "\nYou wisely used the mirror to reflect the light from the pearl to distract the dragon, then used the sword to kill it! " +
-							 "\nYou became the village's hero!!!\n\n\n\n" +
+							 "\nYou became the village's hero!!!\n\n\n\n"  +
 							 "                     Tb.          Tb.                                \n" + 
 							 "                     :$$b.        $$$b.                              \n" + 
 							 "                     :$$$$b.      :$$$$b.                            \n" + 
