@@ -592,7 +592,7 @@ public class Driver {
 
 		System.out.print( "Welcome to The Legendary Tale of the Dragon Slayer Game!");
 		System.out.println( "\nYou are an adventurer going on a quest to destroy the mighty dragon " +
-					" that is causing terror to the miserable village." );
+					"that is causing terror to the miserable village." );
 		setLocation( outside );
 
 	}
@@ -657,7 +657,8 @@ public class Driver {
 				}
 				
 				if (curLocation == dragon) {
-					System.out.println("You do not want to wake it up without having enough weapons. Weapons can be found in the house a legendary sensei");
+					System.out.println("You do not want to wake it up without having enough weapons. "
+							+ "\nWeapons can be found in the house of a legendary sensei");
 				}
 				
 				
@@ -1287,9 +1288,9 @@ public class Driver {
 			victory.setVisible(true);
 			victory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}			
-			
 		}
 	}
+
 };
 
 
