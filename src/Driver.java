@@ -159,7 +159,7 @@ public class Driver {
         
         Location outside = new Location("outside",
         		"You are now standing in the middle of a hill. This is your starting point."
-        		+ " \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
+        		+ " \n\tThere is a beautiful village here. A villager offers you a torch.", outItem, true);
         
         Location dragon = new Location ("dragon", 
         		"You entered a forest and you see the dragon is sleeping.", dragonItem, true);
@@ -189,6 +189,7 @@ public class Driver {
 		containerList.add(chest);
 		
 		//add all locations to the location list
+		locationList.add(dragon);
 		locationList.add(outside);
 		locationList.add(entrance);
 		locationList.add(inside);
@@ -220,6 +221,10 @@ public class Driver {
 	
             String command;
             while ( true ) {
+            	
+            	if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") && !curLocation.getName().equals("dragon")){
+            		System.out.println("Now you have collected enough items to defeat the dragon. You should find it as soon as possible! You are running out of time as the dragon is attacking the village.");
+            	}
             	
 				System.out.print( "\nEnter a command: " );
 				command = in.nextLine().toLowerCase().trim();
@@ -446,6 +451,7 @@ public class Driver {
                 				System.out.println( "Think about the number of edges/colors in each figure." );
                 		}
                 		if ( passcode.equals("back") ) {
+                			System.out.println("You gave up trying to unlock the door!");
                 			break;
                 		}
 						// If wrong passcode entered more than 3 times after having 2 hints,
@@ -716,14 +722,22 @@ public class Driver {
                 
 				//Help Command
                 else if ( command.contains("help") ) { //TODO: if to elif?
+                	if (curLocation == dragon) {
+    					System.out.println("You do not want to wake it up without having enough weapons. "
+    							+ "\nWeapons can be found in the house of a legendary sensei");
+    				}
+                	
+                	if (inventory.isHolding("mirror") && inventory.isHolding("pearl") && inventory.isHolding("sword") && !curLocation.getName().equals("dragon")){
+                		System.out.println("Now you have collected enough items to defeat the dragon. You should find it as soon as possible!");
+                	}
                 	
                 	if (curLocation == outside) {
-						System.out.println("You are standing outside of a house. "
+						System.out.println("You are now standing in the middle of a hill. "
 								+ "\nAvailable commands: look, examine, inventory, take, drop, save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north");
 					}
 					if (curLocation == entrance) {
-						System.out.println("You are standing at the entrance. "
+						System.out.println("You are standing at the entrance of an old house. "
 								+ "\nAvailable commands: look, examine, inventory, open door, take, drop, take...from..., put...in..., save, load, help, quit"
 								+ "\nYou can go to the direction that you want: go east/west/south/north");
 					}
@@ -766,7 +780,7 @@ public class Driver {
 					}
                 	catch (IOException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println("Invalid syntax!");
 					}
                 }
 				
@@ -778,7 +792,7 @@ public class Driver {
                 	}
                 	catch (IOException | ClassNotFoundException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println("Cannot find your given file!");
                 	}
                 }
 				//Quit Command
