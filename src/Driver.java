@@ -50,12 +50,10 @@ public class Driver {
 	private static List<Item> itemList = new ArrayList<>();
 	private static List<ContainerItem> containerList = new ArrayList<>();
 	private static List<Location> locationList = new ArrayList<>();
-	
-	
 	private static JFrame window;
 	private static JFrame victory;
 	private static JFrame popup, popup1, loadScreen;
-	private static Container con, con1, con2, con3, loadCon;
+	private static Container con, con1, con2, loadCon;
 	private static JPanel titleNamePanel, victoryNamePanel, startButtonPanel, mainTextPanel, loadTextPanel, lockTextPanel, lockTextPanel1, optionButtonPanel, commandArea, optionArea, loadcommandArea, optionArea1, directionButtonPanel;
 	private static JLabel titleNameLabel;
 	private static Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
@@ -90,10 +88,6 @@ public class Driver {
 	private static Image newimg; // scale it the smooth way  
 	private static JLabel label;
 	private static JPanel panel;
-	
-	
-	
-	
 
 	private static TitleScreenHandler tsHandler = new TitleScreenHandler();
 	private static commandHit cmdHit = new commandHit();
@@ -114,10 +108,7 @@ public class Driver {
 	private static goWest w = new goWest();
 	private static goSouth s = new goSouth();
 	private static goNorth n = new goNorth();
-	
-	
-	
-	
+		
 	static Item mirror = new Item("mirror",
 			"tool",
 			"This is the mirror of totally deflecting light." +
@@ -141,16 +132,12 @@ public class Driver {
     static Item key = new Item ("key",
 			"tool",
 			"This is a golden small key." );
-    
     static ContainerItem box = new ContainerItem("box", 
     		"container", 
     		"A silver box." );
-   
-    
     static ContainerItem satchel = new ContainerItem("satchel", 
     		"container", 
     		"A small satchel" );
-    
     static ContainerItem chest = new ContainerItem("chest", 
     		"container", 
     		"A golden chest." );
@@ -158,17 +145,9 @@ public class Driver {
 
     // Create Item lists
     static List<Item> entranceItem = new ArrayList<>( );
-   
-    
     static List<Item> indoorItem = new ArrayList<>( );
-	
-	
     static List<Item> eastItem = new ArrayList<>( );
-
-	
-    static List<Item> westItem = new ArrayList<>();
-
-	
+    static List<Item> westItem = new ArrayList<>();	
     static List<Item> eastDoor = new ArrayList<>( );
     static List<Item> westDoor = new ArrayList<>( );
     static List<Item> outItem = new ArrayList<>( );
@@ -188,18 +167,16 @@ public class Driver {
     static Location eastEntrance = new Location("The East door",
     		"You are now standing in front of the East door." +
     		" It is a wood door. There is no lock. However, it is stuck and you cannot open it.", eastDoor, true);
-    
     static Location west = new Location("west",
     		"You are now standing in the West room", 
     		westItem, false);
     static Location westEntrance = new Location("The West door",
     		"You are now standing in front of the West door.", westDoor, true);
-    
     static Location outside = new Location("outside",
     		"You are now standing in the middle of a hill. This is your starting point."
     		+ " \n\tThere is a beautiful village here. A villager offers you a torch.", outItem, true);
-    
-    static Location dragon = new Location ("dragon", "You entered a forest and you see the dragon is sleeping.", dragonItem, true);
+    static Location dragon = new Location ("dragon", 
+    		"You entered a forest and you see the dragon is sleeping.", dragonItem, true);
     
    
 	
@@ -216,8 +193,8 @@ public class Driver {
 		panel.add( label, BorderLayout.CENTER );
 
 	}
-
 	// Set attributes to current location
+
 	private static void setLocation( Location curLoc ) {
 		curLocation = curLoc;
 	}
@@ -242,7 +219,6 @@ public class Driver {
 		return false;
 	}
 	
-	//private static Scanner saveScan = new Scanner(System.in);
 	public static class SoundEffect{
 		public static Clip clip;
 	
@@ -260,7 +236,6 @@ public class Driver {
 			clip.setFramePosition(0);
 			clip.start();
 		}
-
 		public void loop() {
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}
@@ -270,8 +245,7 @@ public class Driver {
 		}
 	}
 	
-
-	private static void game() {
+	public static void game() {
 		PrintStream printStream = new PrintStream(new CustomOutputStream(mainTextArea));
 		System.setOut(printStream);
 		System.setErr(printStream);
@@ -336,10 +310,8 @@ public class Driver {
 		con.add(titleNamePanel);
 		con.add(startButtonPanel);
 	}
-	
-
-		
-		private static void createGameScreen() {
+			
+	public static void createGameScreen() {
 			titleNamePanel.setVisible(false);
 			startButtonPanel.setVisible(false);
 			
@@ -507,7 +479,7 @@ public class Driver {
 
 		}
 		
-		public static void updateGameScreen() {
+	public static void updateGameScreen() {
 			mainTextPanel.setVisible(false);
 			JPanel mainTextPanel1 = new JPanel();
 			mainTextPanel1.setBounds(10,10,600,250);
@@ -529,7 +501,6 @@ public class Driver {
 			mainTextPanel1.add(mainTextArea1);
 		}
 		
-		
 /*		public static void updateLockScreen() {	
 			
 			JTextArea newMessage = new JTextArea();
@@ -549,8 +520,7 @@ public class Driver {
 		}
 */
 	
-	
-		private static void Save(Location curLocation, ContainerItem inventory, List<Location> locationList, List<ContainerItem> containerList) throws IOException  {
+	public static void Save(Location curLocation, ContainerItem inventory, List<Location> locationList, List<ContainerItem> containerList) throws IOException  {
     	saveScan = enterCommand.getText();
     	FileOutputStream saveFile = new FileOutputStream(saveScan);    	
     	ObjectOutputStream save = new ObjectOutputStream(saveFile);    	
@@ -628,9 +598,6 @@ public class Driver {
 		locationList.add(westEntrance);
 		game();
 
- 
-    	Scanner in = new Scanner( System.in );
-
 		System.out.print( "Welcome to The Legendary Tale of the Dragon Slayer Game!");
 		System.out.println( "\nYou are an adventurer going on a quest to destroy the mighty dragon " +
 					" that is causing terror to the miserable village." );
@@ -644,7 +611,6 @@ public class Driver {
 			start = "y";
 			}
 	}
-	
 	
 	public static class HelpButton implements ActionListener{
 		public void actionPerformed (ActionEvent event) {
@@ -845,8 +811,7 @@ public class Driver {
 				}			
 		}
 	}
-	
-	
+
 	public static class getPass implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			String passcode = enterPass.getText();
@@ -975,8 +940,6 @@ public class Driver {
 			}
 		}
 	}
-
-	
 	
 	public static class commandHit implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
