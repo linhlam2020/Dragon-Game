@@ -11,4 +11,4 @@ your to help with a quest. The villager also gives you a torch. You need to find
 legendary artifacts to defeat the dragon. They are the pearl of undeterminable usefulness,
 the divine sword of cutting things, and the mirror of totally deflecting light.
 
-### Important: Please pull from Development branch when you want to implement new features!!! Do not make any change to Master branch!!!
+### Important: We have 2 versions of the game: One is the traditional text-based game (master branch), and one is the GUI-based game (GUI_dev branch).
