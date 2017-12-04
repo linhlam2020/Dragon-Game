@@ -6,8 +6,6 @@
 */
 
 import java.util.List;
-import java.util.Scanner;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -18,11 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-//import game.TitleScreenHandler;
 import net.codejava.swing.CustomOutputStream;
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -54,17 +48,15 @@ public class Driver {
 	private static JFrame victory;
 	private static JFrame popup, popup1, loadScreen;
 	private static Container con, con1, con2, loadCon;
-	private static JPanel titleNamePanel, victoryNamePanel, startButtonPanel, mainTextPanel, loadTextPanel, lockTextPanel, lockTextPanel1, optionButtonPanel, commandArea, optionArea, loadcommandArea, optionArea1, directionButtonPanel;
+	private static JPanel titleNamePanel, startButtonPanel, mainTextPanel, loadTextPanel, lockTextPanel, lockTextPanel1, optionButtonPanel, commandArea, optionArea, loadcommandArea, optionArea1, directionButtonPanel;
 	private static JLabel titleNameLabel;
 	private static Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
-	private static Font smallFont = new Font("Times New Roman", Font.PLAIN, 10);
 	private static Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
 	private static JButton startButton, quitButton, LoadButton, Enter, Password, quitLock, WestPassword, enterFileName, hint, musicOn;
 	private static JButton choice1, choice2, lookButton, inventoryButton;
 	private static JButton dirE, dirW, dirS, dirN;	
 	private static JTextArea mainTextArea = new JTextArea();
 	private static JTextArea loadTextArea = new JTextArea();
-	private static JTextArea victoryNameLabel = new JTextArea();
 	private static JTextArea outputArea = new JTextArea();
 	private static JTextArea outputArea1 = new JTextArea();
 	private static JTextArea commandTextArea = new JTextArea();
