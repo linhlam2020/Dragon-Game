@@ -161,9 +161,8 @@ public class Driver {
         		"You are now standing in the middle of a hill. This is your starting point."
         		+ " \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", outItem, true);
         
-        Location dragon = new Location("dragon", 
-        		"You are now standing in the middle of a hill. This is your starting point."
-        		+ " \n\tThere is a beautiful village here but everyone stays indoor. A villager offers you a torch.", dragonItem, true);
+        Location dragon = new Location ("dragon", 
+        		"You entered a forest and you see the dragon is sleeping.", dragonItem, true);
         
         dragon.setMap(null, outside, null, null);
         outside.setMap(dragon, null, null, entrance);
